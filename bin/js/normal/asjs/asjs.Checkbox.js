@@ -39,8 +39,7 @@ ASJS.Checkbox = function() {
 		_checkbox.visible = false;
 		that.addChild( _checkbox );
 		
-		_label.width = "100%";
-		_label.height = "100%";
+		_label.setSize( "100%", "100%" );
 		that.addChild( _label );
 	}
 	

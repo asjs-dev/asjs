@@ -70,5 +70,5 @@ ASJS.Geolocation = function() {
 	
 	return that;
 };
-ASJS.Geolocation.UPDATE = "Geolocation-update";
-ASJS.Geolocation.ERROR = "Geolocation-error";
+ASJS.Geolocation.UPDATE	= "Geolocation-update";
+ASJS.Geolocation.ERROR	= "Geolocation-error";

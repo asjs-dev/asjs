@@ -25,8 +25,7 @@ ASJS.Stage = function() {
 		});
 	
 		/* CONSTRUCTOR */{
-			that.width = "100%";
-			that.height = "100%";
+			that.setSize( "100%", "100%" );
 		}
 		
 		return that;

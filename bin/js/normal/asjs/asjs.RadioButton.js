@@ -51,8 +51,7 @@ ASJS.RadioButton = function() {
 		_radio.visible = false;
 		that.addChild( _radio );
 		
-		_label.width = "100%";
-		_label.height = "100%";
+		_label.setSize( "100%", "100%" );
 		that.addChild( _label );
 	}
 	

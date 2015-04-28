@@ -56,8 +56,7 @@ ASJS.DropDown = function() {
 	}
 	
 	that.drawNow = function() {
-		_select.width = that.width + 30;
-		_select.height = that.height;
+		_select.setSize( that.width + 30, that.height );
 	}
 	
 	/* CONSTRUCTOR */ {
