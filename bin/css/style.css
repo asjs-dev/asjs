@@ -1,0 +1,92 @@
+body {
+	overflow: hidden;
+	background-color: #000000;
+}
+
+/* Notfication Window */
+.notification_button {
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 42px;
+	text-align: center;
+	color: #FFFFFF;
+	
+	cursor: pointer;
+	
+	background-color: rgba( 0, 153, 204, 0.55 );
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.notification_button:hover {
+	background-color: rgba( 0, 153, 204, 0.75 );
+}
+
+.notification_button:active {
+	background-color: rgba( 0, 153, 204, 0.95 );
+}
+
+.notification_title {
+	font-size: 20px;
+	font-weight: 700;
+	color: #FFFFFF;
+}
+	
+.notification_content {
+	font-size: 14px;
+	font-weight: 500;
+	color: #393939;
+}
+/* --------------------------------------- */
+
+/* ContentView */
+.background {
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-image: url(../images/background.png);
+}
+
+.box {
+	background-color: rgba( 255, 255, 255, 0.75 );
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 60px rgba( 0, 0, 0, 0.75 );
+}
+
+.box_label {
+	font-size: 24px;
+	font-weight: 500;
+	line-height: 30px;
+	text-align: center;
+	color: #393939;
+}
+
+.box_button {
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 40px;
+	text-align: center;
+	color: #FFFFFF;
+	
+	cursor: pointer;
+	
+	background-color: rgba( 0, 153, 204, 0.55 );
+	-webkit-border-radius: 0px 0px 5px 5px;
+	-moz-border-radius: 0px 0px 5px 5px;
+	-o-border-radius: 0px 0px 5px 5px;
+	border-radius: 0px 0px 5px 5px;
+}
+
+.box_button:hover {
+	background-color: rgba( 0, 153, 204, 0.75 );
+}
+
+.box_button:active {
+	background-color: rgba( 0, 153, 204, 0.95 );
+}
+/* --------------------------------------- */
