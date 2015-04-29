@@ -1,6 +1,6 @@
-includeOnce( "js/normal/asjs/asjs.FileUpload.js" );
+includeOnce( "js/normal/asjs/asjs.FileUploader.js" );
 
-ASJS.ImageUpload = function() {
+ASJS.ImageUploader = function() {
 	var that = new ASJS.FileUpload();
 	
 	/* CONSTRUCTOR */{

@@ -1,7 +1,7 @@
 includeOnce( "js/normal/asjs/asjs.FormElement.js" );
 includeOnce( "js/normal/asjs/asjs.DisplayObject.js" );
 
-ASJS.FileUpload = function() {
+ASJS.FileUploader = function() {
 	var that = new ASJS.FormElement();
 	var _super = {};
 	that._fileInput = new ASJS.DisplayObject( "<input />" );
@@ -27,11 +27,8 @@ ASJS.FileUpload = function() {
 			that.html = that._fileInput.domObject.val();
 		});
 		
-		that.domObject.swipe( {
-			tap: function( event ) {
-				that._fileInput.domObject.click();
-			},
-			threshold: 50
+		that.domObject.on( "click", function( event ) {
+			that._fileInput.domObject.click();
 		});
 	}
 	
