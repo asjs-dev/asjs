@@ -1,7 +1,7 @@
 includeOnce( "js/normal/asjs/asjs.FileUploader.js" );
 
 ASJS.ImageUploader = function() {
-	var that = new ASJS.FileUpload();
+	var that = new ASJS.FileUploader();
 	
 	/* CONSTRUCTOR */{
 		that._fileInput.domObject.off( "change" ).on( "change", function( event ) {
