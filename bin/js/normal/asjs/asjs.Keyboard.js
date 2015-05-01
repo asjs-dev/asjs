@@ -10,23 +10,21 @@ ASJS.Keyboard = function() {
 		if ( !target ) return;
 		
 		that.removeKeyListener( target );
-		var domObject = target.domObject ? target.domObject : target;
 		
-		domObject.on( "keydown", function( event ) {
+		target.addEventListener( "keydown", function( event ) {
 			_pressedKeys[ event.which ] = true;
 			return false;
 		});
 	
-		domObject.on( "keyup", function( event ) {
+		target.addEventListener( "keyup", function( event ) {
 			_pressedKeys[ event.which ] = false;
 			return false;
 		});
 	}
 	
 	that.removeKeyListener = function( target ) {
-		var domObject = target.domObject ? target.domObject : target;
-		domObject.off( "keydown" );
-		domObject.off( "keyup" );
+		target.removeEventListener( "keydown" );
+		target.removeEventListener( "keyup" );
 	}
 	
 	/* CONSTRUCTOR */{}

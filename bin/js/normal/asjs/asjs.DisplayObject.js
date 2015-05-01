@@ -196,6 +196,22 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	that.removedFromStage = function() {}
 	
+	that.dispatchEvent = function( type, data ) {
+		that.domObject.trigger( type, data );
+	}
+	
+	that.addEventListener = function( type, callback ) {
+		that.domObject.on( type, callback );
+	}
+	
+	that.removeEventListeners = function() {
+		that.domObject.off();
+	}
+	
+	that.removeEventListener = function( type ) {
+		that.domObject.off( type );
+	}
+	
 	that.domObject = $( domElement || "<div />", { tabindex: "-1", style: ( "pointer-events: auto; position: absolute; display: " + _cssDisplay + "; width: 0px; height: 0px; top: 0px; left: 0px;" ) } );
 	
 	/* CONSTRUCTOR */{}

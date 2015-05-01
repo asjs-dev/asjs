@@ -90,14 +90,14 @@ function NotificationView() {
 		_content.addClass( "notification_content" );
 		that.addChild( _content );
 	
-		_okButton.domObject.on( "click", function( event ) {
-			that.domObject.trigger( NotificationMediator.HIDE );
+		_okButton.addEventListener( "click", function( event ) {
+			that.dispatchEvent( NotificationMediator.HIDE );
 			if ( _notificationItem[ 'okCallback' ] != undefined ) _notificationItem[ 'okCallback' ]();
 		});
 		drawButtonStyle( _okButton );
 	
-		_cancelButton.domObject.on( "click", function( event ) {
-			that.domObject.trigger( NotificationMediator.HIDE );
+		_cancelButton.addEventListener( "click", function( event ) {
+			that.dispatchEvent( NotificationMediator.HIDE );
 			if ( _notificationItem[ 'cancelCallback' ] != undefined ) _notificationItem[ 'cancelCallback' ]();
 		});
 		drawButtonStyle( _cancelButton );

@@ -42,8 +42,8 @@ function ContentView() {
 		_button.addClass( "box_button" );
 		_button.setSize( 320, 40 );
 		_button.move( 0, _box.height - _button.height );
-		_button.domObject.on( "click", function( event ) {
-			that.domObject.trigger( ContentMediator.ON_SHOW_NOTIFICATION_WINDOW_CLICK );
+		_button.addEventListener( "click", function( event ) {
+			that.dispatchEvent( ContentMediator.ON_SHOW_NOTIFICATION_WINDOW_CLICK );
 		});
 		_box.addChild( _button );
 		
@@ -93,13 +93,10 @@ function ContentView() {
 		_animatedSprite.move( 10, 10 );
 		that.addChild( _animatedSprite );
 		
-		//_animatedSprite.setSize( 256, 128 );
-		//_animatedSprite.play( "explode" );
-		
 		_animatedSprite.setSize( 200, 200 );
 		_animatedSprite.play( "fireworks" );
 		
-		_animatedSprite.domObject.off().on( "click", function( event ) {
+		_animatedSprite.addEventListener( "click", function( event ) {
 			if ( Math.round( Math.random() * 1 ) == 0 ) {
 				_animatedSprite.setSize( 256, 128 );
 				_animatedSprite.play( "explode" );
@@ -109,7 +106,7 @@ function ContentView() {
 			}
 		});
 		
-		that.domObject.off().on( "click", function( event ) {
+		that.addEventListener( "click", function( event ) {
 			var mouse = new ASJS.Mouse().instance;
 			console.log( "_box.hitTest: " + _box.hitTest( new ASJS.Point( mouse.mouseX, mouse.mouseY ) ) );
 		});

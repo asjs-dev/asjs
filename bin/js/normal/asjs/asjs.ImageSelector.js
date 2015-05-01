@@ -1,10 +1,11 @@
-includeOnce( "js/normal/asjs/asjs.FileUploader.js" );
+includeOnce( "js/normal/asjs/asjs.FileSelector.js" );
 
-ASJS.ImageUploader = function() {
-	var that = new ASJS.FileUploader();
+ASJS.ImageSelector = function() {
+	var that = new ASJS.FileSelector();
 	
 	/* CONSTRUCTOR */{
-		that._fileInput.domObject.off( "change" ).on( "change", function( event ) {
+		that._fileInput.removeEventListener( "change" );
+		that._fileInput.addEventListener( "change", function( event ) {
 			var target = that._fileInput.domObject[ 0 ];
 			if ( target.files && target.files[ 0 ] ) {
 				var reader = new FileReader();

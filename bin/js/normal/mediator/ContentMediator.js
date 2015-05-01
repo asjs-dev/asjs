@@ -23,8 +23,7 @@ function ContentMediator( view ) {
 	/* CONSTRUCTOR */{
 		that.registerNotificationHandlers();
 		
-		_contentView.domObject
-			.on( ContentMediator.ON_SHOW_NOTIFICATION_WINDOW_CLICK, function() {
+		_contentView.addEventListener( ContentMediator.ON_SHOW_NOTIFICATION_WINDOW_CLICK, function() {
 				that.sendNotification( NotificationMediator.SHOW, {
 					title: language.getText( "notification_title" ),
 					content: language.getText( "notification_content" )

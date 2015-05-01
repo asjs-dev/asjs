@@ -51,14 +51,19 @@ ASJS.AbstractTextElement = function( domElement ) {
 		set: function( value ) { _restrict = value; }
 	})
 	
-	that.init = function() {
-		that.domObject.on( "keypress", function( event ) {
+	that.removedFromStage = function() {
+		that.removeEventListeners();
+	}
+	
+	that.addedToStage = function() {
+		that.addEventListener( "keypress", function( event ) {
 			if ( _restrict ) {
 				var charCode = event.which ? event.which : event.keyCode;
 				if ( _protectedChars[ event.keyCode ] != undefined || ( event.ctrlKey && _controlChars[ charCode ] != undefined ) ) return;
 				if ( !new RegExp( _restrict, "i" ).test( String.fromCharCode( event.which ) ) ) return false;
 			}
-		}).on( "keyup", function( event ) {
+		});
+		that.addEventListener( "keyup", function( event ) {
 			var charCode = event.which ? event.which : event.keyCode;
 			if ( _restrict && ( event.ctrlKey && _controlChars[ charCode ] != undefined ) ) {
 				/*var regExp = new RegExp( "^(?!.*?(" + _restrict + ")).*$", "g" );*/
@@ -68,9 +73,7 @@ ASJS.AbstractTextElement = function( domElement ) {
 		});
 	}
 	
-	/* CONSTRUCTOR */ {
-		that.init();
-	}
+	/* CONSTRUCTOR */ {}
 	
 	return that;
 }

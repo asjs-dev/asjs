@@ -76,7 +76,7 @@ function NotificationMediator( view ) {
 	}
 	
 	/* CONSTRUCTOR */{
-		_notificationView.domObject.on( NotificationMediator.HIDE, function( event ) {
+		_notificationView.addEventListener( NotificationMediator.HIDE, function( event ) {
 			hide();
 		});
 		

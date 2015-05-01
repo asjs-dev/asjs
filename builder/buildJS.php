@@ -63,7 +63,7 @@
 		$GLOBALS[ "output" ] = str_replace( "\n", ";", $GLOBALS[ "output" ] );
 		$GLOBALS[ "output" ] = preg_replace( "/;+/", ";", $GLOBALS[ "output" ] );
 		
-		$f = fopen( $projectFolder . $outputPath, "w" );
+		$f = fopen( $outputPath, "w" );
 		fwrite( $f, $GLOBALS[ "output" ] );
 		fclose( $f );
 		

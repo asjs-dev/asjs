@@ -1,7 +1,7 @@
-includeOnce( "js/normal/asjs/asjs.FormElement.js" );
+includeOnce( "js/normal/asjs/asjs.Sprite.js" );
 
 ASJS.Link = function() {
-	var that = new ASJS.FormElement( "<a />" );
+	var that = new ASJS.Sprite( "<a />" );
 	
 	defineProperty( that, "href", {
 		get: function() { return that.getAttr( "href" ); },

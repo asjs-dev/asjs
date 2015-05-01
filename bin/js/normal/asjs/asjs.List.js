@@ -54,8 +54,12 @@ ASJS.List = function() {
 		that.addChild( item );
 	}
 	
-	/* CONSTRUCTOR */{
-		that.domObject.on( "change", function( event ) {
+	that.removedFromStage = function() {
+		that.removeEventListeners();
+	}
+	
+	that.addedToStage = function() {
+		that.addEventListener( "change", function( event ) {
 			var i;
 			var item;
 			for ( i = 0; i < that.numChildren; i++ ) {
@@ -64,6 +68,8 @@ ASJS.List = function() {
 			}
 		});
 	}
+	
+	/* CONSTRUCTOR */{}
 	
 	return that;
 }
