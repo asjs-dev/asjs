@@ -1,16 +1,19 @@
 includeOnce( "js/normal/controller/command/AbstractCommand.js" );
-includeOnce( "js/normal/Tools.js" );
-includeOnce( "js/normal/model/Language.js" );
 includeOnce( "js/normal/mediator/PreloaderMediator.js" );
+includeOnce( "js/normal/model/Language.js" );
+includeOnce( "js/normal/model/Cookies.js" );
 
 function StartupCommand() {
 	var that = new AbstractCommand();
 	
+	var _language = new Language().instance;
+	var _cookies = new Cookies().instance;
+	
 	that.execute = function() {
 		that.sendNotification( PreloaderMediator.SHOW );
 		
-		tools.createCookie( 'language', language.selectedLanguage );
-		document.title = language.getText( "title" );
+		_cookies.createCookie( 'language', _language.selectedLanguage );
+		document.title = _language.getText( "title" );
 		
 		that.sendNotification( AbstractMediator.RESIZE );
 		

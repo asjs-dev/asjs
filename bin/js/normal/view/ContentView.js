@@ -6,9 +6,12 @@ includeOnce( "js/normal/asjs/asjs.Rectangle.js" );
 includeOnce( "js/normal/asjs/asjs.Point.js" );
 includeOnce( "js/normal/asjs/asjs.Cycler.js" );
 includeOnce( "js/normal/mediator/ContentMediator.js" );
+includeOnce( "js/normal/model/Language.js" );
 
 function ContentView() {
 	var that = new ASJS.Sprite();
+	
+	var _language = new Language().instance;
 	
 	var _background = new ASJS.Sprite();
 	var _box = new ASJS.Sprite();
@@ -32,13 +35,13 @@ function ContentView() {
 		_box.y = 100;
 		that.addChild( _box );
 		
-		_label.text = language.getText( "new_asjs_base_site" );
+		_label.text = _language.getText( "new_asjs_base_site" );
 		_label.addClass( "box_label" );
 		_label.setSize( 320, 30 );
 		_label.move( 0, 34 );
 		_box.addChild( _label );
 		
-		_button.label = language.getText( "show_notification_window" );
+		_button.label = _language.getText( "show_notification_window" );
 		_button.addClass( "box_button" );
 		_button.setSize( 320, 40 );
 		_button.move( 0, _box.height - _button.height );

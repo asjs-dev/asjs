@@ -1,9 +1,13 @@
 includeOnce( "js/normal/mediator/AbstractMediator.js" );
 includeOnce( "js/normal/mediator/NotificationMediator.js" );
 includeOnce( "js/normal/view/ContentView.js" );
+includeOnce( "js/normal/model/Language.js" );
 
 function ContentMediator( view ) {
 	var that = new AbstractMediator( view );
+	
+	var _language = new Language().instance;
+	
 	var _contentView = new ContentView();
 	
 	that.handlers = [ AbstractMediator.RESIZE ];
@@ -25,8 +29,8 @@ function ContentMediator( view ) {
 		
 		_contentView.addEventListener( ContentMediator.ON_SHOW_NOTIFICATION_WINDOW_CLICK, function() {
 				that.sendNotification( NotificationMediator.SHOW, {
-					title: language.getText( "notification_title" ),
-					content: language.getText( "notification_content" )
+					title: _language.getText( "notification_title" ),
+					content: _language.getText( "notification_content" )
 				});
 			});
 		that.view.addChild( _contentView );
