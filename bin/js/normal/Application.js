@@ -37,7 +37,7 @@ function Application() {
 var stage;
 
 $( document ).ready( function() {
-	stage =		new ASJS.Stage().instance;
+	stage = new ASJS.Stage().instance;
 	
 	$.get( "json/language.json", function( response ) {
 		new Language().instance.data = response;

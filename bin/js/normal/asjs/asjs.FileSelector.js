@@ -6,6 +6,11 @@ ASJS.FileSelector = function() {
 	var _super = {};
 	that._fileInput = new ASJS.DisplayObject( "<input />" );
 	
+	defineProperty( that, "name", {
+		get: function() { return that._fileInput.getAttr( "name" ); },
+		set: function( value ) { that._fileInput.setAttr( "name", value ); }
+	});
+	
 	extendProperty( _super, that, "enabled" );
 	defineProperty( that, "enabled", {
 		set: function( value ) {

@@ -26,3 +26,4 @@ ASJS.Form = function() {
 	
 	return that;
 };
+ASJS.Form.ENCTYPE_MULTIPART	= "multipart/form-data";
