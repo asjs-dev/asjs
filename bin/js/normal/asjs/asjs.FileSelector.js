@@ -4,6 +4,7 @@ includeOnce( "js/normal/asjs/asjs.DisplayObject.js" );
 ASJS.FileSelector = function() {
 	var that = new ASJS.FormElement();
 	var _super = {};
+	
 	that._fileInput = new ASJS.DisplayObject( "<input />" );
 	
 	defineProperty( that, "name", {
@@ -26,13 +27,20 @@ ASJS.FileSelector = function() {
 		}
 	})
 	
+	defineProperty( that, "fileInput", {
+		get: function() { return _fileInput; }
+	});
+	
 	/* CONSTRUCTOR */ {
 		that._fileInput.setAttr( "type", "file" );
 		that._fileInput.addEventListener( "change", function( event ) {
 			that.html = that._fileInput.domObject.val();
 		});
+		that._fileInput.visible = false;
+		that.addChild( that._fileInput );
 		
 		that.addEventListener( "click", function( event ) {
+			if ( event.target == that._fileInput.domObject[ 0 ] ) return;
 			that._fileInput.domObject.click();
 		});
 	}
