@@ -9,11 +9,29 @@ ASJS.Stage = function() {
 		that.domObject = $( "body" );
 	
 		defineProperty( that, "stageWidth", {
-			get: function() { return _window.outerWidth( true ); }
+			get: function() {
+				var overflowX = that.getCSS( "overflow-x" );
+				var overflowY = that.getCSS( "overflow-y" );
+				that.setCSS( "overflow-x", "hidden" );
+				that.setCSS( "overflow-y", "hidden" );
+				var windowWidth = _window.width();
+				that.setCSS( "overflow-x", overflowX );
+				that.setCSS( "overflow-y", overflowY );
+				return windowWidth;
+			}
 		});
 	
 		defineProperty( that, "stageHeight", {
-			get: function() { return _window.outerHeight( true ); }
+			get: function() {
+				var overflowX = that.getCSS( "overflow-x" );
+				var overflowY = that.getCSS( "overflow-y" );
+				that.setCSS( "overflow-x", "hidden" );
+				that.setCSS( "overflow-y", "hidden" );
+				var windowHeight = _window.height();
+				that.setCSS( "overflow-x", overflowX );
+				that.setCSS( "overflow-y", overflowY );
+				return windowHeight;
+			}
 		});
 	
 		defineProperty( that, "window", {

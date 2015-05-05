@@ -10,11 +10,13 @@ function ContentMediator( view ) {
 	
 	var _contentView = new ContentView();
 	
-	that.handlers = [ AbstractMediator.RESIZE ];
+	that.handlers = [ AbstractMediator.RESIZE, ContentMediator.SHOW ];
 	
 	that.reciveNotification = function( notificationType, data ) {
 		switch ( notificationType ) {
 			case AbstractMediator.RESIZE: onResize();
+			break;
+			case ContentMediator.SHOW: onShow();
 			break;
 		}
 	}
@@ -24,9 +26,7 @@ function ContentMediator( view ) {
 		_contentView.drawNow();
 	}
 	
-	/* CONSTRUCTOR */{
-		that.registerNotificationHandlers();
-		
+	function onShow() {
 		_contentView.addEventListener( ContentMediator.ON_SHOW_NOTIFICATION_WINDOW_CLICK, function() {
 				that.sendNotification( NotificationMediator.SHOW, {
 					title: _language.getText( "notification_title" ),
@@ -38,6 +38,11 @@ function ContentMediator( view ) {
 		onResize();
 	}
 	
+	/* CONSTRUCTOR */{
+		that.registerNotificationHandlers();
+	}
+	
 	return that;
 }
+ContentMediator.SHOW								= "ContentMediator-show";
 ContentMediator.ON_SHOW_NOTIFICATION_WINDOW_CLICK	= "ContentMediator-onShowNotificationWindowClick";
