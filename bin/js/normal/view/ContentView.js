@@ -12,6 +12,7 @@ function ContentView() {
 	var that = new ASJS.Sprite();
 	
 	var _language = new Language().instance;
+	var _cycler = new ASJS.Cycler().instance;
 	
 	var _background = new ASJS.Sprite();
 	var _box = new ASJS.Sprite();
@@ -114,10 +115,8 @@ function ContentView() {
 			console.log( "_box.hitTest: " + _box.hitTest( new ASJS.Point( mouse.mouseX, mouse.mouseY ) ) );
 		});
 		
-		var cycler = new ASJS.Cycler().instance;
-			cycler.addCallback( _animatedSprite.update );
-			cycler.fps = 24;
-			cycler.start();
+		_cycler.addCallback( _animatedSprite.update );
+			
 	}
 	
 	return that;

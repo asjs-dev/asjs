@@ -7,6 +7,10 @@ ASJS.FileSelector = function() {
 	
 	that._fileInput = new ASJS.DisplayObject( "<input />" );
 	
+	defineProperty( that, "val", {
+		get: function() { return that._fileInput.domObject.val(); }
+	});
+	
 	defineProperty( that, "name", {
 		get: function() { return that._fileInput.getAttr( "name" ); },
 		set: function( value ) { that._fileInput.setAttr( "name", value ); }
@@ -34,7 +38,7 @@ ASJS.FileSelector = function() {
 	/* CONSTRUCTOR */ {
 		that._fileInput.setAttr( "type", "file" );
 		that._fileInput.addEventListener( "change", function( event ) {
-			that.html = that._fileInput.domObject.val();
+			that.html = that.val;
 		});
 		that._fileInput.visible = false;
 		that.addChild( that._fileInput );

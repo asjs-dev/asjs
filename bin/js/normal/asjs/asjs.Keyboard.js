@@ -6,18 +6,20 @@ ASJS.Keyboard = function() {
 		return _pressedKeys[ which ];
 	}
 	
-	that.addKeyListener = function( target, preventScroll ) {
+	that.addKeyListener = function( target, downCallback, upCallback ) {
 		if ( !target ) return;
 		
 		that.removeKeyListener( target );
 		
 		target.addEventListener( "keydown", function( event ) {
 			_pressedKeys[ event.which ] = true;
+			if ( downCallback ) downCallback();
 			return false;
 		});
 	
 		target.addEventListener( "keyup", function( event ) {
 			_pressedKeys[ event.which ] = false;
+			if ( upCallback ) upCallback();
 			return false;
 		});
 	}
