@@ -8,7 +8,6 @@ ASJS.Stage = function() {
 	
 		that.domObject = $( "body" );
 		
-		var _reuseOverflowId;
 		var _stageWidth = 0;
 		var _stageHeight = 0;
 		
@@ -29,8 +28,8 @@ ASJS.Stage = function() {
 		});
 		
 		function recalcStageSize() {
-			_overflowX = that.getCSS( "overflow-x" );
-			_overflowY = that.getCSS( "overflow-y" );
+			var overflowX = that.getCSS( "overflow-x" );
+			var overflowY = that.getCSS( "overflow-y" );
 			
 			that.setCSS( "overflow-x", "hidden" );
 			that.setCSS( "overflow-y", "hidden" );
@@ -38,8 +37,8 @@ ASJS.Stage = function() {
 			_stageWidth = _window.width();
 			_stageHeight = _window.height();
 			
-			that.setCSS( "overflow-x", _overflowX );
-			that.setCSS( "overflow-y", _overflowY );
+			that.setCSS( "overflow-x", overflowX );
+			that.setCSS( "overflow-y", overflowY );
 		}
 		
 		/* CONSTRUCTOR */{
