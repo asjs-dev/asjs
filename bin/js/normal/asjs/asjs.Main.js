@@ -50,3 +50,16 @@ function includeOnce( filename ) {
 	$.getScript( filename );
 	$.ajaxSetup( { async: true } );
 }
+
+ASJS.inited;
+var stage;
+
+ASJS.startASJS = function( baseClass ) {
+	if ( ASJS.inited ) return;
+	ASJS.inited = true;
+	$( document ).ready( function() {
+		stage = new ASJS.Stage().instance;
+		new baseClass();
+	});
+}
+

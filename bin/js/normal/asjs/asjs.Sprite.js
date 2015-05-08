@@ -18,6 +18,7 @@ ASJS.Sprite = function( domElement ) {
 	
 	that.addChildAt = function( child, index ) {
 		if ( !child ) return null;
+		if ( child.parent ) child.parent.removeChild( child );
 		that.domObject.append( child.domObject );
 		child.parent = that;
 		_children.push( child );
