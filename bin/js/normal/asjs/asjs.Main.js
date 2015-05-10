@@ -1,3 +1,5 @@
+includeOnce( "js/normal/asjs/asjs.Stage.js" );
+
 function defineProperty( target, propertyName, params ) {
 	params.enumerable = true;
 	params.configurable = true;
