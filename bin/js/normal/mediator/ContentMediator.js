@@ -10,11 +10,11 @@ function ContentMediator( view ) {
 	
 	var _contentView = new ContentView();
 	
-	that.handlers = [ AbstractMediator.RESIZE, ContentMediator.SHOW ];
+	that.handlers = [ ASJS.Stage.RESIZE, ContentMediator.SHOW ];
 	
 	that.reciveNotification = function( notificationType, data ) {
 		switch ( notificationType ) {
-			case AbstractMediator.RESIZE: onResize();
+			case ASJS.Stage.RESIZE: onResize();
 			break;
 			case ContentMediator.SHOW: onShow();
 			break;

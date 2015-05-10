@@ -9,11 +9,11 @@ function NotificationMediator( view ) {
 	var _defaultCancelLabel = "";
 	var _notificationView = new NotificationView();
 		
-	that.handlers = [ AbstractMediator.RESIZE, NotificationMediator.SHOW ];
+	that.handlers = [ ASJS.Stage.RESIZE, NotificationMediator.SHOW ];
 	
 	that.reciveNotification = function( notificationType, data ) {
 		switch ( notificationType ) {
-			case AbstractMediator.RESIZE: onResize();
+			case ASJS.Stage.RESIZE: onResize();
 			break;
 			case NotificationMediator.SHOW: show( data );
 			break;

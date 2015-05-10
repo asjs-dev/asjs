@@ -26,12 +26,10 @@ function StartupCommand() {
 			
 		that.sendNotification( ContentMediator.SHOW );
 		
-		that.sendNotification( AbstractMediator.RESIZE );
-		
-		stage.window.resize( function( event ) {
+		stage.addEventListener( ASJS.Stage.RESIZE, function( event ) {
 			window.clearTimeout( _sleepToResizeId );
 			_sleepToResizeId = window.setTimeout( function() {
-				that.sendNotification( AbstractMediator.RESIZE );
+				that.sendNotification( ASJS.Stage.RESIZE );
 				window.clearTimeout( _sleepToResizeId );
 			}, 100 );
 		});

@@ -39,6 +39,8 @@ ASJS.Stage = function() {
 			
 			that.setCSS( "overflow-x", overflowX );
 			that.setCSS( "overflow-y", overflowY );
+			
+			that.dispatchEvent( ASJS.Stage.RESIZE );
 		}
 		
 		/* CONSTRUCTOR */{
@@ -59,3 +61,4 @@ ASJS.Stage = function() {
 		}
 	});
 };
+ASJS.Stage.RESIZE	= "Stage-resize"

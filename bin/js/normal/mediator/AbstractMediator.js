@@ -9,4 +9,3 @@ function AbstractMediator( view ) {
 	
 	return that;
 }
-AbstractMediator.RESIZE = "AbstractMediator-onResize";

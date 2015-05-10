@@ -53,7 +53,6 @@ function includeOnce( filename ) {
 
 ASJS.inited;
 var stage;
-
 ASJS.startASJS = function( baseClass ) {
 	if ( ASJS.inited ) return;
 	ASJS.inited = true;
