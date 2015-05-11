@@ -73,7 +73,5 @@ ASJS.AbstractTextElement = function( domElement ) {
 		});
 	}
 	
-	/* CONSTRUCTOR */ {}
-	
 	return that;
 }

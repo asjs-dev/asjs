@@ -38,9 +38,9 @@ function ContentMediator( view ) {
 		onResize();
 	}
 	
-	/* CONSTRUCTOR */{
+	(function() {
 		that.registerNotificationHandlers();
-	}
+	})();
 	
 	return that;
 }

@@ -3,7 +3,5 @@ function AbstractCommand() {
 	
 	that.execute = function() {}
 	
-	/* CONSTRUCTOR */{}
-	
 	return that;
 }

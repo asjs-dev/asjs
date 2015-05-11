@@ -18,7 +18,5 @@ ASJS.Image = function() {
 		set: function( value ) { that.setAttr( "title", value ); }
 	});
 	
-	/* CONSTRUCTOR */ {}
-	
 	return that;
 }

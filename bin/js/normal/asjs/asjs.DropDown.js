@@ -59,10 +59,10 @@ ASJS.DropDown = function() {
 		_select.setSize( that.width + 30, that.height );
 	}
 	
-	/* CONSTRUCTOR */ {
+	(function() {
 		that.setCSS( "overflow", "hidden" );
 		that.addChild( _select );
-	}
+	})();
 	
 	return that;
 }

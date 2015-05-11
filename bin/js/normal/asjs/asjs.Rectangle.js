@@ -15,7 +15,5 @@ ASJS.Rectangle = function( tx, ty, twidth, theight ) {
 		set: function( value ) { _height = value; }
 	});
 	
-	/* CONSTRUCTOR */{}
-	
 	return that;
 }

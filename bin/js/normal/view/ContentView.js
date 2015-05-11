@@ -24,7 +24,7 @@ function ContentView() {
 		_box.x = ( that.width - _box.width ) * 0.5;
 	}
 	
-	/* CONSTRUCTOR */{
+	(function() {
 		_background.addClass( "background" );
 		_background.setCSS( "position", "fixed" );
 		_background.setSize( "100%", "100%" );
@@ -116,8 +116,7 @@ function ContentView() {
 		});
 		
 		_cycler.addCallback( _animatedSprite.update );
-			
-	}
+	})();
 	
 	return that;
 }

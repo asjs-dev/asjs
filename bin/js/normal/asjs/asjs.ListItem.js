@@ -21,7 +21,5 @@ ASJS.ListItem = function( domElement ) {
 		set: function( value ) { _value = value; }
 	});
 	
-	/* CONSTRUCTOR */ {}
-	
 	return that;
 }

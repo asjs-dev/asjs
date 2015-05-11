@@ -17,7 +17,7 @@ function Application() {
 	var _preloaderView =	new ASJS.Sprite();
 	var _notificationView =	new ASJS.Sprite();
 	
-	/* CONSTRUCTOR */{
+	(function() {
 		$.get( "json/language.json", function( response ) {
 			_language.data = response;
 			
@@ -33,7 +33,7 @@ function Application() {
 		
 			( new StartupCommand() ).execute();
 		});
-	}
+	})();
 	
 	return that;
 };

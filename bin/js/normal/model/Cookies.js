@@ -40,8 +40,6 @@ function Cookies() {
 				console.log( event );
 			}
 		}
-	
-		/* CONSTRUCTOR */{}
 		
 		return that;
 	}

@@ -34,14 +34,14 @@ ASJS.Checkbox = function() {
 		}
 	});
 	
-	/* CONSTRUCTOR */ {
+	(function() {
 		_checkbox.setAttr( "type", "checkbox" );
 		_checkbox.visible = false;
 		that.addChild( _checkbox );
 		
 		_label.setSize( "100%", "100%" );
 		that.addChild( _label );
-	}
+	})();
 	
 	return that;
 }

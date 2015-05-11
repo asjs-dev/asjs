@@ -13,7 +13,5 @@ ASJS.Point = function( tx, ty ) {
 		set: function( value ) { _y = value; }
 	});
 	
-	/* CONSTRUCTOR */{}
-	
 	return that;
 }

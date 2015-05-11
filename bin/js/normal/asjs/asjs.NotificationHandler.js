@@ -44,8 +44,6 @@ ASJS.NotificationHandler = function() {
 				}
 			}
 		}
-	
-		/* CONSTRUCTOR */{}
 		
 		return that;
 	}

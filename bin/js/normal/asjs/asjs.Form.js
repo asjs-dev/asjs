@@ -22,8 +22,6 @@ ASJS.Form = function() {
 		that.domObject[ 0 ].reset();
 	}
 	
-	/* CONSTRUCTOR */{}
-	
 	return that;
 };
 ASJS.Form.ENCTYPE_MULTIPART	= "multipart/form-data";

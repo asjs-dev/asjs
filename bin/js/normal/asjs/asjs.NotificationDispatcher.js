@@ -24,7 +24,5 @@ ASJS.NotificationDispatcher = function() {
 		new ASJS.NotificationHandler().instance.remove( that );
 	}
 	
-	/* CONSTRUCTOR */{}
-	
 	return that;
 }

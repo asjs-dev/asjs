@@ -42,8 +42,6 @@ function Language() {
 			for ( var key in _languageItems ) str = str.split( "{{" + key + "}}" ).join( that.getText( key ) );
 			return str;
 		}
-	
-		/* CONSTRUCTOR */{}
 		
 		return that;
 	}

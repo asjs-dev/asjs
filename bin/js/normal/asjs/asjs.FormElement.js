@@ -8,9 +8,9 @@ ASJS.FormElement = function( domElement ) {
 		set: function( value ) { that.setAttr( "name", value ); }
 	});
 	
-	/* CONSTRUCTOR */ {
+	(function() {
 		that.setAttr( "tabindex", "auto" );
-	}
+	})();
 	
 	return that;
 }

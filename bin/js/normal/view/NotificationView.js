@@ -72,7 +72,7 @@ function NotificationView() {
 		target.height = 42;
 	}
 	
-	/* CONSTRUCTOR */{
+	(function() {
 		that.setCSS( "background-color", "rgba( 0, 0, 0, 0.4 )" );
 		that.setSize( "100%", "100%" );
 		that.setCSS( "position", "fixed" );
@@ -101,7 +101,7 @@ function NotificationView() {
 			if ( _notificationItem[ 'cancelCallback' ] != undefined ) _notificationItem[ 'cancelCallback' ]();
 		});
 		drawButtonStyle( _cancelButton );
-	}
+	})();
 	
 	return that;
 }

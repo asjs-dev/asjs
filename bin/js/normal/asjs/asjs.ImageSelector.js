@@ -9,7 +9,7 @@ ASJS.ImageSelector = function() {
 		get: function() { return _preview; }
 	});
 	
-	/* CONSTRUCTOR */{
+	(function() {
 		_preview.setSize( "100%", "100%" );
 		_preview.move( 0, 0 );
 		that.addChild( _preview );
@@ -25,7 +25,7 @@ ASJS.ImageSelector = function() {
 				reader.readAsDataURL( target.files[ 0 ] );
 			}
 		});
-	}
+	})();
 	
 	return that;
 }

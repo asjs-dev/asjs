@@ -28,9 +28,9 @@ ASJS.TextInput = function() {
 		}
 	});
 	
-	/* CONSTRUCTOR */{
+	(function() {
 		that.type = ASJS.TextInput.TYPE_TEXT;
-	}
+	})();
 	
 	return that;
 }

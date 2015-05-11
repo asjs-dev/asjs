@@ -69,7 +69,5 @@ ASJS.List = function() {
 		});
 	}
 	
-	/* CONSTRUCTOR */{}
-	
 	return that;
 }

@@ -36,7 +36,5 @@ function StartupCommand() {
 		that.sendNotification( PreloaderMediator.HIDE );
 	}
 	
-	/* CONSTRUCTOR */{}
-	
 	return that;
 }

@@ -75,13 +75,13 @@ function NotificationMediator( view ) {
 		$( _notificationView ).stop().animate( { alpha: 1 }, { duration: 500 } );
 	}
 	
-	/* CONSTRUCTOR */{
+	(function() {
 		_notificationView.addEventListener( NotificationMediator.HIDE, function( event ) {
 			hide();
 		});
 		
 		that.registerNotificationHandlers();
-	}
+	})();
 	
 	return that;
 }

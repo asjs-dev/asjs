@@ -29,8 +29,6 @@ ASJS.Keyboard = function() {
 		target.removeEventListener( "keyup" );
 	}
 	
-	/* CONSTRUCTOR */{}
-	
 	return that;
 }
 ASJS.Keyboard.BACKSPACE = 8;

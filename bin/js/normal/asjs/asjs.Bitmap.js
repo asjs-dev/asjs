@@ -31,10 +31,10 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 		rasterizeHTML.drawHTML( value, $( that.domObject )[ 0 ] );
 	}
 	
-	/* CONSTRUCTOR */{
+	(function() {
 		that.width = bitmapWidth;
 		that.height = bitmapHeight;
-	}
+	})();
 	
 	return that;
 }

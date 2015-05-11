@@ -35,7 +35,7 @@ ASJS.FileSelector = function() {
 		get: function() { return _fileInput; }
 	});
 	
-	/* CONSTRUCTOR */ {
+	(function() {
 		that._fileInput.setAttr( "type", "file" );
 		that._fileInput.addEventListener( "change", function( event ) {
 			that.html = that.val;
@@ -47,7 +47,7 @@ ASJS.FileSelector = function() {
 			if ( event.target == that._fileInput.domObject[ 0 ] ) return;
 			that._fileInput.domObject.click();
 		});
-	}
+	})();
 	
 	return that;
 }

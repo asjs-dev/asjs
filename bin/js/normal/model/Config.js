@@ -1,8 +1,6 @@
 function Config() {
 	function ConfigInstance() {
 		var that = {};
-	
-		/* CONSTRUCTOR */{}
 		
 		return that;
 	}

@@ -79,8 +79,6 @@ ASJS.Sprite = function( domElement ) {
 		return null;
 	}
 	
-	/* CONSTRUCTOR */{}
-	
 	return that;
 }
 

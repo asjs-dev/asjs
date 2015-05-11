@@ -74,8 +74,6 @@ ASJS.Cycler = function() {
 		function getIntervalByFps() {
 			return 1000 / _fps;
 		}
-	
-		/* CONSTRUCTOR */{}
 		
 		return that;
 	}

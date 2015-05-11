@@ -19,7 +19,5 @@ ASJS.VideoPlayer = function() {
 		}
 	});
 	
-	/* CONSTRUCTOR */ {}
-	
 	return that;
 }

@@ -44,13 +44,13 @@ ASJS.Stage = function() {
 			that.dispatchEvent( ASJS.Stage.RESIZE );
 		}
 		
-		/* CONSTRUCTOR */{
+		(function() {
 			that.setSize( "100%", "100%" );
 			_window.resize( function( event ) {
 				recalcStageSize();
 			});
 			recalcStageSize();
-		}
+		})();
 		
 		return that;
 	};

@@ -43,8 +43,6 @@ function Tools() {
 			window.location.reload( true );
 		}
 		
-		/* CONSTRUCTOR */{}
-		
 		return that;
 	}
 	

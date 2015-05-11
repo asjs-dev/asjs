@@ -214,8 +214,6 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	that.domObject = $( domElement || "<div />", { tabindex: "-1", style: ( "pointer-events: auto; position: absolute; display: " + _cssDisplay + "; width: 0px; height: 0px; top: 0px; left: 0px;" ) } );
 	
-	/* CONSTRUCTOR */{}
-	
 	return that;
 };
 ASJS.DisplayObject.THETA = Math.PI / 180;

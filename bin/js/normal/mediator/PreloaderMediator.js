@@ -38,9 +38,9 @@ function PreloaderMediator( view ) {
 		}
 	}
 	
-	/* CONSTRUCTOR */{
+	(function() {
 		that.registerNotificationHandlers();
-	}
+	})();
 	
 	return that;
 }

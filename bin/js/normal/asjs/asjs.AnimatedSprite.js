@@ -30,8 +30,6 @@ ASJS.AnimationDescriptor = function( name, spriteSheet, size, sequenceList ) {
 		set: function( value ) { _spriteSheet = value; }
 	});
 	
-	/* CONSTRUCTOR */ {}
-	
 	return that;
 }
 
@@ -85,8 +83,6 @@ ASJS.AnimatedSprite = function() {
 		_step++;
 		if ( _step >= _animations[ _selectedAnimation ].sequenceList.length ) _step = 0;
 	}
-	
-	/* CONSTRUCTOR */ {}
 	
 	return that;
 }

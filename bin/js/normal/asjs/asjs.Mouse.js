@@ -23,12 +23,12 @@ ASJS.Mouse = function() {
 			return value.globalToLocal( new ASJS.Point( that.mouseX, that.mouseY ) );
 		};
 	
-		/* CONSTRUCTOR */{
+		(function() {
 			$( window ).on( "mousemove", function( event ) {
 				_mouseX = event.pageX;
 				_mouseY = event.pageY;
 			});
-		}
+		})();
 		
 		return that;
 	}

@@ -13,9 +13,9 @@ ASJS.Button = function() {
 		set: function( value ) { that.setAttr( "type", value ? "submit" : "button" ); }
 	})
 	
-	/* CONSTRUCTOR */{
+	(function() {
 		that.setAttr( "type", "button" );
-	}
+	})();
 	
 	return that;
 }

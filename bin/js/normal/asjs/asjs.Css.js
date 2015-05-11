@@ -51,9 +51,9 @@ ASJS.Css = function() {
 			_style.text( styleSheet );
 		}
 	
-		/* CONSTRUCTOR */{
-			new Stage().instance.head.append( _style );
-		}
+		(function() {
+			stage.head.append( _style );
+		})();
 		
 		return that;
 	};
