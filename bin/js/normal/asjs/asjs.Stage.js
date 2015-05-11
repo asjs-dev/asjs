@@ -3,6 +3,7 @@ includeOnce( "js/normal/asjs/asjs.Sprite.js" );
 ASJS.Stage = function() {
 	function StageInstance() {
 		var that = new ASJS.Sprite();
+		
 		var _window = $( window );
 		var _head = $( "head" );
 	
