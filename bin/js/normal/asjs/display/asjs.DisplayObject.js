@@ -1,4 +1,4 @@
-includeOnce( "js/normal/asjs/asjs.Mouse.js" );
+includeOnce( "js/normal/asjs/utils/asjs.Mouse.js" );
 
 ASJS.DisplayObject = function( domElement ) {
 	var that = {};

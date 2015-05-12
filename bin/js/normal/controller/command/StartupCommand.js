@@ -3,7 +3,7 @@ includeOnce( "js/normal/mediator/PreloaderMediator.js" );
 includeOnce( "js/normal/mediator/ContentMediator.js" );
 includeOnce( "js/normal/model/Language.js" );
 includeOnce( "js/normal/model/Cookies.js" );
-includeOnce( "js/normal/asjs/asjs.Cycler.js" );
+includeOnce( "js/normal/asjs/utils/asjs.Cycler.js" );
 
 function StartupCommand() {
 	var that = new AbstractCommand();

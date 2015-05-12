@@ -1,5 +1,5 @@
-includeOnce( "js/normal/asjs/asjs.FormElement.js" );
-includeOnce( "js/normal/asjs/asjs.DisplayObject.js" );
+includeOnce( "js/normal/asjs/display/form/asjs.FormElement.js" );
+includeOnce( "js/normal/asjs/display/asjs.DisplayObject.js" );
 
 ASJS.FileSelector = function() {
 	var that = new ASJS.FormElement();

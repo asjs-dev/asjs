@@ -1,6 +1,6 @@
-includeOnce( "js/normal/asjs/asjs.DisplayObject.js" );
-includeOnce( "js/normal/asjs/asjs.Rectangle.js" );
-includeOnce( "js/normal/asjs/asjs.Point.js" );
+includeOnce( "js/normal/asjs/display/asjs.DisplayObject.js" );
+includeOnce( "js/normal/asjs/geom/asjs.Rectangle.js" );
+includeOnce( "js/normal/asjs/geom/asjs.Point.js" );
 
 ASJS.AnimationDescriptor = function( name, spriteSheet, size, sequenceList ) {
 	var that = {};

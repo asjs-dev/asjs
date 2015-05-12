@@ -1,4 +1,4 @@
-includeOnce( "js/normal/asjs/asjs.Point.js" );
+includeOnce( "js/normal/asjs/geom/asjs.Point.js" );
 
 ASJS.Mouse = function() {
 	function MouseInstance() {

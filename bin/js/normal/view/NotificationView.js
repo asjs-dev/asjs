@@ -1,8 +1,8 @@
-includeOnce( "js/normal/asjs/asjs.Button.js" );
-includeOnce( "js/normal/asjs/asjs.Sprite.js" );
-includeOnce( "js/normal/asjs/asjs.Scale9Grid.js" );
-includeOnce( "js/normal/asjs/asjs.Point.js" );
-includeOnce( "js/normal/asjs/asjs.Rectangle.js" );
+includeOnce( "js/normal/asjs/display/form/asjs.Button.js" );
+includeOnce( "js/normal/asjs/display/asjs.Sprite.js" );
+includeOnce( "js/normal/asjs/display/asjs.Scale9Grid.js" );
+includeOnce( "js/normal/asjs/geom/asjs.Point.js" );
+includeOnce( "js/normal/asjs/geom/asjs.Rectangle.js" );
 
 function NotificationView() {
 	var that = new ASJS.Sprite();

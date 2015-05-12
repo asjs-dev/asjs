@@ -6,11 +6,20 @@
 	
 	function openFile( $projectFolder, $path ) {
 		$dir = $projectFolder;
-		if ( stripos( $path, "asjs/asjs." ) > -1 ) {
+		/*if ( stripos( $path, "asjs/asjs." ) > -1 ) {
 			$splitPath = explode( "asjs/asjs.", $path );
 			$path = $splitPath[ 1 ];
 			$dir = dirname(__FILE__) . $GLOBALS[ "relativePathToASJS" ] . "asjs.";
+		}*/
+		if ( stripos( $path, "js/normal/asjs/" ) > -1 ) {
+			$asjsExplodePath = explode( "js/normal/asjs/", $path );
+			$asjsDir = dirname(__FILE__) . $GLOBALS[ "relativePathToASJS" ];
+			if ( file_exists( $asjsDir . $asjsExplodePath[ 1 ] ) ) {
+				$dir = $asjsDir;
+				$path = $asjsExplodePath[ 1 ];
+			}
 		}
+		//print $dir . $path . "<br>";
 		if ( !file_exists( $dir . $path ) ) {
 			return false;
 		}

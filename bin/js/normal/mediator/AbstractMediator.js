@@ -1,4 +1,4 @@
-includeOnce( "js/normal/asjs/asjs.NotificationDispatcher.js" );
+includeOnce( "js/normal/asjs/mvc/asjs.NotificationDispatcher.js" );
 
 function AbstractMediator( view ) {
 	var that = new ASJS.NotificationDispatcher();

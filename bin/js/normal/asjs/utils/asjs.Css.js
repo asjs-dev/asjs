@@ -1,4 +1,4 @@
-includeOnce( "js/normal/asjs/asjs.Stage.js" );
+includeOnce( "js/normal/asjs/display/asjs.Stage.js" );
 
 ASJS.Css = function() {
 	function CssInstance() {

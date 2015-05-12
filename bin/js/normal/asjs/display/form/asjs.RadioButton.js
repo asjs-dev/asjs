@@ -1,5 +1,5 @@
-includeOnce( "js/normal/asjs/asjs.ListItem.js" );
-includeOnce( "js/normal/asjs/asjs.DisplayObject.js" );
+includeOnce( "js/normal/asjs/display/list/asjs.ListItem.js" );
+includeOnce( "js/normal/asjs/display/asjs.DisplayObject.js" );
 
 ASJS.RadioButton = function() {
 	var that = new ASJS.ListItem( "<label />" );

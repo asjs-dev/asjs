@@ -1,5 +1,5 @@
-includeOnce( "js/normal/asjs/asjs.Point.js" );
-includeOnce( "js/normal/asjs/asjs.Rectangle.js" );
+includeOnce( "js/normal/asjs/geom/asjs.Point.js" );
+includeOnce( "js/normal/asjs/geom/asjs.Rectangle.js" );
 
 ASJS.Scale9Grid = function() {
 	var that = new ASJS.Sprite();

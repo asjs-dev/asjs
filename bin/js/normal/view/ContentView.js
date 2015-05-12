@@ -1,10 +1,10 @@
-includeOnce( "js/normal/asjs/asjs.Sprite.js" );
-includeOnce( "js/normal/asjs/asjs.Label.js" );
-includeOnce( "js/normal/asjs/asjs.Button.js" );
-includeOnce( "js/normal/asjs/asjs.AnimatedSprite.js" );
-includeOnce( "js/normal/asjs/asjs.Rectangle.js" );
-includeOnce( "js/normal/asjs/asjs.Point.js" );
-includeOnce( "js/normal/asjs/asjs.Cycler.js" );
+includeOnce( "js/normal/asjs/display/asjs.Sprite.js" );
+includeOnce( "js/normal/asjs/display/asjs.Label.js" );
+includeOnce( "js/normal/asjs/display/form/asjs.Button.js" );
+includeOnce( "js/normal/asjs/display/asjs.AnimatedSprite.js" );
+includeOnce( "js/normal/asjs/geom/asjs.Rectangle.js" );
+includeOnce( "js/normal/asjs/geom/asjs.Point.js" );
+includeOnce( "js/normal/asjs/utils/asjs.Cycler.js" );
 includeOnce( "js/normal/mediator/ContentMediator.js" );
 includeOnce( "js/normal/model/Language.js" );
 

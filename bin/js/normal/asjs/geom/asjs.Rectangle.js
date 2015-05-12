@@ -1,4 +1,4 @@
-includeOnce( "js/normal/asjs/asjs.Point.js" );
+includeOnce( "js/normal/asjs/geom/asjs.Point.js" );
 
 ASJS.Rectangle = function( tx, ty, twidth, theight ) {
 	var that = new ASJS.Point( tx, ty );

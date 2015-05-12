@@ -1,4 +1,4 @@
-includeOnce( "js/normal/asjs/asjs.NotificationHandler.js" );
+includeOnce( "js/normal/asjs/mvc/asjs.NotificationHandler.js" );
 
 ASJS.NotificationDispatcher = function() {
 	var that = {};

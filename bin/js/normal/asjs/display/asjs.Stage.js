@@ -1,4 +1,4 @@
-includeOnce( "js/normal/asjs/asjs.Sprite.js" );
+includeOnce( "js/normal/asjs/display/asjs.Sprite.js" );
 
 ASJS.Stage = function() {
 	function StageInstance() {

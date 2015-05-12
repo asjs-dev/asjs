@@ -1,4 +1,4 @@
-includeOnce( "js/normal/asjs/asjs.FileSelector.js" );
+includeOnce( "js/normal/asjs/display/form/asjs.FileSelector.js" );
 
 ASJS.ImageSelector = function() {
 	var that = new ASJS.FileSelector();

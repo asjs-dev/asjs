@@ -1,4 +1,4 @@
-includeOnce( "js/normal/asjs/asjs.Sprite.js" );
+includeOnce( "js/normal/asjs/display/asjs.Sprite.js" );
 
 ASJS.FormElement = function( domElement ) {
 	var that = new ASJS.Sprite( domElement );

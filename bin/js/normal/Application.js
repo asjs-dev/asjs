@@ -1,7 +1,6 @@
 includeOnce( "js/normal/asjs/asjs.Main.js" );
-includeOnce( "js/normal/asjs/asjs.Stage.js" );
-includeOnce( "js/normal/asjs/asjs.Sprite.js" );
-includeOnce( "js/normal/asjs/asjs.NotificationDispatcher.js" );
+includeOnce( "js/normal/asjs/display/asjs.Stage.js" );
+includeOnce( "js/normal/asjs/display/asjs.Sprite.js" );
 includeOnce( "js/normal/controller/command/StartupCommand.js" );
 includeOnce( "js/normal/model/Language.js" );
 includeOnce( "js/normal/mediator/ContentMediator.js" );

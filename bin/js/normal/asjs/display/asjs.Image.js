@@ -1,4 +1,4 @@
-includeOnce( "js/normal/asjs/asjs.DisplayObject.js" );
+includeOnce( "js/normal/asjs/display/asjs.DisplayObject.js" );
 
 ASJS.Image = function() {
 	var that = new ASJS.DisplayObject( "<img />" );

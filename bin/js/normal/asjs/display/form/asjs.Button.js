@@ -1,4 +1,4 @@
-includeOnce( "js/normal/asjs/asjs.FormElement.js" );
+includeOnce( "js/normal/asjs/display/form/asjs.FormElement.js" );
 
 ASJS.Button = function() {
 	var that = new ASJS.FormElement( "<input />" );
