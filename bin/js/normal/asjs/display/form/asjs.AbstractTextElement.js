@@ -66,8 +66,7 @@ ASJS.AbstractTextElement = function( domElement ) {
 		that.addEventListener( "keyup", function( event ) {
 			var charCode = event.which ? event.which : event.keyCode;
 			if ( _restrict && ( event.ctrlKey && _controlChars[ charCode ] != undefined ) ) {
-				/*var regExp = new RegExp( "^(?!.*?(" + _restrict + ")).*$", "g" );*/
-				var regExp = new RegExp( "^(?!" + _restrict + ").*$", "g" );
+				var regExp = new RegExp( "(?!" + _restrict + ").", "g" );
 				that.val = that.val.replace( regExp, '' );
 			}
 		});
