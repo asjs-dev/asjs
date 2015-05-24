@@ -214,6 +214,12 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	that.domObject = $( domElement || "<div />", { tabindex: "-1", style: ( "pointer-events: auto; position: absolute; display: " + _cssDisplay + "; width: 0px; height: 0px; top: 0px; left: 0px;" ) } );
 	
+	(function() {
+		that.id = "intance_" + ASJS.DisplayObject.INSTANCE_ID;
+		ASJS.DisplayObject.INSTANCE_ID++;
+	})();
+	
 	return that;
 };
-ASJS.DisplayObject.THETA = Math.PI / 180;
+ASJS.DisplayObject.THETA		= Math.PI / 180;
+ASJS.DisplayObject.INSTANCE_ID	= 0;

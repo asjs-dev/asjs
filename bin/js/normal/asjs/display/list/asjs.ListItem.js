@@ -1,4 +1,5 @@
 includeOnce( "js/normal/asjs/display/form/asjs.FormElement.js" );
+includeOnce( "js/normal/asjs/display/list/asjs.List.js" );
 
 ASJS.ListItem = function( domElement ) {
 	var that = new ASJS.FormElement( domElement );

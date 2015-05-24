@@ -12,6 +12,11 @@ ASJS.Stage = function() {
 		var _stageWidth = 0;
 		var _stageHeight = 0;
 		
+		defineProperty( that, "title", {
+			get: function() { return document.title; },
+			set: function( value ) { document.title = value; }
+		});
+		
 		defineProperty( that, "stageWidth", {
 			get: function() { return _stageWidth; }
 		});
@@ -62,4 +67,4 @@ ASJS.Stage = function() {
 		}
 	});
 };
-ASJS.Stage.RESIZE	= "Stage-resize"
+ASJS.Stage.RESIZE	= "ASJS-Stage-resize"

@@ -16,6 +16,7 @@ ASJS.List = function() {
 			return value;
 		},
 		set: function( value ) {
+			if ( that.val == value ) return;
 			var i;
 			var item;
 			for ( i = 0; i < that.numChildren; i++ ) {
@@ -52,21 +53,6 @@ ASJS.List = function() {
 	that.addItem = function( item ) {
 		item.name = _name;
 		that.addChild( item );
-	}
-	
-	that.removedFromStage = function() {
-		that.removeEventListeners();
-	}
-	
-	that.addedToStage = function() {
-		that.addEventListener( "change", function( event ) {
-			var i;
-			var item;
-			for ( i = 0; i < that.numChildren; i++ ) {
-				item = that.getChildAt( i );
-				item.drawNow();
-			}
-		});
 	}
 	
 	return that;

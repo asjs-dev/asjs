@@ -51,11 +51,7 @@ ASJS.AbstractTextElement = function( domElement ) {
 		set: function( value ) { _restrict = value; }
 	})
 	
-	that.removedFromStage = function() {
-		that.removeEventListeners();
-	}
-	
-	that.addedToStage = function() {
+	(function() {
 		that.addEventListener( "keypress", function( event ) {
 			if ( _restrict ) {
 				var charCode = event.which ? event.which : event.keyCode;
@@ -70,7 +66,7 @@ ASJS.AbstractTextElement = function( domElement ) {
 				that.val = that.val.replace( regExp, '' );
 			}
 		});
-	}
+	})();
 	
 	return that;
 }

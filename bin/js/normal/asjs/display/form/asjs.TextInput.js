@@ -34,6 +34,6 @@ ASJS.TextInput = function() {
 	
 	return that;
 }
-ASJS.TextInput.TYPE_TEXT		= "TextInput-typeText";
-ASJS.TextInput.TYPE_PASSWORD	= "TextInput-typePassword";
-ASJS.TextInput.TYPE_EMAIL		= "TextInput-typeEmail";
+ASJS.TextInput.TYPE_TEXT		= "ASJS-TextInput-typeText";
+ASJS.TextInput.TYPE_PASSWORD	= "ASJS-TextInput-typePassword";
+ASJS.TextInput.TYPE_EMAIL		= "ASJS-TextInput-typeEmail";

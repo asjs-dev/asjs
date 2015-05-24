@@ -18,7 +18,7 @@ function StartupCommand() {
 		that.sendNotification( PreloaderMediator.SHOW );
 		
 		_cookies.createCookie( 'language', _language.selectedLanguage );
-		document.title = _language.getText( "title" );
+		stage.title = _language.getText( "title" );
 		
 		var cycler = new ASJS.Cycler().instance;
 			cycler.fps = 24;

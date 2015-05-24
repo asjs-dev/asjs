@@ -40,6 +40,7 @@ ASJS.Checkbox = function() {
 		that.addChild( _checkbox );
 		
 		_label.setSize( "100%", "100%" );
+		_label.enabled = false;
 		that.addChild( _label );
 	})();
 	

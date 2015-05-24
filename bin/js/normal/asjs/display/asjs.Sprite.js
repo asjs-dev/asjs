@@ -74,7 +74,7 @@ ASJS.Sprite = function( domElement ) {
 		var child;
 		for ( i = 0; i < that.numChildren; i++ ) {
 			child = that.getChildAt( i );
-			if ( domObject == child.domObject[ 0 ] ) return child;
+			if ( domObject.id == child.id ) return child;
 		}
 		return null;
 	}
