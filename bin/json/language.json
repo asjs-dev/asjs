@@ -1,23 +1,27 @@
 {
-	"title": {
-		"en": "<AS/JS> - BASE"
-	},
-	"notification_ok_button": {
-		"en": "OK"
-	},
-	"notification_cancel_button": {
-		"en": "CANCEL"
-	},
-	"new_asjs_base_site": {
-		"en": "Hello <AS/JS>!"
-	},
-	"show_notification_window": {
-		"en": "Show Notification Window"
-	},
-	"notification_title": {
-		"en": "<AS/JS> Notification Window"
-	},
-	"notification_content": {
-		"en": "<AS/JS> Notification Content"
+	"supported_languages": [ "en" ],
+	"default_language": "en",
+	"elements": {
+		"title": {
+			"en": "<AS/JS> - BASE"
+		},
+		"notification_ok_button": {
+			"en": "OK"
+		},
+		"notification_cancel_button": {
+			"en": "CANCEL"
+		},
+		"new_asjs_base_site": {
+			"en": "Hello <AS/JS>!"
+		},
+		"show_notification_window": {
+			"en": "Show Notification Window"
+		},
+		"notification_title": {
+			"en": "<AS/JS> Notification Window"
+		},
+		"notification_content": {
+			"en": "Open the console and click inside and outside of the \"Hello &lt;AS/JS&gt;!\" box."
+		}
 	}
 }

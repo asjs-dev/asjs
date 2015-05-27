@@ -1,21 +1,18 @@
-includeOnce( "js/normal/Tools.js" );
-includeOnce( "js/normal/model/Cookies.js" );
-
 function Language() {
 	function LanguageInstance() {
 		var that = {};
 		
-		var _tools = new Tools().instance;
-		var _cookies = new Cookies().instance;
-		
 		var _languageItems = {};
-		var _supportedLanguages = [ 'en' ];
-		var _defaultLanguage = _supportedLanguages[ 0 ];
+		var _supportedLanguages;
 		var _selectedLanguage;
 	
 		defineProperty( that, "data", {
 			get: function() { return _languageItems; },
-			set: function( value ) { _languageItems = value; }
+			set: function( value ) {
+				_supportedLanguages = value.supported_languages;
+				_selectedLanguage = value.default_language;
+				_languageItems = value.elements;
+			}
 		});
 	
 		defineProperty( that, "supportedLanguages", {
@@ -23,15 +20,8 @@ function Language() {
 		});
 	
 		defineProperty( that, "selectedLanguage", {
-			get: function() {
-				if ( !_selectedLanguage ) {
-					_selectedLanguage = _tools.getURLParams( 'lang' );
-					if ( _selectedLanguage == undefined || _supportedLanguages.indexOf( _selectedLanguage ) == -1 ) _selectedLanguage =_cookies.readCookie( 'language' );
-					if ( _selectedLanguage == undefined || _supportedLanguages.indexOf( _selectedLanguage ) == -1 ) _selectedLanguage = _defaultLanguage;
-				}
-				return _selectedLanguage;
-			},
-			set: function( value ) { _selectedLanguage = value; }
+			set: function( value ) { _selectedLanguage = value; },
+			get: function() { return _selectedLanguage; }
 		});
 	
 		that.getText = function( key ) {

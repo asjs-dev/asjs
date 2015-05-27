@@ -3,11 +3,7 @@ function Tools() {
 		var that = {};
 	
 		var _urlParams = {};
-	
-		that.elementExists = function( element ) {	
-			return $( element ).length;
-		}
-	
+		
 		that.replaceText = function( text, data ) {
 			for ( var key in data ) text = text.split( "{{" + key + "}}" ).join( data[ key ] );
 			return text;

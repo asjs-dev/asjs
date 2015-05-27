@@ -1,6 +1,7 @@
 includeOnce( "js/normal/controller/command/AbstractCommand.js" );
 includeOnce( "js/normal/mediator/PreloaderMediator.js" );
 includeOnce( "js/normal/mediator/ContentMediator.js" );
+includeOnce( "js/normal/Tools.js" );
 includeOnce( "js/normal/model/Language.js" );
 includeOnce( "js/normal/model/Cookies.js" );
 includeOnce( "js/normal/asjs/utils/asjs.Cycler.js" );
@@ -11,11 +12,17 @@ function StartupCommand() {
 	var _language = new Language().instance;
 	var _cookies = new Cookies().instance;
 	var _cycler = new ASJS.Cycler().instance;
+	var _tools = new Tools().instance;
 	
 	var _sleepToResizeId;
 	
 	that.execute = function() {
 		that.sendNotification( PreloaderMediator.SHOW );
+		
+		var selectedLanguage = _tools.getURLParams( 'lang' );
+		if ( selectedLanguage == undefined || _language.supportedLanguages.indexOf( selectedLanguage ) == -1 ) selectedLanguage = _cookies.readCookie( 'language' );
+		if ( selectedLanguage == undefined || _language.supportedLanguages.indexOf( selectedLanguage ) == -1 ) selectedLanguage = _language.defaultLanguage;
+		_language.selectedLanguage = selectedLanguage;
 		
 		_cookies.createCookie( 'language', _language.selectedLanguage );
 		stage.title = _language.getText( "title" );
