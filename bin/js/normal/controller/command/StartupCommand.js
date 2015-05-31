@@ -21,7 +21,7 @@ function StartupCommand() {
 		
 		var selectedLanguage = _tools.getURLParams( 'lang' );
 		if ( selectedLanguage == undefined || _language.supportedLanguages.indexOf( selectedLanguage ) == -1 ) selectedLanguage = _cookies.readCookie( 'language' );
-		if ( selectedLanguage == undefined || _language.supportedLanguages.indexOf( selectedLanguage ) == -1 ) selectedLanguage = _language.defaultLanguage;
+		if ( selectedLanguage == undefined || _language.supportedLanguages.indexOf( selectedLanguage ) == -1 ) selectedLanguage = _language.selectedLanguage;
 		_language.selectedLanguage = selectedLanguage;
 		
 		_cookies.createCookie( 'language', _language.selectedLanguage );
