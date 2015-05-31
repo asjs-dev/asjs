@@ -7,6 +7,7 @@ includeOnce( "js/normal/asjs/geom/asjs.Point.js" );
 includeOnce( "js/normal/asjs/utils/asjs.Cycler.js" );
 includeOnce( "js/normal/mediator/ContentMediator.js" );
 includeOnce( "js/normal/model/Language.js" );
+includeOnce( "js/normal/asjs/event/asjs.MouseEvent.js" );
 
 function ContentView() {
 	var that = new ASJS.Sprite();
@@ -46,7 +47,7 @@ function ContentView() {
 		_button.addClass( "box_button" );
 		_button.setSize( 320, 40 );
 		_button.move( 0, _box.height - _button.height );
-		_button.addEventListener( "click", function( event ) {
+		_button.addEventListener( ASJS.MouseEvent.CLICK, function( event ) {
 			that.dispatchEvent( ContentMediator.ON_SHOW_NOTIFICATION_WINDOW_CLICK );
 		});
 		_box.addChild( _button );
@@ -100,7 +101,7 @@ function ContentView() {
 		_animatedSprite.setSize( 200, 200 );
 		_animatedSprite.play( "fireworks" );
 		
-		_animatedSprite.addEventListener( "click", function( event ) {
+		_animatedSprite.addEventListener( ASJS.MouseEvent.CLICK, function( event ) {
 			if ( Math.round( Math.random() * 1 ) == 0 ) {
 				_animatedSprite.setSize( 256, 128 );
 				_animatedSprite.play( "explode" );
@@ -110,7 +111,7 @@ function ContentView() {
 			}
 		});
 		
-		that.addEventListener( "click", function( event ) {
+		that.addEventListener( ASJS.MouseEvent.CLICK, function( event ) {
 			var mouse = new ASJS.Mouse().instance;
 			console.log( "_box.hitTest: " + _box.hitTest( new ASJS.Point( mouse.mouseX, mouse.mouseY ) ) );
 		});

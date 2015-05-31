@@ -1,4 +1,5 @@
 includeOnce( "js/normal/asjs/geom/asjs.Point.js" );
+includeOnce( "js/normal/asjs/event/asjs.MouseEvent.js" );
 
 ASJS.Mouse = function() {
 	function MouseInstance() {
@@ -24,7 +25,7 @@ ASJS.Mouse = function() {
 		};
 	
 		(function() {
-			$( window ).on( "mousemove", function( event ) {
+			$( window ).on( ASJS.MouseEvent.MOUSE_MOVE, function( event ) {
 				_mouseX = event.pageX;
 				_mouseY = event.pageY;
 			});

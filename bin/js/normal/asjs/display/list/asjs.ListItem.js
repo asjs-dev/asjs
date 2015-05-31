@@ -1,15 +1,13 @@
 includeOnce( "js/normal/asjs/display/form/asjs.FormElement.js" );
-includeOnce( "js/normal/asjs/display/list/asjs.List.js" );
 
 ASJS.ListItem = function( domElement ) {
 	var that = new ASJS.FormElement( domElement );
-	var _name = "";
-	var _checked = "";
+	var _checked = false;
 	var _value = "";
 	
 	defineProperty( that, "name", {
-		get: function() { return _name; },
-		set: function( value ) { _name = value; }
+		get: function() { return that.getAttr( "name" ); },
+		set: function( value ) { that.setAttr( "name", value ); }
 	});
 	
 	defineProperty( that, "checked", {

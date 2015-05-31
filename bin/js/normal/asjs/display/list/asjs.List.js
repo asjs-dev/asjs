@@ -21,8 +21,7 @@ ASJS.List = function() {
 			var item;
 			for ( i = 0; i < that.numChildren; i++ ) {
 				item = that.getChildAt( i );
-				if ( item.val == value ) item.checked = true;
-				else item.checked = false;
+				item.checked = item.val == value;
 			}
 		}
 	});

@@ -3,6 +3,7 @@ includeOnce( "js/normal/asjs/display/asjs.Sprite.js" );
 includeOnce( "js/normal/asjs/display/asjs.Scale9Grid.js" );
 includeOnce( "js/normal/asjs/geom/asjs.Point.js" );
 includeOnce( "js/normal/asjs/geom/asjs.Rectangle.js" );
+includeOnce( "js/normal/asjs/event/asjs.MouseEvent.js" );
 
 function NotificationView() {
 	var that = new ASJS.Sprite();
@@ -90,13 +91,13 @@ function NotificationView() {
 		_content.addClass( "notification_content" );
 		that.addChild( _content );
 	
-		_okButton.addEventListener( "click", function( event ) {
+		_okButton.addEventListener( ASJS.MouseEvent.CLICK, function( event ) {
 			that.dispatchEvent( NotificationMediator.HIDE );
 			if ( _notificationItem[ 'okCallback' ] != undefined ) _notificationItem[ 'okCallback' ]();
 		});
 		drawButtonStyle( _okButton );
 	
-		_cancelButton.addEventListener( "click", function( event ) {
+		_cancelButton.addEventListener( ASJS.MouseEvent.CLICK, function( event ) {
 			that.dispatchEvent( NotificationMediator.HIDE );
 			if ( _notificationItem[ 'cancelCallback' ] != undefined ) _notificationItem[ 'cancelCallback' ]();
 		});

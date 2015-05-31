@@ -1,5 +1,6 @@
 includeOnce( "js/normal/asjs/display/form/asjs.FormElement.js" );
 includeOnce( "js/normal/asjs/display/asjs.DisplayObject.js" );
+includeOnce( "js/normal/asjs/event/asjs.MouseEvent.js" );
 
 ASJS.FileSelector = function() {
 	var that = new ASJS.FormElement();
@@ -43,7 +44,7 @@ ASJS.FileSelector = function() {
 		that._fileInput.visible = false;
 		that.addChild( that._fileInput );
 		
-		that.addEventListener( "click", function( event ) {
+		that.addEventListener( ASJS.MouseEvent.CLICK, function( event ) {
 			if ( event.target == that._fileInput.domObject[ 0 ] ) return;
 			that._fileInput.domObject.click();
 		});
