@@ -3,6 +3,19 @@ includeOnce( "js/normal/asjs/display/asjs.DisplayObject.js" );
 ASJS.Sprite = function( domElement ) {
 	var that = new ASJS.DisplayObject( domElement );
 	var _children = [];
+	var _mouseChildren = true;
+	
+	defineProperty( that, "mouseChildren", {
+		get: function() { return _mouseChildren; },
+		set: function( value ) {
+			_mouseChildren = value;
+			var i;
+			var l = that.numChildren;
+			for ( i = 0; i < l; i++ ){
+				that.getChildAt( i ).enabled = mouseChildren;
+			}
+		}
+	});
 	
 	defineProperty( that, "numChildren", {
 		get: function() { return _children.length; }
@@ -21,6 +34,7 @@ ASJS.Sprite = function( domElement ) {
 		if ( child.parent ) child.parent.removeChild( child );
 		that.domObject.append( child.domObject );
 		child.parent = that;
+		child.enabled = _mouseChildren;
 		_children.push( child );
 		that.setChildIndex( child, index );
 		return child;

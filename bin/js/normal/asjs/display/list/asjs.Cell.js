@@ -1,3 +1,4 @@
+includeOnce( "js/normal/asjs/event/asjs.MouseEvent.js" );
 includeOnce( "js/normal/asjs/display/asjs.Sprite.js" );
 
 ASJS.Cell = function( domElement ) {
@@ -26,9 +27,24 @@ ASJS.Cell = function( domElement ) {
 		}
 	});
 	
+	that.drawNow = function() {
+		console.log( that.parent.width + " " + that.parent.height );
+	}
+	
 	that.showData = function() {
 		console.log( that.data );
 	}
 	
+	(function() {
+		that.mouseChildren = false;
+		that.addEventListener( ASJS.MouseEvent.CLICK, function( event ) {
+			var e = new ASJS.MouseEvent( ASJS.Cell.CLICK );
+				e.ctrlKey = event.ctrlKey;
+				e.shiftKey = event.shiftKey;
+			that.dispatchEvent( e );
+		});
+	})();
+	
 	return that;
 }
+ASJS.Cell.CLICK	= "ASJS-Cell-click";

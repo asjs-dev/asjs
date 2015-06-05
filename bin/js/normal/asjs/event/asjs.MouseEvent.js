@@ -1,5 +1,7 @@
-ASJS.MouseEvent = function() {
-	var that = {};
+includeOnce( "js/normal/asjs/event/asjs.Event.js" );
+
+ASJS.MouseEvent = function( type ) {
+	var that = new ASJS.Event( type );
 	return that;
 }
 ASJS.MouseEvent.CLICK		= "click";

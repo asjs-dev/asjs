@@ -1,5 +1,7 @@
-ASJS.KeyboardEvent = function() {
-	var that = {};
+includeOnce( "js/normal/asjs/event/asjs.Event.js" );
+
+ASJS.KeyboardEvent = function( type ) {
+	var that = new ASJS.Event( type );
 	return that;
 }
 ASJS.KeyboardEvent.KEY_UP		= "keyup";

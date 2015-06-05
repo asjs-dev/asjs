@@ -1,10 +1,6 @@
 includeOnce( "js/normal/asjs/display/asjs.DisplayObject.js" );
 
 ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
-	if ( !bitmapWidth || !bitmapHeight || bitmapWidth < 1 || bitmapHeight < 1 ) {
-		throw new Error( "Parameters is null or lower than 1" );
-	}
-	
 	var that = new ASJS.DisplayObject( "<canvas />" );
 	
 	var TARGET_FILL = "targetFill";
@@ -56,6 +52,22 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 		beginPatternFill( TARGET_FILL, image, repeat );
 	}
 	
+	that.translate = function( x, y ) {
+		getContext().translate( x, y );
+	}
+	
+	that.rotate = function( value ) {
+		getContext().rotate( value * ASJS.DisplayObject.THETA );
+	}
+	
+	that.scale = function( w, h ) {
+		getContext().scale( w, h );
+	}
+	
+	that.transform = function( matrix ) {
+		getContext().transform( matrix.a, matrix.b, matrix.c, matrix.d, matrix.e, matrix.f );
+	}
+	
 	that.endLineStyle = function() {
 		var ctx = getContext();
 		getContext().closePath();
@@ -105,7 +117,10 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	}
 	
 	that.drawImage = function( image, sx, sy, sw, sh, x, y, w, h ) {
-		getContext().drawImage( image.domObject[ 0 ], sx, sy, sw, sh, x, y, w, h );
+		try {
+			getContext().drawImage( image.domObject[ 0 ], sx, sy, sw, sh, x, y, w, h );
+		} catch ( e ) {
+		}
 	}
 	
 	that.textStyle = function( font, align, baseline ) {
@@ -217,6 +232,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 		var pattern = getContext().createPattern( image.domObject[ 0 ], repeat || ASJS.Bitmap.PATTERN_REPEAT );
 		fillStyle( targetType, pattern );
 	}
+	
 	function getContext() {
 		return that.domObject[ 0 ].getContext( "2d" );
 	}
@@ -241,8 +257,9 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	}
 	
 	(function() {
-		that.bitmapWidth = bitmapWidth;
-		that.bitmapHeight = bitmapHeight;
+		that.bitmapWidth = bitmapWidth || 1;
+		that.bitmapHeight = bitmapHeight || 1;
+		//getContext().globalCompositeOperation = "destination-in";
 	})();
 	
 	return that;

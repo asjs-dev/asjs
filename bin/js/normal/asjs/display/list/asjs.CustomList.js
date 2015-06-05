@@ -1,12 +1,14 @@
 includeOnce( "js/normal/asjs/display/asjs.Sprite.js" );
 includeOnce( "js/normal/asjs/display/list/asjs.Cell.js" );
 
-ASJS.List = function() {
+ASJS.CustomList = function() {
 	var that = new ASJS.Sprite();
 	var _name;
 	var _multiselect = false;
 	var _cell = ASJS.Cell;
 	var _listItems = [];
+	var _itemsContainer = new ASJS.Sprite();
+	var _lastCellIndex = 0;
 	
 	defineProperty( that, "cell", {
 		get: function() { return _cell; },
@@ -23,10 +25,10 @@ ASJS.List = function() {
 			var value = [];
 			var i;
 			var item;
-			var itemsLength = that.numChildren;
-			for ( i = 0; i < itemsLength; i++ ) {
-				item = that.getChildAt( i );
-				if ( item.checked ) value.push( item.id );
+			var l = _itemsContainer.numChildren;
+			for ( i = 0; i < l; i++ ) {
+				item = _itemsContainer.getChildAt( i );
+				if ( item.checked ) value.push( item );
 			}
 			return value;
 		},
@@ -36,12 +38,12 @@ ASJS.List = function() {
 			var i;
 			var j;
 			var item;
-			var itemsLength = that.numChildren;
+			var l = _itemsContainer.numChildren;
 			var valueLength = that.multiselect ? value.length : 1;
 			for ( j = 0; j < valueLength; j++ ) {
-				for ( i = 0; i < itemsLength; i++ ) {
-					item = that.getChildAt( i );
-					if ( item.id == value[ j ] ) {
+				for ( i = 0; i < l; i++ ) {
+					item = _itemsContainer.getChildAt( i );
+					if ( i == value[ j ] ) {
 						item.checked = true;
 					}
 				}
@@ -55,8 +57,9 @@ ASJS.List = function() {
 			_name = value;
 			var i;
 			var item;
-			for ( i = 0; i < that.numChildren; i++ ) {
-				item = that.getChildAt( i );
+			var l = _itemsContainer.numChildren;
+			for ( i = 0; i < l; i++ ) {
+				item = _itemsContainer.getChildAt( i );
 				item.name = _name;
 			}
 		}
@@ -65,20 +68,20 @@ ASJS.List = function() {
 	that.clearSelection = function() {
 		var i;
 		var item;
-		var l = that.numChildren;
+		var l = _itemsContainer.numChildren;
 		for ( i = 0; i < l; i++ ) {
-			item = that.getChildAt( i );
+			item = _itemsContainer.getChildAt( i );
 			item.checked = false;
 		}
 	}
 	
 	that.clearList = function() {
-		while ( that.numChildren > 0 ) that.removeChildAt( 0 );
+		while ( _itemsContainer.numChildren > 0 ) _itemsContainer.removeChildAt( 0 );
 	}
 	
 	that.setList = function( cellDataVoList ) {
-		_listItems = cellDataVoList;
 		that.clearList();
+		_listItems = cellDataVoList;
 		var i;
 		var l = _listItems.length;
 		for ( i = 0; i < l; i++ ) {
@@ -87,16 +90,16 @@ ASJS.List = function() {
 	}
 	
 	that.getItemAt = function( index ) {
-		return that.getChildAt( index ).data;
+		return _itemsContainer.getChildAt( index ).data;
 	}
 	
 	that.getItemById = function( id ) {
 		var data;
 		var i;
 		var item;
-		var itemsLength = that.numChildren;
-		for ( i = 0; i < itemsLength; i++ ) {
-			item = that.getChildAt( i );
+		var l = _itemsContainer.numChildren;
+		for ( i = 0; i < l; i++ ) {
+			item = _itemsContainer.getChildAt( i );
 			if ( item.id == id ) data = item.data;
 		}
 		return data;
@@ -106,14 +109,53 @@ ASJS.List = function() {
 		var cell = new _cell();
 			cell.name = _name;
 			cell.data = cellDataVo;
-		return that.addChild( cell );
+		return _itemsContainer.addChild( cell );
 	}
 	
 	that.addItemAt = function( cellDataVo, index ) {
 		var cell = that.addItem( cellDataVo );
-		that.setChildIndex( cell, index );
+		_itemsContainer.setChildIndex( cell, index );
 		return cell;
 	}
+	
+	that.drawNow = function() {
+		_itemsContainer.setSize( that.width, that.height );
+		var i;
+		var l = _itemsContainer.numChildren;
+		var cell;
+		for ( i = 0; i < l; i++ ) {
+			cell = _itemsContainer.getChildAt( i );
+			cell.drawNow();
+		}
+	}
+	
+	function onCellClick( event ) {
+		var cell = _itemsContainer.getChildByDOMObject( event.target );
+		if ( !cell ) return;
+		
+		if ( !that.multiselect || ( !event.ctrlKey && !event.shiftKey ) ) that.clearSelection();
+		
+		cell.checked = event.ctrlKey ? !cell.checked : true;
+		var cellIndex = _itemsContainer.getChildIndex( cell );
+		
+		if ( !event.ctrlKey && event.shiftKey ) {
+			var i;
+			var l = Math.abs( cellIndex - _lastCellIndex );
+			var step = cellIndex > _lastCellIndex ? -1 : 1;
+			for ( i = 0; i < l; i++ ) {
+				cell = _itemsContainer.getChildAt( cellIndex + ( i * step ) );
+				cell.checked = true;
+			}
+		}
+		_lastCellIndex = cellIndex;
+		
+		that.dispatchEvent( ASJS.CustomList.CHANGE );
+	}
+	
+	(function() {
+		_itemsContainer.addEventListener( ASJS.Cell.CLICK, onCellClick );
+		that.addChild( _itemsContainer );
+	})();
 	
 	return that;
 }

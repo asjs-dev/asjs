@@ -1,8 +1,8 @@
-ASJS.Point = function( tx, ty ) {
+ASJS.Point = function( x, y ) {
 	var that = {};
 	
-	that.x = tx || 0;
-	that.y = ty || 0;
+	that.x = x || 0;
+	that.y = y || 0;
 	
 	return that;
 }

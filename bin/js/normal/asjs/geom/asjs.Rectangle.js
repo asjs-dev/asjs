@@ -1,10 +1,10 @@
 includeOnce( "js/normal/asjs/geom/asjs.Point.js" );
 
-ASJS.Rectangle = function( tx, ty, twidth, theight ) {
-	var that = new ASJS.Point( tx, ty );
+ASJS.Rectangle = function( x, y, width, height ) {
+	var that = new ASJS.Point( x, y );
 	
-	that.width = twidth || 0;
-	that.height = theight || 0;
+	that.width = width || 0;
+	that.height = height || 0;
 	
 	return that;
 }
