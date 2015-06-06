@@ -1,9 +1,7 @@
-ASJS.CellDataVo = function( value ) {
+ASJS.CellDataVo = function( id ) {
 	var that = {};
 	
-	var _data = value || {};
-	
-	that.id = _data.id || null;
+	that.id = id || null;
 	
 	return that;
 }

@@ -8,6 +8,8 @@ ASJS.FormElement = function( domElement ) {
 		set: function( value ) { that.setAttr( "name", value ); }
 	});
 	
+	that.drawNow = function() {};
+	
 	(function() {
 		that.setAttr( "tabindex", "auto" );
 	})();

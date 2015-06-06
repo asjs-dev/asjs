@@ -1,8 +1,8 @@
-includeOnce( "js/normal/asjs/display/list/asjs.ListItem.js" );
+includeOnce( "js/normal/asjs/display/form/asjs.FormElement.js" );
 includeOnce( "js/normal/asjs/display/asjs.DisplayObject.js" );
 
 ASJS.RadioButton = function() {
-	var that = new ASJS.ListItem( "<label />" );
+	var that = new ASJS.FormElement( "<label />" );
 	var _super = {};
 	var _radio = new ASJS.DisplayObject( "<input />" );
 	var _label = new ASJS.DisplayObject();
@@ -11,13 +11,7 @@ ASJS.RadioButton = function() {
 	defineProperty( that, "enabled", {
 		set: function( value ) {
 			_super.enabled = value;
-			if ( value ) {
-				_radio.domObject.removeAttr( "disabled" );
-				_radio.setCSS( "pointer-events", "auto" );
-			} else {
-				_radio.setAttr( "disabled", "disabled" );
-				_radio.setCSS( "pointer-events", "none" );
-			}
+			_radio.enabled = that.enabled;
 			that.drawNow();
 		}
 	});

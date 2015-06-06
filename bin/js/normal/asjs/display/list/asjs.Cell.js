@@ -27,13 +27,9 @@ ASJS.Cell = function( domElement ) {
 		}
 	});
 	
-	that.drawNow = function() {
-		console.log( that.parent.width + " " + that.parent.height );
-	}
+	that.drawNow = function() {}
 	
-	that.showData = function() {
-		console.log( that.data );
-	}
+	that.showData = function() {}
 	
 	(function() {
 		that.mouseChildren = false;

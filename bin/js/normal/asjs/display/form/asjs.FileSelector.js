@@ -21,13 +21,7 @@ ASJS.FileSelector = function() {
 	defineProperty( that, "enabled", {
 		set: function( value ) {
 			_super.enabled = value;
-			if ( value ) {
-				that._fileInput.domObject.removeAttr( "disabled" );
-				that._fileInput.setCSS( "pointer-events", "auto" );
-			} else {
-				that._fileInput.setAttr( "disabled", "disabled" );
-				that._fileInput.setCSS( "pointer-events", "none" );
-			}
+			that._fileInput.enabled = that.enabled;
 			that.drawNow();
 		}
 	})

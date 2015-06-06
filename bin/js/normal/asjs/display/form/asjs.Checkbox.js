@@ -11,13 +11,7 @@ ASJS.Checkbox = function() {
 	defineProperty( that, "enabled", {
 		set: function( value ) {
 			_super.enabled = value;
-			if ( value ) {
-				_checkbox.domObject.removeAttr( "disabled" );
-				_checkbox.setCSS( "pointer-events", "auto" );
-			} else {
-				_checkbox.setAttr( "disabled", "disabled" );
-				_checkbox.setCSS( "pointer-events", "none" );
-			}
+			_checkbox.enabled = that.enabled;
 			that.drawNow();
 		}
 	});

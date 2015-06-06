@@ -19,13 +19,7 @@ ASJS.DropDown = function() {
 	defineProperty( that, "enabled", {
 		set: function( value ) {
 			_super.enabled = value;
-			if ( value ) {
-				_select.domObject.removeAttr( "disabled" );
-				_select.setCSS( "pointer-events", "auto" );
-			} else {
-				_select.setAttr( "disabled", "disabled" );
-				_select.setCSS( "pointer-events", "none" );
-			}
+			_select.enabled = that.enabled;
 			that.drawNow();
 		}
 	})
