@@ -1,4 +1,6 @@
 includeOnce( "js/normal/asjs/display/asjs.DisplayObject.js" );
+includeOnce( "js/normal/asjs/geom/asjs.Rectangle.js" );
+includeOnce( "js/normal/asjs/geom/asjs.GeomUtils.js" );
 
 ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	var that = new ASJS.DisplayObject( "<canvas />" );
@@ -57,7 +59,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	}
 	
 	that.rotate = function( value ) {
-		getContext().rotate( value * ASJS.DisplayObject.THETA );
+		getContext().rotate( value * ASJS.GeomUtils.THETA );
 	}
 	
 	that.scale = function( w, h ) {
@@ -119,8 +121,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	that.drawImage = function( image, sx, sy, sw, sh, x, y, w, h ) {
 		try {
 			getContext().drawImage( image.domObject[ 0 ], sx, sy, sw, sh, x, y, w, h );
-		} catch ( e ) {
-		}
+		} catch ( e ) {}
 	}
 	
 	that.textStyle = function( font, align, baseline ) {
@@ -210,7 +211,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 		fillStyle( targetType, rgbToString( rgb ) );
 	}
 	
-	function beginGradientFill( targetType, type, gradientParams, colors ) {
+	function beginGradientFill( targetType, type, gradientData, colors ) {
 		var ctx = getContext();
 		var gradient;
 		switch ( type ) {
@@ -259,7 +260,6 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	(function() {
 		that.bitmapWidth = bitmapWidth || 1;
 		that.bitmapHeight = bitmapHeight || 1;
-		//getContext().globalCompositeOperation = "destination-in";
 	})();
 	
 	return that;
@@ -277,33 +277,23 @@ ASJS.Bitmap.LINE_JOIN_BEVEL		= "bevel";
 ASJS.Bitmap.LINE_JOIN_ROUND		= "round";
 ASJS.Bitmap.LINE_JOIN_MITER		= "miter";
 ASJS.Bitmap.LinearGradientData = function( x, y, w, h ) {
-	var that = {};
-	
-	that.x = x || 0;
-	that.y = y || 0;
-	that.w = w || 0;
-	that.h = h || 0;
-	
+	var that = new ASJS.Rectangle();
 	return that;
 }
 ASJS.Bitmap.RadialGradientData = function( x0, y0, r0, x1, y1, r1 ) {
 	var that = {};
-	
-	that.x0 = x0 || 0;
-	that.y0 = y0 || 0;
-	that.r0 = r0 || 0;
-	that.x1 = x1 || 0;
-	that.y1 = y1 || 0;
-	that.r1 = r1 || 0;
-	
+		that.x0 = x0 || 0;
+		that.y0 = y0 || 0;
+		that.r0 = r0 || 0;
+		that.x1 = x1 || 0;
+		that.y1 = y1 || 0;
+		that.r1 = r1 || 0;
 	return that;
 }
 ASJS.Bitmap.GradientColorData = function( stop, color, alpha ) {
 	var that = {};
-	
-	that.stop = stop || 0;
-	that.color = color || "#0";
-	that.alpha = alpha || 1;
-	
+		that.stop = stop || 0;
+		that.color = color || "#0";
+		that.alpha = alpha || 1;
 	return that;
 }

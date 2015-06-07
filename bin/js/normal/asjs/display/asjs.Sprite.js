@@ -12,7 +12,7 @@ ASJS.Sprite = function( domElement ) {
 			var i;
 			var l = that.numChildren;
 			for ( i = 0; i < l; i++ ){
-				that.getChildAt( i ).enabled = mouseChildren;
+				that.getChildAt( i ).enabled = _mouseChildren;
 			}
 		}
 	});

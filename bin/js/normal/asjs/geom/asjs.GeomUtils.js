@@ -27,3 +27,4 @@ ASJS.GeomUtils = function() {
 	
 	return that;
 }
+ASJS.GeomUtils.THETA	= Math.PI / 180;

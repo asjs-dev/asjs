@@ -1,4 +1,5 @@
 includeOnce( "js/normal/asjs/utils/asjs.Mouse.js" );
+includeOnce( "js/normal/asjs/geom/asjs.GeomUtils.js" );
 
 ASJS.DisplayObject = function( domElement ) {
 	var that = {};
@@ -142,7 +143,7 @@ ASJS.DisplayObject = function( domElement ) {
 	that.setAttr = function( key, value ) { that.domObject.attr( key, value ); }
 	
 	that.hitTest = function( point ) {
-		var rotationDeg = - that.rotation * ASJS.DisplayObject.THETA;
+		var rotationDeg = - that.rotation * ASJS.GeomUtils.THETA;
 		
 		var globalPos = that.localToGlobal( new ASJS.Point( 0, 0 ) );
 		var diffPoint = new ASJS.Point( point.x - ( globalPos.x + that.calcWidth * 0.5 ), point.y - ( globalPos.y + that.calcHeight * 0.5 ) );
@@ -221,5 +222,4 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	return that;
 };
-ASJS.DisplayObject.THETA		= Math.PI / 180;
 ASJS.DisplayObject.INSTANCE_ID	= 0;

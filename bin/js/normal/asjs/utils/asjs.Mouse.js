@@ -16,16 +16,15 @@ ASJS.Mouse = function() {
 			get: function() { return _mouseY; }
 		});
 	
-		that.show = function() { $( "body" ).css( "cursor", "default" ); }	
-		that.hide = function() { $( "body" ).css( "cursor", "none" ); }
+		that.show = function() { stage.setCSS( "cursor", "default" ); }	
+		that.hide = function() { stage.setCSS( "cursor", "none" ); }
 	
 		that.getRelativePosition = function( value ) {
-			if ( !value ) throw new Error( "Mouse.getRelativePosition: Value is null" );
 			return value.globalToLocal( new ASJS.Point( that.mouseX, that.mouseY ) );
 		};
 	
 		(function() {
-			$( window ).on( ASJS.MouseEvent.MOUSE_MOVE, function( event ) {
+			stage.window.on( ASJS.MouseEvent.MOUSE_MOVE, function( event ) {
 				_mouseX = event.pageX;
 				_mouseY = event.pageY;
 			});
