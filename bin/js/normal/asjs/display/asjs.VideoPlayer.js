@@ -3,9 +3,6 @@ includeOnce( "js/normal/asjs/display/asjs.DisplayObject.js" );
 ASJS.VideoPlayer = function() {
 	var that = new ASJS.DisplayObject( "<video />" );
 	
-	that.setAttr( "controls", "true" );
-	that.setAttr( "preload", "true" );
-	
 	defineProperty( that, "autoplay", {
 		get: function() { return that.getAttr( "autoplay" ); },
 		set: function( value ) { that.setAttr( "autoplay", value ); }
@@ -18,6 +15,11 @@ ASJS.VideoPlayer = function() {
 			that.setAttr( "src", _streamUrl );
 		}
 	});
+	
+	(function() {
+		that.setAttr( "controls", "true" );
+		that.setAttr( "preload", "true" );
+	})();
 	
 	return that;
 }

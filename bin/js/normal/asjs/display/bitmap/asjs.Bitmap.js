@@ -277,7 +277,7 @@ ASJS.Bitmap.LINE_JOIN_BEVEL		= "bevel";
 ASJS.Bitmap.LINE_JOIN_ROUND		= "round";
 ASJS.Bitmap.LINE_JOIN_MITER		= "miter";
 ASJS.Bitmap.LinearGradientData = function( x, y, w, h ) {
-	var that = new ASJS.Rectangle();
+	var that = new ASJS.Rectangle( x, y, w, h );
 	return that;
 }
 ASJS.Bitmap.RadialGradientData = function( x0, y0, r0, x1, y1, r1 ) {

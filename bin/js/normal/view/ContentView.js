@@ -1,7 +1,8 @@
 includeOnce( "js/normal/asjs/display/asjs.Sprite.js" );
 includeOnce( "js/normal/asjs/display/asjs.Label.js" );
 includeOnce( "js/normal/asjs/display/form/asjs.Button.js" );
-includeOnce( "js/normal/asjs/display/asjs.AnimatedSprite.js" );
+includeOnce( "js/normal/asjs/display/animation/asjs.AnimationDescriptor.js" );
+includeOnce( "js/normal/asjs/display/animation/asjs.AnimatedSprite.js" );
 includeOnce( "js/normal/asjs/geom/asjs.Rectangle.js" );
 includeOnce( "js/normal/asjs/geom/asjs.Point.js" );
 includeOnce( "js/normal/asjs/utils/asjs.Cycler.js" );

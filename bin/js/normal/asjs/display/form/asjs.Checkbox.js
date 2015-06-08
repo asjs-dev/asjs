@@ -16,6 +16,11 @@ ASJS.Checkbox = function() {
 		}
 	});
 	
+	defineProperty( that, "name", {
+		get: function() { return _checkbox.getAttr( "name" ); },
+		set: function( value ) { _checkbox.setAttr( "name", value ); }
+	});
+	
 	defineProperty( that, "label", {
 		get: function() { return _label; }
 	});

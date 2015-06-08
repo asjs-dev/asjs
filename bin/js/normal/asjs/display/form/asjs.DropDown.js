@@ -24,6 +24,11 @@ ASJS.DropDown = function() {
 		}
 	})
 	
+	defineProperty( that, "name", {
+		get: function() { return _select.getAttr( "name" ); },
+		set: function( value ) { _select.setAttr( "name", value ); }
+	});
+	
 	that.clearOptions = function() {
 		_select.html = "";
 	}
