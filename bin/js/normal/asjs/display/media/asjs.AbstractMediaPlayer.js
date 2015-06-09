@@ -143,7 +143,3 @@ ASJS.AbstractMediaPlayer = function( type ) {
 	
 	return that;
 }
-
-/*
-Methods:
-*/
