@@ -19,7 +19,7 @@ ASJS.Form = function() {
 	});
 	
 	that.reset = function() {
-		that.domObject[ 0 ].reset();
+		that.domElement.reset();
 	}
 	
 	return that;

@@ -133,6 +133,10 @@ ASJS.DisplayObject = function( domElement ) {
 		get: function() { return new ASJS.Mouse().instance.getRelativePosition( that ).y; }
 	});
 	
+	defineProperty( that, "domElement", {
+		get: function() { return that.domObject[ 0 ]; }
+	});
+	
 	that.getCSS = function( key ) { return that.domObject.css( key ); }
 	that.setCSS = function( key, value ) { that.domObject.css( key, value ); }
 	

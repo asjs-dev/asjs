@@ -112,7 +112,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	
 	that.drawHTML = function( value ) {
 		try {
-			rasterizeHTML.drawHTML( value, $( that.domObject )[ 0 ] );
+			rasterizeHTML.drawHTML( value, that.domElement );
 		} catch( e ) {
 			throw new Error( "Missing: http://www.github.com/cburgmer/rasterizeHTML.js" );
 		}
@@ -120,7 +120,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	
 	that.drawImage = function( image, sx, sy, sw, sh, x, y, w, h ) {
 		try {
-			getContext().drawImage( image.domObject[ 0 ], sx, sy, sw, sh, x, y, w, h );
+			getContext().drawImage( image.domElement, sx, sy, sw, sh, x, y, w, h );
 		} catch ( e ) {}
 	}
 	
@@ -230,12 +230,12 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	}
 	
 	function beginPatternFill( targetType, image, repeat ) {
-		var pattern = getContext().createPattern( image.domObject[ 0 ], repeat || ASJS.Bitmap.PATTERN_REPEAT );
+		var pattern = getContext().createPattern( image.domElement, repeat || ASJS.Bitmap.PATTERN_REPEAT );
 		fillStyle( targetType, pattern );
 	}
 	
 	function getContext() {
-		return that.domObject[ 0 ].getContext( "2d" );
+		return that.domElement.getContext( "2d" );
 	}
 	
 	function rgbToString( rgb ) {

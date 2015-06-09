@@ -16,7 +16,7 @@ ASJS.ImageSelector = function() {
 		
 		that._fileInput.removeEventListeners( "change" );
 		that._fileInput.addEventListener( "change", function( event ) {
-			var target = that._fileInput.domObject[ 0 ];
+			var target = that._fileInput.domElement;
 			if ( target.files && target.files[ 0 ] ) {
 				var reader = new FileReader();
 				reader.onload = function ( e ) {

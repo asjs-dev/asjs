@@ -39,7 +39,7 @@ ASJS.FileSelector = function() {
 		that.addChild( that._fileInput );
 		
 		that.addEventListener( ASJS.MouseEvent.CLICK, function( event ) {
-			if ( event.target == that._fileInput.domObject[ 0 ] ) return;
+			if ( event.target == that._fileInput.domElement ) return;
 			that._fileInput.domObject.click();
 		});
 	})();
