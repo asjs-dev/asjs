@@ -32,9 +32,11 @@ var stage;
 ASJS.startASJS = function( baseClass ) {
 	if ( ASJS.inited ) return;
 	ASJS.inited = true;
+	var dfd = new $.Deferred();
 	$( document ).ready( function() {
 		stage = new ASJS.Stage().instance;
-		new baseClass();
+		dfd.resolve( new baseClass() );
 	});
+	return dfd.promise();
 }
 
