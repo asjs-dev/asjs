@@ -3,8 +3,7 @@ includeOnce( "js/normal/asjs/event/asjs.Event.js" );
 ASJS.LoaderEvent = function( type ) {
 	var that = new ASJS.Event( type );
 	
-	that.loaded = 0;
-	that.total = 0;
+	that.value;
 	
 	return that;
 }

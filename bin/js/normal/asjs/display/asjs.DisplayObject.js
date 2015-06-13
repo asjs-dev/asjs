@@ -1,8 +1,9 @@
+includeOnce( "js/normal/asjs/event/asjs.EventDispatcher.js" );
 includeOnce( "js/normal/asjs/utils/asjs.Mouse.js" );
 includeOnce( "js/normal/asjs/geom/asjs.GeomUtils.js" );
 
 ASJS.DisplayObject = function( domElement ) {
-	var that = {};
+	var that = new ASJS.EventDispatcher();
 	var _rotation = 0;
 	var _parent = null;
 	var _cssDisplay = "block";
@@ -200,22 +201,6 @@ ASJS.DisplayObject = function( domElement ) {
 	that.addedToStage = function() {}
 	
 	that.removedFromStage = function() {}
-	
-	that.dispatchEvent = function( type, data ) {
-		that.domObject.trigger( type, data );
-	}
-	
-	that.addEventListener = function( type, callback ) {
-		that.domObject.on( type, callback );
-	}
-	
-	that.removeEventListeners = function() {
-		that.domObject.off();
-	}
-	
-	that.removeEventListener = function( type ) {
-		that.domObject.off( type );
-	}
 	
 	that.domObject = $( domElement || "<div />", { tabindex: "-1", style: ( "pointer-events: auto; position: absolute; display: " + _cssDisplay + "; width: 0px; height: 0px; top: 0px; left: 0px;" ) } );
 	

@@ -1,13 +1,24 @@
-includeOnce( "js/normal/asjs/display/asjs.DisplayObject.js" );
+includeOnce( "js/normal/asjs/event/asjs.EventDispatcher.js" );
 includeOnce( "js/normal/asjs/event/asjs.LoaderEvent.js" );
 
 ASJS.Loader = function() {
-	var that = new ASJS.DisplayObject();
+	var that = new ASJS.EventDispatcher();
 	
+	var _url;
 	var _data;
 	var _requestType;
 	var _dataType;
+	var _headers = {};
 	var _content;
+	
+	defineProperty( that, "url", {
+		get: function() { return _url; }
+	});
+	
+	defineProperty( that, "headers", {
+		get: function() { return _headers; },
+		set: function( value ) { _headers = value; }
+	});
 	
 	defineProperty( that, "data", {
 		get: function() { return _data; },
@@ -29,64 +40,62 @@ ASJS.Loader = function() {
 	});
 	
 	that.load = function( url ) {
+		_url = url;
+		
 		var requestData = {
+			headers: _headers,
 			type: _requestType,
-			url: url,
+			url: _url,
 			dataType: _dataType,
 			crossDomain: true,
 			xhrFields: {
-				withCredentials: true
+				withCredentials: true,
+				onprogress: onProgress
 			},
-			xhr: function() {
-				var xhr = new window.XMLHttpRequest();
-				xhr.addEventListener( "progress", onProgress, false );
-				return xhr;
+			success: function ( data ) {
+				_content = data;
+				onLoad();
+			},
+			error: function( xhr, textStatus, errorThrown ) {
+				_content = xhr.responseText;
+				onError( xhr );
+			},
+			complete: function() {
+				onLoadEnd();
 			}
 		};
 	
-		if ( _data ) {
-			requestData.data = _data;
-			//requestData.contentType = "application/json";
-		}
+		if ( _data ) requestData.data = _data;
 	
-		$.ajax( requestData ).done( function( response ) {
-			_content = response;
-			onLoadEnd();
-		}).fail( function( request, status, error ) {
-			onError( error );
-		}).progress( function( event ) {
-			onProgress( event );
-		}).always( function( event ) {
-			onLoadEnd( event );
-		});
+		$.ajax( requestData );
+		
+		onLoadStart();
 	}
 	
-	function onLoadStart( event ) {
-		dispatch( ASJS.LoaderEvent.LOAD_START, event );
+	function onLoadStart() {
+		dispatch( ASJS.LoaderEvent.LOAD_START );
 	}
 	
-	function onProgress( event ) {
-		if ( event.lengthComputable ) dispatch( ASJS.LoaderEvent.PROGRESS, event );
+	function onProgress( data ) {
+		//if ( data.lengthComputable ) 
+		dispatch( ASJS.LoaderEvent.PROGRESS, { total: data.total, loaded: data.loaded } );
 	}
 	
-	function onLoad( event ) {
-		dispatch( ASJS.LoaderEvent.LOAD, event );
+	function onLoad() {
+		dispatch( ASJS.LoaderEvent.LOAD );
 	}
 	
-	function onLoadEnd( event ) {
-		dispatch( ASJS.LoaderEvent.LOAD_END, event );
+	function onLoadEnd() {
+		dispatch( ASJS.LoaderEvent.LOAD_END );
 	}
 	
-	function onError( event ) {
-		dispatch( ASJS.LoaderEvent.ERROR, event );
+	function onError( data ) {
+		dispatch( ASJS.LoaderEvent.ERROR, data );
 	}
 	
-	function dispatch( type, event ) {
+	function dispatch( type, data ) {
 		var e = new ASJS.LoaderEvent( type );
-		if ( event && event.total ) {
-			e.total = event.total;
-			e.loaded = event.loaded;
-		}
+			e.value = data;
 		that.dispatchEvent( e );
 	}
 	
