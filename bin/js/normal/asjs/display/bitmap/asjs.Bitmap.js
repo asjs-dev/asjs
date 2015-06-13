@@ -21,6 +21,19 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 		set: function( value ) { that.setAttr( "height", value ); }
 	});
 	
+	defineProperty( that, "blendMode", {
+		get: function() { return getContext().globalCompositeOperation; },
+		set: function( value ) {
+			console.log( value );
+			getContext().globalCompositeOperation = value;
+		}
+	});
+	
+	defineProperty( that, "globalAlpha", {
+		get: function() { return getContext().globalAlpha; },
+		set: function( value ) { getContext().globalAlpha = value; }
+	});
+	
 	that.beginLineColorStyle = function( size, rgb, alpha, miterLimit, lineJoin, lineCap ) {
 		beginPath();
 		setLineStyle( size, miterLimit, lineJoin, lineCap );
@@ -90,14 +103,6 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	
 	that.lineTo = function( x, y ) {
 		getContext().lineTo( x, y );
-	}
-	
-	that.blendMode = function( value ) {
-		getContext().globalCompositeOperation = value;
-	}
-	
-	that.globalAlpha = function( value ) {
-		getContext().globalAlpha = value;
 	}
 	
 	that.drawRect = function( x, y, w, h ) {
