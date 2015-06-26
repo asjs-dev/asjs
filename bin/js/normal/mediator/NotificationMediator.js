@@ -1,5 +1,6 @@
 includeOnce( "js/normal/mediator/AbstractMediator.js" );
 includeOnce( "js/normal/view/NotificationView.js" );
+includeOnce( "js/normal/model/vo/NotificationDataVo.js" );
 
 function NotificationMediator( view ) {
 	var that = new AbstractMediator( view );
@@ -30,20 +31,12 @@ function NotificationMediator( view ) {
 	}
 	
 	function show( data ) {
-		if ( data == undefined ) data = {};
+		if ( data == undefined ) data = new NotificationDataVo();
 		
-		_notificationPool.push({
-			title: data.title || "",
-			content: data.content || "",
-			showOk: data[ 'showOk' ] != undefined ? data[ 'showOk' ] : true,
-			showCancel: data[ 'showCancel' ] != undefined ? data[ 'showCancel' ] : false,
-			okCallback: data[ 'okCallback' ],
-			cancelCallback: data[ 'cancelCallback' ],
-			okLabel: data[ 'okLabel' ] || _defaultOkLabel,
-			cancelLabel: data[ 'cancelLabel' ]  || _defaultCancelLabel,
-			width: data[ 'width' ]  || 500,
-			height: data[ 'height' ]  || 200
-		});
+		if ( !data.okLabel ) data.okLabel = _defaultOkLabel;
+		if ( !data.cancelLabel ) data.cancelLabel = _defaultCancelLabel;
+		
+		_notificationPool.push( data );
 		
 		if ( !_showed ) showWindow();
 	}

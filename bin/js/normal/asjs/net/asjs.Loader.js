@@ -8,7 +8,7 @@ ASJS.Loader = function() {
 	var _data;
 	var _requestType;
 	var _dataType;
-	var _headers = {};
+	var _headers;
 	var _content;
 	
 	defineProperty( that, "url", {
@@ -43,11 +43,12 @@ ASJS.Loader = function() {
 		_url = url;
 		
 		var requestData = {
-			headers: _headers,
 			type: _requestType,
 			url: _url,
-			dataType: _dataType,
+			cache: false,
+			contentType: false,
 			crossDomain: true,
+			processData: false,
 			xhrFields: {
 				withCredentials: true,
 				onprogress: onProgress
@@ -57,7 +58,7 @@ ASJS.Loader = function() {
 				onLoad();
 			},
 			error: function( xhr, textStatus, errorThrown ) {
-				_content = xhr.responseText;
+				_content = xhr;
 				onError( xhr );
 			},
 			complete: function() {
@@ -65,7 +66,9 @@ ASJS.Loader = function() {
 			}
 		};
 	
-		if ( _data ) requestData.data = _data;
+		if ( _dataType )	requestData.dataType = _dataType;
+		if ( _data )		requestData.data = _data;
+		if ( _headers )		requestData.headers = _headers;
 	
 		$.ajax( requestData );
 		
