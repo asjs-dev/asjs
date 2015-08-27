@@ -1,3 +1,5 @@
+includeOnce( "js/normal/asjs/event/asjs.Event.js" );
+
 ASJS.EventDispatcher = function( domElement ) {
 	var that = {};
 	
@@ -17,7 +19,7 @@ ASJS.EventDispatcher = function( domElement ) {
 		that.domObject.off( type );
 	}
 	
-	that.domObject = $( "<div />" );
+	that.domObject = $( domElement || "<div />" );
 	
 	return that;
 };

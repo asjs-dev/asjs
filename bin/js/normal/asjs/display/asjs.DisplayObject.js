@@ -3,7 +3,7 @@ includeOnce( "js/normal/asjs/utils/asjs.Mouse.js" );
 includeOnce( "js/normal/asjs/geom/asjs.GeomUtils.js" );
 
 ASJS.DisplayObject = function( domElement ) {
-	var that = new ASJS.EventDispatcher();
+	var that = new ASJS.EventDispatcher( domElement );
 	var _rotation = 0;
 	var _parent = null;
 	var _cssDisplay = "block";
