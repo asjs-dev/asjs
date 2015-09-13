@@ -27,6 +27,7 @@ function ContentView() {
 	}
 	
 	function addedToStage() {
+		that.removeEventListener( ASJS.Stage.ADDED_TO_STAGE, addedToStage );
 		console.log( "view.stage: " + that.stage );
 	}
 	

@@ -17,8 +17,8 @@ ASJS.EventDispatcher = function( domElement ) {
 		that.domObject.off();
 	}
 	
-	that.removeEventListener = function( type ) {
-		that.domObject.off( type );
+	that.removeEventListener = function( type, callback ) {
+		that.domObject.off( type, null, callback );
 	}
 	
 	that.domObject = $( domElement || "<div />" );

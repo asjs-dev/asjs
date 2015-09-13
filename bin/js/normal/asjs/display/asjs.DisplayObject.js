@@ -121,8 +121,8 @@ ASJS.DisplayObject = function( domElement ) {
 		set: function( value ) {
 			var prevParent = _parent;
 			_parent = value;
-			if ( _parent && !prevParent ) that.dispatchEvent( ASJS.Stage.ADDED_TO_STAGE, null, false );//that.addedToStage();
-			else if ( !_parent && prevParent ) that.dispatchEvent( ASJS.Stage.REMOVED_FROM_STAGE, null, false );//that.removedFromStage();
+			if ( _parent && !prevParent ) that.dispatchEvent( ASJS.Stage.ADDED_TO_STAGE, null, false );
+			else if ( !_parent && prevParent ) that.dispatchEvent( ASJS.Stage.REMOVED_FROM_STAGE, null, false );
 		}
 	});
 	
@@ -203,10 +203,6 @@ ASJS.DisplayObject = function( domElement ) {
 		}
 		return pos;
 	};
-	
-	that.addedToStage = function() {}
-	
-	that.removedFromStage = function() {}
 	
 	that.domObject = $( domElement || "<div />", { tabindex: "-1", style: ( "pointer-events: auto; position: absolute; display: " + _cssDisplay + "; width: 0px; height: 0px; top: 0px; left: 0px;" ) } );
 	
