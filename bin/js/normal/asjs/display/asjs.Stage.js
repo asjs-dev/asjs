@@ -17,6 +17,10 @@ ASJS.Stage = function() {
 			set: function( value ) { document.title = value; }
 		});
 		
+		defineProperty( that, "stage", {
+			get: function() { return that; }
+		});
+	
 		defineProperty( that, "stageWidth", {
 			get: function() { return _stageWidth; }
 		});
@@ -67,4 +71,6 @@ ASJS.Stage = function() {
 		}
 	});
 };
-ASJS.Stage.RESIZE	= "ASJS-Stage-resize"
+ASJS.Stage.RESIZE				= "ASJS-Stage-resize";
+ASJS.Stage.ADDED_TO_STAGE		= "ASJS-Stage-addedToStage";
+ASJS.Stage.REMOVED_FROM_STAGE	= "ASJS-Stage-removedFromStage";

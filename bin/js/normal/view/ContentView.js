@@ -26,7 +26,13 @@ function ContentView() {
 		_box.x = ( that.width - _box.width ) * 0.5;
 	}
 	
+	function addedToStage() {
+		console.log( "view.stage: " + that.stage );
+	}
+	
 	(function() {
+		that.addEventListener( ASJS.Stage.ADDED_TO_STAGE, addedToStage );
+	
 		_background.addClass( "background" );
 		_background.setCSS( "position", "fixed" );
 		_background.setSize( "100%", "100%" );

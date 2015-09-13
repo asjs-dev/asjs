@@ -121,8 +121,14 @@ ASJS.DisplayObject = function( domElement ) {
 		set: function( value ) {
 			var prevParent = _parent;
 			_parent = value;
-			if ( _parent && !prevParent ) that.addedToStage();
-			else if ( !_parent && prevParent ) that.removedFromStage();
+			if ( _parent && !prevParent ) that.dispatchEvent( ASJS.Stage.ADDED_TO_STAGE, null, false );//that.addedToStage();
+			else if ( !_parent && prevParent ) that.dispatchEvent( ASJS.Stage.REMOVED_FROM_STAGE, null, false );//that.removedFromStage();
+		}
+	});
+	
+	defineProperty( that, "stage", {
+		get: function() {
+			return that.parent ? that.parent.stage : null;
 		}
 	});
 	
