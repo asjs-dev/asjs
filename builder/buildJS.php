@@ -1,23 +1,31 @@
 <?php
-	$GLOBALS[ "relativePathToASJS" ] = "/../bin/js/normal/asjs/";
 	$GLOBALS[ "output" ] = "";
 	$GLOBALS[ "includedClasses" ] = array();
 	$GLOBALS[ "includedClasses" ][ $baseClass ] = true;
 	
+	$GLOBALS[ "packages" ] = array();
+	addPackage( "js/normal/asjs/", dirname(__FILE__) . "/../bin/js/normal/asjs/" );
+	
 	function openFile( $projectFolder, $path ) {
 		$dir = $projectFolder;
-		if ( stripos( $path, "js/normal/asjs/" ) > -1 ) {
-			$asjsExplodePath = explode( "js/normal/asjs/", $path );
-			$asjsDir = dirname(__FILE__) . $GLOBALS[ "relativePathToASJS" ];
-			if ( file_exists( $asjsDir . $asjsExplodePath[ 1 ] ) ) {
-				$dir = $asjsDir;
-				$path = $asjsExplodePath[ 1 ];
+		for ( $i = 0; $i < count( $GLOBALS[ "packages" ] ); $i++ ) {
+			if ( stripos( $path, $GLOBALS[ "packages" ][ $i ][ "path" ] ) > -1 ) {
+				$explodePath = explode( $GLOBALS[ "packages" ][ $i ][ "path" ], $path );
+				$customDir = $GLOBALS[ "packages" ][ $i ][ "relativePath" ];
+				if ( file_exists( $customDir . $explodePath[ 1 ] ) ) {
+					$dir = $customDir;
+					$path = $explodePath[ 1 ];
+				}
 			}
 		}
-		if ( !file_exists( $dir . $path ) ) {
-			return false;
-		}
-		return file( $dir . $path );
+		return !file_exists( $dir . $path ) ? false : file( $dir . $path );
+	}
+	
+	function addPackage( $path, $relativePath ) {
+		array_push( $GLOBALS[ "packages" ], array(
+			"path" => $path,
+			"relativePath" => $relativePath
+		));
 	}
 	
 	function includeJS( $projectFolder, $path, $parent, $line ) {
