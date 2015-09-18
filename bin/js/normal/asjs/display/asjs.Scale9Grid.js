@@ -82,29 +82,29 @@ ASJS.Scale9Grid = function() {
 		var rightSize = _size.x - ( _rectangle.x + _rectangle.width );
 		var bottomSize = _size.y - ( _rectangle.y + _rectangle.height );
 		
+		var center = new ASJS.Point(
+			that.width - _rectangle.x - rightSize,
+			that.height - _rectangle.y - bottomSize
+		);
+		
 		var percent = new ASJS.Point(
-			( that.width - _rectangle.x - rightSize ) / _rectangle.width,
-			( that.height - _rectangle.y - bottomSize ) / _rectangle.height
+			Math.round( center.x / _rectangle.width ),
+			Math.round( center.y / _rectangle.height )
 		);
 		
-		var centerPercent = new ASJS.Point(
-			percent.x * _rectangle.width,
-			percent.y * _rectangle.height
+		var tl = new ASJS.Point(
+			- ( percent.x * _rectangle.x ) * 2,
+			- ( percent.y * _rectangle.y ) * 2
 		);
 		
-		var tlPercent = new ASJS.Point(
-			percent.x * _rectangle.x,
-			percent.y * _rectangle.y
-		);
-		
-		var brPercent = new ASJS.Point(
+		var br = new ASJS.Point(
 			percent.x * rightSize,
 			percent.y * bottomSize
 		);
 		
-		var percentSize = new ASJS.Point(
-			tlPercent.x + centerPercent.x + brPercent.x,
-			tlPercent.y + centerPercent.y + brPercent.y
+		var ps = new ASJS.Point(
+			( _size.x * percent.x ) * 2,
+			( _size.y * percent.y ) * 2
 		);
 		
 		_blocks[ 0 ].setSize( _rectangle.x, _rectangle.y );
@@ -126,20 +126,20 @@ ASJS.Scale9Grid = function() {
 		_blocks[ 7 ].move( _blocks[ 6 ].width, _blocks[ 6 ].y );
 		_blocks[ 8 ].move( _blocks[ 7 ].x + _blocks[ 7 ].width, _blocks[ 6 ].y );
 		
-		_blocks[ 1 ].setCSS( "background-position", ( - tlPercent.x * 2 ) + "px top" );
-		_blocks[ 1 ].setCSS( "background-size", ( percentSize.x * 2 ) + "px " + _size.y + "px" );
+		_blocks[ 1 ].setCSS( "background-position", tl.x + "px top" );
+		_blocks[ 1 ].setCSS( "background-size", ps.x + "px " + _size.y + "px" );
 		
-		_blocks[ 3 ].setCSS( "background-position", "left " + ( - tlPercent.y * 2 ) + "px" );
-		_blocks[ 3 ].setCSS( "background-size",  _size.x + "px " + ( percentSize.y * 2 ) + "px" );
+		_blocks[ 3 ].setCSS( "background-position", "left " + tl.y + "px" );
+		_blocks[ 3 ].setCSS( "background-size",  _size.x + "px " + ps.y + "px" );
 		
-		_blocks[ 4 ].setCSS( "background-position", ( - tlPercent.x * 2 ) + "px " + ( - tlPercent.y * 2 ) + "px" );
-		_blocks[ 4 ].setCSS( "background-size",  ( percentSize.x * 2 ) + "px " + ( percentSize.y * 2 ) + "px" );
+		_blocks[ 4 ].setCSS( "background-position", tl.x + "px " + tl.y + "px" );
+		_blocks[ 4 ].setCSS( "background-size",  ps.x + "px " + ps.y + "px" );
 		
-		_blocks[ 5 ].setCSS( "background-position", "right " + ( - tlPercent.y * 2 ) + "px" );
-		_blocks[ 5 ].setCSS( "background-size",  _size.x + "px " + ( percentSize.y * 2 ) + "px" );
+		_blocks[ 5 ].setCSS( "background-position", "right " + tl.y + "px" );
+		_blocks[ 5 ].setCSS( "background-size",  _size.x + "px " + ps.y + "px" );
 		
-		_blocks[ 7 ].setCSS( "background-position", ( - tlPercent.x * 2 ) + "px bottom" );
-		_blocks[ 7 ].setCSS( "background-size", ( percentSize.x * 2 ) + "px " + _size.y + "px" );
+		_blocks[ 7 ].setCSS( "background-position", tl.x + "px bottom" );
+		_blocks[ 7 ].setCSS( "background-size", ps.x + "px " + _size.y + "px" );
 	}
 	
 	defineProperty( that, "backgroundImage", {

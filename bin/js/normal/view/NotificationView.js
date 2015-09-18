@@ -44,7 +44,7 @@ function NotificationView() {
 	}
 	
 	that.drawNow = function() {
-		_window.setSize( Math.min( that.width, _notificationItem.width ), Math.min( that.height, _notificationItem.height ) );
+		_window.setSize( Math.max( 150, Math.min( that.width, _notificationItem.width ) ), Math.max( 150, Math.min( that.height, _notificationItem.height ) ) );
 		_window.move( ( that.width - _window.width ) * 0.5, Math.max( 0, ( that.height - _window.height ) * 0.5 ) );
 		
 		_title.move( _window.x + 25, _window.y + 10 );
