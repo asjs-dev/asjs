@@ -40,6 +40,8 @@ ASJS.Loader = function() {
 	});
 	
 	that.load = function( url ) {
+		if ( !url ) return;
+		
 		_url = url;
 		
 		var requestData = {
