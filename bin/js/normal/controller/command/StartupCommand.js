@@ -1,46 +1,19 @@
 includeOnce( "js/normal/controller/command/AbstractCommand.js" );
-includeOnce( "js/normal/mediator/PreloaderMediator.js" );
-includeOnce( "js/normal/mediator/ContentMediator.js" );
-includeOnce( "js/normal/Tools.js" );
-includeOnce( "js/normal/model/Language.js" );
-includeOnce( "js/normal/model/Cookies.js" );
-includeOnce( "js/normal/asjs/utils/asjs.Cycler.js" );
+includeOnce( "js/normal/controller/command/startup/ConfigLoaderCommand.js" );
+includeOnce( "js/normal/controller/command/startup/LanguageLoaderCommand.js" );
+includeOnce( "js/normal/controller/command/startup/EnvironmentCommand.js" );
+includeOnce( "js/normal/controller/command/startup/ViewPrepCommand.js" );
 
 function StartupCommand() {
 	var that = new AbstractCommand();
 	
-	var _language = new Language().instance;
-	var _cookies = new Cookies().instance;
-	var _cycler = new ASJS.Cycler().instance;
-	var _tools = new Tools().instance;
-	
-	var _sleepToResizeId;
-	
-	that.execute = function() {
-		that.sendNotification( PreloaderMediator.SHOW );
-		
-		var selectedLanguage = _tools.getURLParams( 'lang' );
-		if ( selectedLanguage == undefined || _language.supportedLanguages.indexOf( selectedLanguage ) == -1 ) selectedLanguage = _cookies.readCookie( 'language' );
-		if ( selectedLanguage == undefined || _language.supportedLanguages.indexOf( selectedLanguage ) == -1 ) selectedLanguage = _language.selectedLanguage;
-		_language.selectedLanguage = selectedLanguage;
-		
-		_cookies.createCookie( 'language', _language.selectedLanguage );
-		stage.title = _language.getText( "title" );
-		
-		var cycler = new ASJS.Cycler().instance;
-			cycler.fps = 24;
-			cycler.start();
-			
-		that.sendNotification( ContentMediator.SHOW );
-		
-		stage.addEventListener( ASJS.Stage.RESIZE, function( event ) {
-			window.clearTimeout( _sleepToResizeId );
-			_sleepToResizeId = window.setTimeout( function() {
-				that.sendNotification( ASJS.Stage.RESIZE );
-				window.clearTimeout( _sleepToResizeId );
-			}, 100 );
+	that.execute = function( app ) {
+		( new ConfigLoaderCommand() ).execute().done( function() {
+			( new LanguageLoaderCommand() ).execute().done( function() {
+				( new EnvironmentCommand() ).execute();
+				( new ViewPrepCommand() ).execute( app );
+			});
 		});
-		that.sendNotification( PreloaderMediator.HIDE );
 	}
 	
 	return that;

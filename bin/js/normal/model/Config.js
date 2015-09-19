@@ -2,6 +2,13 @@ function Config() {
 	function ConfigInstance() {
 		var that = {};
 		
+		var _data = {};
+		
+		defineProperty( that, "data", {
+			get: function() { return _data; },
+			set: function( value ) { _data = value }
+		});
+		
 		return that;
 	}
 	
