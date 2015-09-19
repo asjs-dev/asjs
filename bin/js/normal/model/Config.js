@@ -9,6 +9,10 @@ function Config() {
 			set: function( value ) { _data = value }
 		});
 		
+		that.get = function( key ) {
+			return _data && _data[ key ] ? _data[ key ] : null;
+		}
+		
 		return that;
 	}
 	

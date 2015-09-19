@@ -1,1 +1,4 @@
-{}
+{
+	"fps": 24,
+	"resizeInterval": 100
+}

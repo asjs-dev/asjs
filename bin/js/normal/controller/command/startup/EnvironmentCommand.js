@@ -1,6 +1,7 @@
 includeOnce( "js/normal/controller/command/AbstractCommand.js" );
 includeOnce( "js/normal/Tools.js" );
 includeOnce( "js/normal/model/Language.js" );
+includeOnce( "js/normal/model/Config.js" );
 includeOnce( "js/normal/model/Cookies.js" );
 includeOnce( "js/normal/asjs/utils/asjs.Cycler.js" );
 
@@ -11,6 +12,7 @@ function EnvironmentCommand() {
 	var _cookies = new Cookies().instance;
 	var _tools = new Tools().instance;
 	var _cycler = new ASJS.Cycler().instance;
+	var _config = new Config().instance;
 	
 	var _sleepToResizeId;
 	
@@ -23,7 +25,7 @@ function EnvironmentCommand() {
 		_cookies.createCookie( 'language', _language.selectedLanguage );
 		stage.title = _language.getText( "title" );
 
-		_cycler.fps = 24;
+		_cycler.fps = _config.get( "fps" );
 		_cycler.start();
 
 		stage.addEventListener( ASJS.Stage.RESIZE, function( event ) {
@@ -31,7 +33,7 @@ function EnvironmentCommand() {
 			_sleepToResizeId = window.setTimeout( function() {
 				that.sendNotification( ASJS.Stage.RESIZE );
 				window.clearTimeout( _sleepToResizeId );
-			}, 100 );
+			}, _config.get( "resizeInterval" ) );
 		});
 	}
 	
