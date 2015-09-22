@@ -54,6 +54,7 @@ ASJS.Stage = function() {
 		}
 		
 		(function() {
+			that.clear();
 			that.setSize( "100%", "100%" );
 			_window.resize( function( event ) {
 				recalcStageSize();

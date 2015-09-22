@@ -2,6 +2,7 @@ includeOnce( "org/asjs/display/asjs.DisplayObject.js" );
 
 ASJS.Sprite = function( domElement ) {
 	var that = new ASJS.DisplayObject( domElement );
+	var _super = {};
 	var _children = [];
 	var _mouseChildren = true;
 	
@@ -20,6 +21,12 @@ ASJS.Sprite = function( domElement ) {
 	defineProperty( that, "numChildren", {
 		get: function() { return _children.length; }
 	});
+	
+	extendFunction( _super, that, "clear" );
+	that.clear = function() {
+		while ( that.numChildren > 0 ) that.removeChildAt( 0 );
+		_super.clear();
+	}
 	
 	that.contains = function( child ) {
 		return that.getChildIndex( child ) > -1;

@@ -144,6 +144,11 @@ ASJS.DisplayObject = function( domElement ) {
 		get: function() { return that.domObject[ 0 ]; }
 	});
 	
+	that.clear = function() {
+		that.html = "";
+		that.text = "";
+	}
+	
 	that.getCSS = function( key ) { return that.domObject.css( key ); }
 	that.setCSS = function( key, value ) { that.domObject.css( key, value ); }
 	
