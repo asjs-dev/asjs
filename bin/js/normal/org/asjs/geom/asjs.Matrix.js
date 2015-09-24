@@ -1,5 +1,3 @@
-includeOnce( "org/asjs/geom/asjs.Point.js" );
-
 ASJS.Matrix = function( a, b, c, d, e, f ) {
 	var that = {};
 	

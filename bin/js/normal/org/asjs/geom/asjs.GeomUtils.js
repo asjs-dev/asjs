@@ -9,10 +9,6 @@ ASJS.GeomUtils = function() {
 		return Math.sqrt( Math.pow( pointB.x - pointA.x, 2 ) + Math.pow( pointB.y - pointA.y, 2 ) );
 	}
 	
-	that.twoPointDistance = function( pointA, pointB ) {
-		return Math.sqrt( Math.pow( pointB.x - pointA.x, 2 ) + Math.pow( pointB.y - pointA.y, 2 ) );
-	}
-	
 	that.pointInRect = function( point, rect ) {
 		return point.x >= rect.x && point.x <= rectangle.x + rect.width && point.y >= rect.y && point.y <= rect.y + rect.height;
 	}

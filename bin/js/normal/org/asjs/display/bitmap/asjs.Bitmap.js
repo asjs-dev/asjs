@@ -1,5 +1,6 @@
 includeOnce( "org/asjs/display/asjs.DisplayObject.js" );
 includeOnce( "org/asjs/geom/asjs.Rectangle.js" );
+includeOnce( "org/asjs/geom/asjs.Matrix.js" );
 includeOnce( "org/asjs/geom/asjs.GeomUtils.js" );
 
 ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
