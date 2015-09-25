@@ -190,6 +190,67 @@
 </html>
 ```
 
+* Create your own display object class extended from ASJS.Sprite
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <script src="js/lib/jquery-latest.js" type="text/javascript"></script>
+        <script src="../asjs.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+          function MySprite() {
+        		var that = new ASJS.Sprite();
+        		
+        		that.setBackgroundColor = function( color ) {
+        			that.setCSS( "background-color", color );
+        		}
+        		
+        		function onClick( event ) {
+	            	var r = Math.floor( Math.random() * 255 );
+	            	var g = Math.floor( Math.random() * 255 );
+	            	var b = Math.floor( Math.random() * 255 );
+	            	that.setBackgroundColor( "rgb( " + r + ", " + g + ", " + b + " )" );
+	            	that.rotation = Math.round( Math.random() * 360 );
+        		}
+        		
+        		(function() {
+		            that.setSize( 40, 40 );
+		            that.setBackgroundColor( "#336699" );
+		            that.addEventListener( ASJS.MouseEvent.CLICK, onClick );
+        		})();
+        		
+        		return that;
+        	}
+        	
+          function Application() {
+            var that = {};
+
+            (function() {
+              console.log( "<AS/JS> Application" );
+
+              var i;
+              var s;
+              for ( i = 0; i < 10; i++ ) {
+                s = new MySprite();
+                s.move( 50 + i * 50 , 50 );
+                s.setBackgroundColor( "rgb( " + ( i * 2 ) + ", " + ( i * 10 ) + ", " + ( i * 20 ) + " )" );
+                stage.addChild( s );
+              }
+            })();
+
+            return that;
+          };
+
+          ASJS.startASJS( Application );
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
+```
+
 ## OTHER WAY
 
 You can build your own minimized js from your code base, merged with used ASJS classes.
