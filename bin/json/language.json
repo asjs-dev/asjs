@@ -17,11 +17,17 @@
 		"show_notification_window": {
 			"en": "Show Notification Window"
 		},
+		"hit_test_inside": {
+			"en": "Clicked inside"
+		},
+		"hit_test_outside": {
+			"en": "Clicked outside"
+		},
 		"notification_title": {
 			"en": "<AS/JS> Notification Window"
 		},
 		"notification_content": {
-			"en": "Open the console and click inside and outside of the \"Hello &lt;AS/JS&gt;!\" box."
+			"en": "Press \"OK\" in this window and click the fireworks animation.<br>Or drag the animation."
 		}
 	}
 }

@@ -8,6 +8,10 @@ ASJS.AnimatedSprite = function() {
 	var _selectedAnimation = "";
 	var _step = 0;
 	
+	defineProperty( that, "selectedAnimation", {
+		get: function() { return _selectedAnimation; }
+	});
+	
 	that.addAnimationDescriptorList = function( animationDescriptorList ) {
 		var i;
 		for ( i = 0; i < animationDescriptorList.length; i++ ) that.addAnimationDescriptor( animationDescriptorList[ i ] );

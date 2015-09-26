@@ -1,11 +1,11 @@
-includeOnce( "com/asjs/mediator/AbstractMediator.js" );
+includeOnce( "org/asjs/mvc/mediator/asjs.AbstractMediator.js" );
 includeOnce( "com/asjs/mediator/NotificationMediator.js" );
 includeOnce( "com/asjs/view/ContentView.js" );
 includeOnce( "com/asjs/model/Language.js" );
 includeOnce( "com/asjs/model/vo/NotificationDataVo.js" );
 
 function ContentMediator( view ) {
-	var that = new AbstractMediator( view );
+	var that = new ASJS.AbstractMediator( view );
 	
 	var _language = new Language().instance;
 	

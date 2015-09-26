@@ -1,9 +1,9 @@
-includeOnce( "com/asjs/mediator/AbstractMediator.js" );
+includeOnce( "org/asjs/mvc/mediator/asjs.AbstractMediator.js" );
 includeOnce( "com/asjs/view/NotificationView.js" );
 includeOnce( "com/asjs/model/vo/NotificationDataVo.js" );
 
 function NotificationMediator( view ) {
-	var that = new AbstractMediator( view );
+	var that = new ASJS.AbstractMediator( view );
 	var _notificationPool = [];
 	var _showed = false;
 	var _defaultOkLabel = "";

@@ -1,10 +1,10 @@
-includeOnce( "com/asjs/controller/command/AbstractCommand.js" );
+includeOnce( "org/asjs/mvc/controller/command/asjs.AbstractCommand.js" );
 includeOnce( "org/asjs/net/asjs.Loader.js" );
 includeOnce( "org/asjs/net/asjs.RequestMethod.js" );
 includeOnce( "org/asjs/event/asjs.LoaderEvent.js" );
 
 function AbstractLoaderCommand() {
-	var that = new AbstractCommand();
+	var that = new ASJS.AbstractCommand();
 	
 	that.load = function( url ) {
 		var dfd = $.Deferred();

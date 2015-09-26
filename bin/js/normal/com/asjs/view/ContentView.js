@@ -22,6 +22,7 @@ function ContentView() {
 	var _label = new ASJS.Label();
 	var _button = new ASJS.Button();
 	var _animatedSprite = new ASJS.AnimatedSprite();
+	var _drag = false;
 	
 	that.drawNow = function() {
 		_box.x = ( that.width - _box.width ) * 0.5;
@@ -111,7 +112,7 @@ function ContentView() {
 		_animatedSprite.play( "fireworks" );
 		
 		_animatedSprite.addEventListener( ASJS.MouseEvent.CLICK, function( event ) {
-			if ( Math.round( Math.random() * 1 ) == 0 ) {
+			if ( _animatedSprite.selectedAnimation == "fireworks" ) {
 				_animatedSprite.setSize( 256, 128 );
 				_animatedSprite.play( "explode" );
 			} else {
@@ -120,9 +121,29 @@ function ContentView() {
 			}
 		});
 		
+		_animatedSprite.addEventListener( ASJS.MouseEvent.MOUSE_DOWN, function( event ) {
+			_drag = true;
+		});
+		
+		stage.addEventListener( ASJS.MouseEvent.MOUSE_UP, function( event ) {
+			_drag = false;
+		});
+		
+		stage.addEventListener( ASJS.MouseEvent.MOUSE_LEAVE, function( event ) {
+			_drag = false;
+		});
+		
+		stage.addEventListener( ASJS.MouseEvent.MOUSE_MOVE, function( event ) {
+			if ( _drag ) {
+				var mouse = new ASJS.Mouse().instance;
+				_animatedSprite.move( mouse.mouseX - _animatedSprite.width * 0.5, mouse.mouseY - _animatedSprite.height * 0.5 );
+			}
+		});
+		
 		that.addEventListener( ASJS.MouseEvent.CLICK, function( event ) {
 			var mouse = new ASJS.Mouse().instance;
-			console.log( "_box.hitTest: " + _box.hitTest( new ASJS.Point( mouse.mouseX, mouse.mouseY ) ) );
+			var hitTest = _box.hitTest( new ASJS.Point( mouse.mouseX, mouse.mouseY ) );
+			_label.text = _language.getText( hitTest ? "hit_test_inside" : "hit_test_outside" );
 		});
 		
 		_cycler.addCallback( _animatedSprite.update );

@@ -1,11 +1,9 @@
 includeOnce( "org/asjs/mvc/asjs.NotificationDispatcher.js" );
 
-function AbstractMediator( view ) {
+ASJS.AbstractCommand = function() {
 	var that = new ASJS.NotificationDispatcher();
 	
-	(function() {
-		that.view = view;
-	})();
+	that.execute = function() {}
 	
 	return that;
 }

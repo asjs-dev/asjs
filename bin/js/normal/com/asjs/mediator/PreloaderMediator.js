@@ -1,8 +1,8 @@
-includeOnce( "com/asjs/mediator/AbstractMediator.js" );
+includeOnce( "org/asjs/mvc/mediator/asjs.AbstractMediator.js" );
 includeOnce( "com/asjs/view/PreloaderView.js" );
 
 function PreloaderMediator( view ) {
-	var that = new AbstractMediator( view );
+	var that = new ASJS.AbstractMediator( view );
 	var _counter = 0;
 	var _preloaderView = new PreloaderView();
 	

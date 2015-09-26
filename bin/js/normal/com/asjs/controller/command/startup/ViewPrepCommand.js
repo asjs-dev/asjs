@@ -1,11 +1,11 @@
-includeOnce( "com/asjs/controller/command/AbstractCommand.js" );
+includeOnce( "org/asjs/mvc/controller/command/asjs.AbstractCommand.js" );
 includeOnce( "com/asjs/mediator/ContentMediator.js" );
 includeOnce( "com/asjs/mediator/PreloaderMediator.js" );
 includeOnce( "com/asjs/mediator/NotificationMediator.js" );
 includeOnce( "com/asjs/model/Language.js" );
 
 function ViewPrepCommand() {
-	var that = new AbstractCommand();
+	var that = new ASJS.AbstractCommand();
 	
 	var _language = new Language().instance;
 	

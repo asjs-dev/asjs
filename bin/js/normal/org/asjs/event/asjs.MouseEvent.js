@@ -7,6 +7,7 @@ ASJS.MouseEvent = function( type ) {
 ASJS.MouseEvent.CLICK		= "click";
 ASJS.MouseEvent.MOUSE_DOWN	= "mousedown";
 ASJS.MouseEvent.MOUSE_UP	= "mouseup";
+ASJS.MouseEvent.MOUSE_LEAVE	= "mouseleave";
 ASJS.MouseEvent.MOUSE_MOVE	= "mousemove";
 ASJS.MouseEvent.TOUCH_START	= "touchstart";
 ASJS.MouseEvent.TOUCH_END	= "touchend";

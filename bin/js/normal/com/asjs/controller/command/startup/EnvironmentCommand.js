@@ -1,4 +1,4 @@
-includeOnce( "com/asjs/controller/command/AbstractCommand.js" );
+includeOnce( "org/asjs/mvc/controller/command/asjs.AbstractCommand.js" );
 includeOnce( "com/asjs/tools/Tools.js" );
 includeOnce( "com/asjs/model/Language.js" );
 includeOnce( "com/asjs/model/Config.js" );
@@ -6,7 +6,7 @@ includeOnce( "com/asjs/model/Cookies.js" );
 includeOnce( "org/asjs/utils/asjs.Cycler.js" );
 
 function EnvironmentCommand() {
-	var that = new AbstractCommand();
+	var that = new ASJS.AbstractCommand();
 	
 	var _language = new Language().instance;
 	var _cookies = new Cookies().instance;
