@@ -1,5 +1,4 @@
 includeOnce( "org/asjs/display/asjs.DisplayObject.js" );
-includeOnce( "org/asjs/geom/asjs.Rectangle.js" );
 includeOnce( "org/asjs/geom/asjs.Matrix.js" );
 includeOnce( "org/asjs/geom/asjs.GeomUtils.js" );
 
@@ -282,24 +281,3 @@ ASJS.Bitmap.LINE_CAP_SQUARE		= "square";
 ASJS.Bitmap.LINE_JOIN_BEVEL		= "bevel";
 ASJS.Bitmap.LINE_JOIN_ROUND		= "round";
 ASJS.Bitmap.LINE_JOIN_MITER		= "miter";
-ASJS.Bitmap.LinearGradientData = function( x, y, w, h ) {
-	var that = new ASJS.Rectangle( x, y, w, h );
-	return that;
-}
-ASJS.Bitmap.RadialGradientData = function( x0, y0, r0, x1, y1, r1 ) {
-	var that = {};
-		that.x0 = x0 || 0;
-		that.y0 = y0 || 0;
-		that.r0 = r0 || 0;
-		that.x1 = x1 || 0;
-		that.y1 = y1 || 0;
-		that.r1 = r1 || 0;
-	return that;
-}
-ASJS.Bitmap.GradientColorData = function( stop, color, alpha ) {
-	var that = {};
-		that.stop = stop || 0;
-		that.color = color || "#0";
-		that.alpha = alpha || 1;
-	return that;
-}

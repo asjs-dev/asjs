@@ -1,19 +1,11 @@
 includeOnce( "org/asjs/display/form/asjs.FormElement.js" );
 includeOnce( "org/asjs/display/asjs.DisplayObject.js" );
-
-ASJS.DropDownOption = function( value, label, disabled, selected ) {
-	var that = {};
-	that.value = value || "0";
-	that.label = label || "";
-	that.disabled = disabled || false;
-	that.selected = selected || false;
-	return that;
-}
+includeOnce( "org/asjs/display/form/asjs.DropDownOption.js" );
 
 ASJS.DropDown = function() {
 	var that = new ASJS.FormElement();
 	var _super = {};
-	var _select = new ASJS.DisplayObject( "<select />" );
+	var _select = new ASJS.Sprite( "<select />" );
 	
 	extendProperty( _super, that, "enabled" );
 	defineProperty( that, "enabled", {
@@ -50,8 +42,9 @@ ASJS.DropDown = function() {
 	}
 	
 	that.addOption = function( option ) {
-		var optionItem = $( "<option value=\"" + option.value + "\"" + ( option.disabled ? " disabled" : "" ) + "" + ( option.selected ? " selected" : "" ) + ">" + option.label + "</option>" );
-		_select.domObject.append( optionItem );
+		//var optionItem = $( "<option value=\"" + option.value + "\"" + ( option.disabled ? " disabled" : "" ) + "" + ( option.selected ? " selected" : "" ) + ">" + option.label + "</option>" );
+		//_select.domObject.append( optionItem );
+		_select.addChild( option );
 	}
 	
 	that.drawNow = function() {

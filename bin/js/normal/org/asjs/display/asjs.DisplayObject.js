@@ -17,7 +17,7 @@ ASJS.DisplayObject = function( domElement ) {
 		get: function() { return that.getAttr( "disabled" ) != "disabled"; },
 		set: function( value ) {
 			if ( value ) {
-				that.domObject.removeAttr( "disabled" );
+				that.removeAttr( "disabled" );
 				that.setCSS( "pointer-events", "auto" );
 			} else {
 				that.setAttr( "disabled", "disabled" );
@@ -157,6 +157,7 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	that.getAttr = function( key ) { return that.domObject.attr( key ); }
 	that.setAttr = function( key, value ) { that.domObject.attr( key, value ); }
+	that.removeAttr = function( key ) { that.domObject.removeAttr( key ); }
 	
 	that.hitTest = function( point ) {
 		var rotationDeg = - that.rotation * ASJS.GeomUtils.THETA;
