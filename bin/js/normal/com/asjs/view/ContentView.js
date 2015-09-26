@@ -31,6 +31,7 @@ function ContentView() {
 	function addedToStage() {
 		that.removeEventListener( ASJS.Stage.ADDED_TO_STAGE, addedToStage );
 		console.log( "view.stage: " + that.stage );
+		_animatedSprite.play( "fireworks" );
 	}
 	
 	(function() {
@@ -109,7 +110,6 @@ function ContentView() {
 		that.addChild( _animatedSprite );
 		
 		_animatedSprite.setSize( 200, 200 );
-		_animatedSprite.play( "fireworks" );
 		
 		_animatedSprite.addEventListener( ASJS.MouseEvent.CLICK, function( event ) {
 			if ( _animatedSprite.selectedAnimation == "fireworks" ) {

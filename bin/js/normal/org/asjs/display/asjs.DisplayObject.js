@@ -119,10 +119,10 @@ ASJS.DisplayObject = function( domElement ) {
 	defineProperty( that, "parent", {
 		get: function() { return _parent; },
 		set: function( value ) {
-			var prevParent = _parent;
-			_parent = value;
-			if ( _parent && !prevParent ) that.dispatchEvent( ASJS.Stage.ADDED_TO_STAGE, null, false );
-			else if ( !_parent && prevParent ) that.dispatchEvent( ASJS.Stage.REMOVED_FROM_STAGE, null, false );
+			if ( value == null || value.getChildIndex( that ) > -1 ) {
+				_parent = value;
+				that.dispatchEvent( that.stage ? ASJS.Stage.ADDED_TO_STAGE : ASJS.Stage.REMOVED_FROM_STAGE, null, false );
+			}
 		}
 	});
 	

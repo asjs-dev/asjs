@@ -40,10 +40,10 @@ ASJS.Sprite = function( domElement ) {
 		if ( !child ) return null;
 		if ( child.parent ) child.parent.removeChild( child );
 		that.domObject.append( child.domObject );
-		child.parent = that;
 		child.enabled = _mouseChildren;
 		_children.push( child );
 		that.setChildIndex( child, index );
+		child.parent = that;
 		return child;
 	}
 	
