@@ -120,13 +120,17 @@ ASJS.CustomList = function() {
 	
 	that.drawNow = function() {
 		_itemsContainer.setSize( that.width, that.height );
+		
 		var i;
 		var l = _itemsContainer.numChildren;
 		var cell;
+		var height = 0;
 		for ( i = 0; i < l; i++ ) {
 			cell = _itemsContainer.getChildAt( i );
 			cell.drawNow();
+			height += cell.calcHeight;
 		}
+		_itemsContainer.height = height;
 	}
 	
 	function onCellClick( event ) {

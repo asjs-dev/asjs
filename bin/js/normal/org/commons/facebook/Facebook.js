@@ -4,24 +4,23 @@ includeOnce( "org/asjs/display/asjs.Sprite.js" );
 function Facebook() {
 	function FacebookInstance() {
 		var that = new ASJS.NotificationDispatcher();
+		
 		var _fbRoot = new ASJS.Sprite();
 	
-		that.init = function( facebookAppId ) {
+		that.init = function( facebookAppId, version ) {
 			var e = document.createElement( 'script' ); 
 			e.async = true;
 			e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';        
 			document.getElementById( 'fb-root' ).appendChild( e );
-		
+			
 			window.fbAsyncInit = function() {
-				FB.init({ appId: facebookAppId, status: true, cookie: true, xfbml: true, oauth: true });
+				FB.init({ appId: facebookAppId, status: true, cookie: true, xfbml: true, oauth: true, version: ( version || 'v2.4' ) });
 				FB.getLoginStatus( onLoginStatus );
 			};
 		}
 	
 		that.login = function() {
-			FB.login( function( response ) {
-				onLoginStatus( response );
-			});
+			FB.login( onLoginStatus );
 		}
 	
 		that.logout = function() {
