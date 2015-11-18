@@ -5,16 +5,19 @@ function ConfigLoaderCommand() {
 	var that = new AbstractLoaderCommand();
 	
 	var _config = new Config().instance;
+	var _dfd;
 	
 	that.execute = function() {
-		var dfd = $.Deferred();
+		_dfd = $.Deferred();
 		
-		that.load( "json/config.json" ).done( function( response ) {
-			_config.data = response;
-			dfd.resolve();
-		});
+		that.load( "json/config.json" ).done( loadComplete );
 		
-		return dfd.promise();
+		return _dfd.promise();
+	}
+	
+	function loadComplete( response ) {
+		_config.data = response;
+		_dfd.resolve();
 	}
 	
 	return that;

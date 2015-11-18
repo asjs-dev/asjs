@@ -5,16 +5,19 @@ function LanguageLoaderCommand() {
 	var that = new AbstractLoaderCommand();
 	
 	var _language = new Language().instance;
+	var _dfd;
 	
 	that.execute = function() {
-		var dfd = $.Deferred();
+		_dfd = $.Deferred();
 		
-		that.load( "json/language.json" ).done( function( response ) {
-			_language.data = response;
-			dfd.resolve();
-		});
+		that.load( "json/language.json" ).done( loadComplete );
 		
-		return dfd.promise();
+		return _dfd.promise();
+	}
+	
+	function loadComplete( response ) {
+		_language.data = response;
+		_dfd.resolve();
 	}
 	
 	return that;

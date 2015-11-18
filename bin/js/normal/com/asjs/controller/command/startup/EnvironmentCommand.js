@@ -17,6 +17,12 @@ function EnvironmentCommand() {
 	var _sleepToResizeId;
 	
 	that.execute = function() {
+		setupLanguage();
+		setupCycler();
+		setupStage();
+	}
+	
+	function setupLanguage() {
 		var selectedLanguage = _tools.getURLParams( 'lang' );
 		if ( selectedLanguage == undefined || _language.supportedLanguages.indexOf( selectedLanguage ) == -1 ) selectedLanguage = _cookies.readCookie( 'language' );
 		if ( selectedLanguage == undefined || _language.supportedLanguages.indexOf( selectedLanguage ) == -1 ) selectedLanguage = _language.selectedLanguage;
@@ -24,17 +30,25 @@ function EnvironmentCommand() {
 
 		_cookies.createCookie( 'language', _language.selectedLanguage );
 		stage.title = _language.getText( "title" );
-
+	}
+	
+	function setupCycler() {
 		_cycler.fps = _config.get( "fps" );
 		_cycler.start();
-
-		stage.addEventListener( ASJS.Stage.RESIZE, function( event ) {
-			window.clearTimeout( _sleepToResizeId );
-			_sleepToResizeId = window.setTimeout( function() {
-				that.sendNotification( ASJS.Stage.RESIZE );
-				window.clearTimeout( _sleepToResizeId );
-			}, _config.get( "resizeInterval" ) );
-		});
+	}
+	
+	function setupStage() {
+		stage.addEventListener( ASJS.Stage.RESIZE, onStageResize );
+	}
+	
+	function onStageResize( event ) {
+		window.clearTimeout( _sleepToResizeId );
+		_sleepToResizeId = window.setTimeout( onTimeout, _config.get( "resizeInterval" ) );
+	}
+	
+	function onTimeout() {
+		that.sendNotification( ASJS.Stage.RESIZE );
+		window.clearTimeout( _sleepToResizeId );
 	}
 	
 	return that;

@@ -6,23 +6,30 @@ includeOnce( "org/asjs/event/asjs.LoaderEvent.js" );
 function AbstractLoaderCommand() {
 	var that = new ASJS.AbstractCommand();
 	
+	var _dfd;
+	var _loader;
+	
 	that.load = function( url ) {
-		var dfd = $.Deferred();
+		_dfd = $.Deferred();
 		
-		var loader = new ASJS.Loader();
-			loader.requestType = ASJS.RequestMethod.GET;
-			loader.addEventListener( ASJS.LoaderEvent.LOAD_END, function( event ) {
-				loader.removeEventListeners();
-				dfd.resolve( loader.content );
-			});
-			loader.addEventListener( ASJS.LoaderEvent.ERROR, function( event ) {
-				loader.removeEventListeners();
-				throw new Error( "Missing: " + loader.url );
-				dfd.reject();
-			});
-			loader.load( url );
+		_loader = new ASJS.Loader();
+		_loader.requestType = ASJS.RequestMethod.GET;
+		_loader.addEventListener( ASJS.LoaderEvent.LOAD_END, onLoadEnd );
+		_loader.addEventListener( ASJS.LoaderEvent.ERROR, onLoadError );
+		_loader.load( url );
 		
-		return dfd.promise();
+		return _dfd.promise();
+	}
+	
+	function onLoadEnd( event ) {
+		_loader.removeEventListeners();
+		_dfd.resolve( _loader.content );
+	}
+	
+	function onLoadError( event ) {
+		_loader.removeEventListeners();
+		throw new Error( "Missing: " + _loader.url );
+		_dfd.reject();
 	}
 	
 	return that;

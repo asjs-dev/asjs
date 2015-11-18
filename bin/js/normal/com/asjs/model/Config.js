@@ -13,6 +13,10 @@ function Config() {
 			return _data && _data[ key ] ? _data[ key ] : null;
 		}
 		
+		that.set = function( key, value ) {
+			_data[ key ] = value;
+		}
+		
 		return that;
 	}
 	
