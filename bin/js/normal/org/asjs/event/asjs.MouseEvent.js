@@ -4,6 +4,7 @@ ASJS.MouseEvent = function( type ) {
 	var that = new ASJS.Event( type );
 	return that;
 }
+ASJS.MouseEvent.SCROLL		= "DOMMouseScroll mousewheel";
 ASJS.MouseEvent.CLICK		= "click";
 ASJS.MouseEvent.MOUSE_DOWN	= "mousedown";
 ASJS.MouseEvent.MOUSE_UP	= "mouseup";

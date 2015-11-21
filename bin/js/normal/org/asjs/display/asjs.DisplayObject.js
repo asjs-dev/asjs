@@ -121,7 +121,7 @@ ASJS.DisplayObject = function( domElement ) {
 		set: function( value ) {
 			if ( value == null || value.getChildIndex( that ) > -1 ) {
 				_parent = value;
-				that.dispatchEvent( that.stage ? ASJS.Stage.ADDED_TO_STAGE : ASJS.Stage.REMOVED_FROM_STAGE, null, false );
+				that.sendAddedToStageEvent();
 			}
 		}
 	});
@@ -147,6 +147,10 @@ ASJS.DisplayObject = function( domElement ) {
 	that.clear = function() {
 		that.html = "";
 		that.text = "";
+	}
+	
+	that.sendAddedToStageEvent = function() {
+		that.dispatchEvent( that.stage ? ASJS.Stage.ADDED_TO_STAGE : ASJS.Stage.REMOVED_FROM_STAGE, null, false );
 	}
 	
 	that.getCSS = function( key ) { return that.domObject.css( key ); }

@@ -6,6 +6,18 @@ ASJS.Sprite = function( domElement ) {
 	var _children = [];
 	var _mouseChildren = true;
 	
+	extendFunction( _super, that, "sendAddedToStageEvent" );
+	that.sendAddedToStageEvent = function() {
+		_super.sendAddedToStageEvent();
+		var i;
+		var l = that.numChildren;
+		var child;
+		for ( i = 0; i < l; i++ ) {
+			child = that.getChildAt( i );
+			child.sendAddedToStageEvent();
+		}
+	}
+	
 	defineProperty( that, "mouseChildren", {
 		get: function() { return _mouseChildren; },
 		set: function( value ) {
