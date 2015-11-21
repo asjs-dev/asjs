@@ -17,14 +17,15 @@ function MobileUtils() {
 		}
 		
 		that.getScreenWidth = function( fixedPortrait ) {
-			return fixedPortrait ? Math.min( stage.stageWidth, stage.stageHeight ) : stage.stageWidth;
+			return fixedPortrait ? stage.stageWidth : Math.min( stage.stageWidth, stage.stageHeight );
 		}
 		
 		that.getRatio = function( fixedPortrait ) {
+			console.log( that.getScreenWidth( fixedPortrait ) + " / " + that.baseWidth );
 			return that.getScreenWidth( fixedPortrait ) / that.baseWidth;
 		}
 		
-		that.convertRatio = function( value, fixedPortrait ) {	
+		that.convertRatio = function( value, fixedPortrait ) {
 			return that.getRatio( fixedPortrait ) * value;
 		}
 		
