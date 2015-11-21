@@ -27,14 +27,19 @@ function PreloaderMediator( view ) {
 		}
 	}
 	
+	function onHideAnimationComplete() {
+		that.view.removeChild( _preloaderView );
+		$( ".flash-content" ).css( "visibility", "visible" );
+	}
+	
 	function onHide() {
 		_counter--;
 		if ( _counter < 0 ) _counter = 0;
 		if ( _counter == 0 && that.view.contains( _preloaderView ) ) {
-			$( _preloaderView ).stop().animate( { alpha: 0 }, { duration: 500, complete: function() {
-				that.view.removeChild( _preloaderView );
-				$( ".flash-content" ).css( "visibility", "visible" );
-			}});
+			$( _preloaderView ).stop().animate( { alpha: 0 }, {
+				duration: 500,
+				complete: onHideAnimationComplete
+			});
 		}
 	}
 	

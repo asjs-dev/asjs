@@ -46,13 +46,18 @@ function NotificationMediator( view ) {
 		else hideWindow();
 	}
 	
+	function hideWindowAnimationComplete() {
+		_notificationView.hideWindow();
+		that.view.removeChild( _notificationView );
+		_showed = false;
+		$( ".flash-content" ).css( "visibility", "visible" );
+	}
+	
 	function hideWindow() {
-		$( _notificationView ).stop().animate( { alpha: 0 }, { duration: 500, complete: function() {
-			_notificationView.hideWindow();
-			that.view.removeChild( _notificationView );
-			_showed = false;
-			$( ".flash-content" ).css( "visibility", "visible" );
-		}});
+		$( _notificationView ).stop().animate( { alpha: 0 }, {
+			duration: 500, 
+			complete: hideWindowAnimationComplete
+		});
 	}
 	
 	function showWindow() {
@@ -69,10 +74,7 @@ function NotificationMediator( view ) {
 	}
 	
 	(function() {
-		_notificationView.addEventListener( NotificationMediator.HIDE, function( event ) {
-			hide();
-		});
-		
+		_notificationView.addEventListener( NotificationMediator.HIDE, hide );
 		that.registerNotificationHandlers();
 	})();
 	

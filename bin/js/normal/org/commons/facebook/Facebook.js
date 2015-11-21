@@ -13,10 +13,7 @@ function Facebook() {
 			e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';        
 			document.getElementById( 'fb-root' ).appendChild( e );
 			
-			window.fbAsyncInit = function() {
-				FB.init({ appId: facebookAppId, status: true, cookie: true, xfbml: true, oauth: true, version: ( version || 'v2.4' ) });
-				FB.getLoginStatus( onLoginStatus );
-			};
+			window.fbAsyncInit = onFBAsyncInit;
 		}
 	
 		that.login = function() {
@@ -24,23 +21,46 @@ function Facebook() {
 		}
 	
 		that.logout = function() {
-			FB.getLoginStatus( function( response ) {
-				if ( response.status == "connected" ) {
-					FB.logout( function( response ) {
-						that.sendNotification( Facebook.LOGOUT );
-					});
-				} else that.sendNotification( Facebook.LOGOUT );
-			});
+			FB.getLoginStatus( onGetLoginStatus );
 		}
 	
 		that.postToFeed = function( title, desc, url, imageUrl ) {
-			var obj = { method: 'feed', link: url, picture: imageUrl, name: title, description: desc };
-			function postFeedCallback( response ) {
-				that.sendNotification( Facebook.POST_COMPLETE, response );
-			}
-			FB.ui( obj, postFeedCallback );
+			var obj = {
+				method: 'feed',
+				link: url,
+				picture: imageUrl,
+				name: title,
+				description: desc
+			};
+			FB.ui( obj, onPostFeed );
 		}
-	
+		
+		function onPostFeed( response ) {
+			that.sendNotification( Facebook.POST_COMPLETE, response );
+		}
+		
+		function onLogout( response ) {
+			that.sendNotification( Facebook.LOGOUT );
+		}
+		
+		function onGetLoginStatus( response ) {
+			if ( response.status == "connected" ) FB.logout(  onLogout );
+			else that.sendNotification( Facebook.LOGOUT );
+		}
+		
+		function onFBAsyncInit() {
+			var obj = {
+				appId: facebookAppId,
+				status: true,
+				cookie: true,
+				xfbml: true,
+				oauth: true,
+				version: ( version || 'v2.4' )
+			};
+			FB.init( obj );
+			FB.getLoginStatus( onLoginStatus );
+		}
+		
 		function onLoginStatus( response ) {
 			switch ( response.status ) {
 				case "connected": that.sendNotification( Facebook.CONNECTED, response.authResponse );

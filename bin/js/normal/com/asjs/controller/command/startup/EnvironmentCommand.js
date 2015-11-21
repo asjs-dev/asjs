@@ -47,8 +47,8 @@ function EnvironmentCommand() {
 	}
 	
 	function onTimeout() {
-		that.sendNotification( ASJS.Stage.RESIZE );
 		window.clearTimeout( _sleepToResizeId );
+		that.sendNotification( ASJS.Stage.RESIZE );
 	}
 	
 	return that;

@@ -19,24 +19,17 @@ Geolocation = function() {
 	var _watchID;
 	var _location = new GeolocationData();
 	
-	that.init = function( enableHighAccuracy, timeout, maximumAge) {
+	that.init = function( enableHighAccuracy, timeout, maximumAge ) {
 		if ( _geolocation && _watchID ) _geolocation.clearWatch( _watchID );
 	
 		_geolocation = getGeolocation();
 		if ( _geolocation ) {
-			_watchID = _geolocation.watchPosition( 
-				function( position ) {
-					setGeoDatas( position );
-				},
-				function( error ) {
-					errorGettingPosition( error );
-				},
-				{
-					'enableHighAccuracy': enableHighAccuracy || false,
-					'timeout': timeout || 10000,
-					'maximumAge': maximumAge || 60000
-				}
-			);
+			var obj = {
+				'enableHighAccuracy': enableHighAccuracy || false,
+				'timeout': timeout || 10000,
+				'maximumAge': maximumAge || 60000
+			}
+			_watchID = _geolocation.watchPosition( setGeoDatas, errorGettingPosition, obj );
 		} else throw new Error( "Geolocation: Not Supported" );
 	}
 	
