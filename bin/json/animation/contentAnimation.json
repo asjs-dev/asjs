@@ -2,10 +2,7 @@
 	{
 		"id": "animationExplode",
 		"image": "images/explosion.png",
-		"imageSize": {
-			"w": 768,
-			"h": 512
-		},
+		"imageSize": { "w": 768, "h": 512 },
 		"frames": [
 			{ "x": 0, "y": 0, "w": 256, "h": 128 },
 			{ "x": 256, "y": 0, "w": 256, "h": 128 },
@@ -24,10 +21,7 @@
 	{
 		"id": "animationFireworks",
 		"image": "images/triple03_sheet.png",
-		"imageSize": {
-			"w": 1600,
-			"h": 600
-		},
+		"imageSize": { "w": 1600, "h": 600 },
 		"frames": [
 			{ "x": 0, "y": 0, "w": 200, "h": 200 },
 			{ "x": 200, "y": 0, "w": 200, "h": 200 },
