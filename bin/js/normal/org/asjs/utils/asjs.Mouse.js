@@ -8,13 +8,8 @@ ASJS.Mouse = function() {
 		var _mouseX = 0;
 		var _mouseY = 0;
 	
-		defineProperty( that, "mouseX", {
-			get: function() { return _mouseX; }
-		});
-	
-		defineProperty( that, "mouseY", {
-			get: function() { return _mouseY; }
-		});
+		defineProperty( that, "mouseX", { get: function() { return _mouseX; } } );
+		defineProperty( that, "mouseY", { get: function() { return _mouseY; } } );
 	
 		that.show = function() { stage.setCSS( "cursor", "default" ); }	
 		that.hide = function() { stage.setCSS( "cursor", "none" ); }
@@ -22,12 +17,14 @@ ASJS.Mouse = function() {
 		that.getRelativePosition = function( value ) {
 			return value.globalToLocal( new ASJS.Point( that.mouseX, that.mouseY ) );
 		};
-	
+		
+		function onMouseMove( event ) {
+			_mouseX = event.pageX;
+			_mouseY = event.pageY;
+		}
+		
 		(function() {
-			stage.window.on( ASJS.MouseEvent.MOUSE_MOVE, function( event ) {
-				_mouseX = event.pageX;
-				_mouseY = event.pageY;
-			});
+			stage.window.on( ASJS.MouseEvent.MOUSE_MOVE, onMouseMove );
 		})();
 		
 		return that;

@@ -20,9 +20,7 @@ ASJS.Cell = function( domElement ) {
 		get: function() { return _data; },
 		set: function( value ) {
 			_data = value;
-			
 			if ( _data.id ) that.id = _data.id;
-			
 			that.showData();
 		}
 	});

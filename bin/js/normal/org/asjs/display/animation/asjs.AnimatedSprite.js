@@ -8,13 +8,12 @@ ASJS.AnimatedSprite = function() {
 	var _selectedAnimation = "";
 	var _step = 0;
 	
-	defineProperty( that, "selectedAnimation", {
-		get: function() { return _selectedAnimation; }
-	});
+	defineProperty( that, "selectedAnimation", { get: function() { return _selectedAnimation; } } );
 	
 	that.addAnimationDescriptorList = function( animationDescriptorList ) {
 		var i;
-		for ( i = 0; i < animationDescriptorList.length; i++ ) that.addAnimationDescriptor( animationDescriptorList[ i ] );
+		var l = animationDescriptorList.length;
+		for ( i = 0; i < l; i++ ) that.addAnimationDescriptor( animationDescriptorList[ i ] );
 	}
 	
 	that.addAnimationDescriptor = function( animationDescriptor ) {
@@ -41,8 +40,11 @@ ASJS.AnimatedSprite = function() {
 	that.update = function() {
 		if ( !_isPlaying ) return;
 		
-		var rect = _animations[ _selectedAnimation ].sequenceList[ _step ];
-		var size = _animations[ _selectedAnimation ].size;
+		var selectedAnimation = _animations[ _selectedAnimation ];
+		var sequenceList = selectedAnimation.sequenceList;
+		
+		var rect = sequenceList[ _step ];
+		var size = selectedAnimation.size;
 		
 		var percentW = that.width / rect.width;
 		var percentH = that.height / rect.height;
@@ -52,7 +54,7 @@ ASJS.AnimatedSprite = function() {
 		that.setSize( rect.width * percentW, rect.height * percentH );
 		
 		_step++;
-		if ( _step >= _animations[ _selectedAnimation ].sequenceList.length ) _step = 0;
+		if ( _step >= sequenceList.length ) _step = 0;
 	}
 	
 	return that;

@@ -8,9 +8,7 @@ ASJS.Cycler = function() {
 		var _callbacks = [];
 		var _timeoutId;
 	
-		defineProperty( that, "isPlaying", {
-			get: function() { return _isPlaying; }
-		});
+		defineProperty( that, "isPlaying", { get: function() { return _isPlaying; } } );
 	
 		defineProperty( that, "fps", {
 			get: function() { return _fps; },
@@ -68,7 +66,7 @@ ASJS.Cycler = function() {
 				if ( _callbacks[ i ] ) _callbacks[ i ]();
 			}
 		
-			_timeoutId = window.setTimeout( function() { tick(); }, _interval );
+			_timeoutId = window.setTimeout( tick, _interval );
 		}
 	
 		function getIntervalByFps() {

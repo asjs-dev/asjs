@@ -1,35 +1,37 @@
 includeOnce( "org/asjs/display/form/asjs.FormElement.js" );
 includeOnce( "org/asjs/event/asjs.KeyboardEvent.js" );
+includeOnce( "org/asjs/utils/asjs.Keyboard.js" );
 
 ASJS.AbstractTextElement = function( domElement ) {
 	var that = new ASJS.FormElement( domElement );
 	var _super = {};
-	var _protectedChars = {
-		 37: true,
-		 38: true,
-		 39: true,
-		 40: true,
-		 8: true,
-		 9: true,
-		 46: true,
-		 13: true,
-		 16: true,
-		 17: true,
-		 35: true,
-		 36: true,
-		 20: true,
-		 27: true
-	};
-	var _controlChars = {
-		 65: true,
-		 67: true,
-		 86: true,
-		 88: true,
-		 97: true,
-		 99: true,
-		 118: true,
-		 120: true
-	};
+	
+	var _protectedChars = [
+		ASJS.Keyboard.LEFT_ARROW,
+		ASJS.Keyboard.UP_ARROW,
+		ASJS.Keyboard.RIGHT_ARROW,
+		ASJS.Keyboard.DOWN_ARROW,
+		ASJS.Keyboard.BACKSPACE,
+		ASJS.Keyboard.TAB,
+		ASJS.Keyboard.DELETE,
+		ASJS.Keyboard.ENTER,
+		ASJS.Keyboard.SHIFT,
+		ASJS.Keyboard.CTRL,
+		ASJS.Keyboard.END,
+		ASJS.Keyboard.HOME,
+		ASJS.Keyboard.CAPS_LOCK,
+		ASJS.Keyboard.ESCAPE
+	];
+	var _controlChars = [
+		ASJS.Keyboard.A,
+		ASJS.Keyboard.C,
+		ASJS.Keyboard.V,
+		ASJS.Keyboard.X,
+		ASJS.Keyboard.NUMPAD_1,
+		ASJS.Keyboard.NUMPAD_3,
+		ASJS.Keyboard.F7,
+		ASJS.Keyboard.F9
+	];
 	var _restrict;
 	
 	defineProperty( that, "placeholder", {
@@ -52,21 +54,25 @@ ASJS.AbstractTextElement = function( domElement ) {
 		set: function( value ) { _restrict = value; }
 	})
 	
-	(function() {
-		that.addEventListener( ASJS.KeyboardEvent.KEY_PRESS, function( event ) {
-			if ( _restrict ) {
-				var charCode = event.which ? event.which : event.keyCode;
-				if ( _protectedChars[ event.keyCode ] != undefined || ( event.ctrlKey && _controlChars[ charCode ] != undefined ) ) return;
-				if ( !new RegExp( _restrict, "i" ).test( String.fromCharCode( event.which ) ) ) return false;
-			}
-		});
-		that.addEventListener( ASJS.KeyboardEvent.KEY_UP, function( event ) {
+	function onKeyPress( event ) {
+		if ( _restrict ) {
 			var charCode = event.which ? event.which : event.keyCode;
-			if ( _restrict && ( event.ctrlKey && _controlChars[ charCode ] != undefined ) ) {
-				var regExp = new RegExp( "(?!" + _restrict + ").", "g" );
-				that.val = that.val.replace( regExp, '' );
-			}
-		});
+			if ( _protectedChars.indexOf( event.keyCode ) > -1 || ( event.ctrlKey && _controlChars.indexOf( charCode ) > -1 ) ) return;
+			if ( !new RegExp( _restrict, "i" ).test( String.fromCharCode( event.which ) ) ) return false;
+		}
+	}
+	
+	function onKeyUp( event ) {
+		var charCode = event.which ? event.which : event.keyCode;
+		if ( _restrict && ( event.ctrlKey && _controlChars.indexOf( charCode ) > -1 ) ) {
+			var regExp = new RegExp( "(?!" + _restrict + ").", "g" );
+			that.val = that.val.replace( regExp, '' );
+		}
+	}
+	
+	(function() {
+		that.addEventListener( ASJS.KeyboardEvent.KEY_PRESS, onKeyPress );
+		that.addEventListener( ASJS.KeyboardEvent.KEY_UP, onKeyUp );
 	})();
 	
 	return that;

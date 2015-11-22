@@ -8,8 +8,9 @@ ASJS.List = function() {
 		get: function() {
 			var value;
 			var i;
+			var l = that.numChildren;
 			var item;
-			for ( i = 0; i < that.numChildren; i++ ) {
+			for ( i = 0; i < l; i++ ) {
 				item = that.getChildAt( i );
 				if ( item.checked ) value = item.val;
 			}
@@ -18,8 +19,9 @@ ASJS.List = function() {
 		set: function( value ) {
 			if ( that.val == value ) return;
 			var i;
+			var l = that.numChildren;
 			var item;
-			for ( i = 0; i < that.numChildren; i++ ) {
+			for ( i = 0; i < l; i++ ) {
 				item = that.getChildAt( i );
 				item.checked = item.val == value;
 			}
@@ -31,8 +33,9 @@ ASJS.List = function() {
 		set: function( value ) {
 			_name = value;
 			var i;
+			var l = that.numChildren;
 			var item;
-			for ( i = 0; i < that.numChildren; i++ ) {
+			for ( i = 0; i < l; i++ ) {
 				item = that.getChildAt( i );
 				item.name = _name;
 			}
@@ -46,7 +49,8 @@ ASJS.List = function() {
 	that.setListItems = function( items ) {
 		that.clearList();
 		var i;
-		for ( i = 0; i < items.length; i++ ) that.addItem( items[ i ] );
+		var l = items.length;
+		for ( i = 0; i < l; i++ ) that.addItem( items[ i ] );
 	}
 	
 	that.addItem = function( item ) {

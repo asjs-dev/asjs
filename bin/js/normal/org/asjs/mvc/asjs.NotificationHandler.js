@@ -5,7 +5,6 @@ ASJS.NotificationHandler = function() {
 	
 		that.register = function( notificationDispatcher ) {
 			if ( !notificationDispatcher.handlers ) return;
-		
 			var i;
 			var l = notificationDispatcher.handlers.length;
 			var notificationType;
@@ -18,7 +17,6 @@ ASJS.NotificationHandler = function() {
 	
 		that.remove = function( notificationDispatcher ) {
 			if ( !notificationDispatcher.handlers ) return;
-		
 			var i;
 			var l = notificationDispatcher.handlers ? notificationDispatcher.handlers.length : 0;
 			var notificationType;

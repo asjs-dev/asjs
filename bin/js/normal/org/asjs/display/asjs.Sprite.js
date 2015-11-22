@@ -6,15 +6,15 @@ ASJS.Sprite = function( domElement ) {
 	var _children = [];
 	var _mouseChildren = true;
 	
-	extendFunction( _super, that, "sendAddedToStageEvent" );
-	that.sendAddedToStageEvent = function() {
-		_super.sendAddedToStageEvent();
+	extendFunction( _super, that, "_sendAddedToStageEvent" );
+	that._sendAddedToStageEvent = function() {
+		_super._sendAddedToStageEvent();
 		var i;
 		var l = that.numChildren;
 		var child;
 		for ( i = 0; i < l; i++ ) {
 			child = that.getChildAt( i );
-			child.sendAddedToStageEvent();
+			child._sendAddedToStageEvent();
 		}
 	}
 	
@@ -30,9 +30,7 @@ ASJS.Sprite = function( domElement ) {
 		}
 	});
 	
-	defineProperty( that, "numChildren", {
-		get: function() { return _children.length; }
-	});
+	defineProperty( that, "numChildren", { get: function() { return _children.length; } } );
 	
 	extendFunction( _super, that, "clear" );
 	that.clear = function() {

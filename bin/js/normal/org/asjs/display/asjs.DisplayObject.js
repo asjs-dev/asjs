@@ -4,6 +4,7 @@ includeOnce( "org/asjs/geom/asjs.GeomUtils.js" );
 
 ASJS.DisplayObject = function( domElement ) {
 	var that = new ASJS.EventDispatcher( domElement );
+	
 	var _rotation = 0;
 	var _parent = null;
 	var _cssDisplay = "block";
@@ -64,13 +65,8 @@ ASJS.DisplayObject = function( domElement ) {
 		set: function( value ) { that.setCSS( "top", value ); }
 	});
 	
-	defineProperty( that, "calcX", {
-		get: function() { return that.x + parseFloat( that.getCSS( "marginLeft" ) ); }
-	});
-	
-	defineProperty( that, "calcY", {
-		get: function() { return that.y + parseFloat( that.getCSS( "marginTop" ) ); }
-	});
+	defineProperty( that, "calcX", { get: function() { return that.x + parseFloat( that.getCSS( "marginLeft" ) ); } } );
+	defineProperty( that, "calcY", { get: function() { return that.y + parseFloat( that.getCSS( "marginTop" ) ); } } );
 	
 	defineProperty( that, "right", {
 		get: function() { return parseFloat( that.getCSS( "right" ) ); },
@@ -84,16 +80,12 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	defineProperty( that, "width", {
 		get: function() { return that.domObject.width(); },
-		set: function( value ) {
-			that.setCSS( "width", value );
-		}
+		set: function( value ) { that.setCSS( "width", value ); }
 	});
 	
 	defineProperty( that, "height", {
 		get: function() { return that.domObject.height(); },
-		set: function( value ) {
-			that.setCSS( "height", value );
-		}
+		set: function( value ) { that.setCSS( "height", value ); }
 	});
 	
 	defineProperty( that, "calcWidth", {
@@ -121,35 +113,24 @@ ASJS.DisplayObject = function( domElement ) {
 		set: function( value ) {
 			if ( value == null || value.getChildIndex( that ) > -1 ) {
 				_parent = value;
-				that.sendAddedToStageEvent();
+				that._sendAddedToStageEvent();
 			}
 		}
 	});
 	
-	defineProperty( that, "stage", {
-		get: function() {
-			return that.parent ? that.parent.stage : null;
-		}
-	});
+	defineProperty( that, "stage", { get: function() { return that.parent ? that.parent.stage : null; } } );
 	
-	defineProperty( that, "mouseX", {
-		get: function() { return new ASJS.Mouse().instance.getRelativePosition( that ).x; }
-	});
+	defineProperty( that, "mouseX", { get: function() { return new ASJS.Mouse().instance.getRelativePosition( that ).x; } } );
+	defineProperty( that, "mouseY", { get: function() { return new ASJS.Mouse().instance.getRelativePosition( that ).y; } } );
 	
-	defineProperty( that, "mouseY", {
-		get: function() { return new ASJS.Mouse().instance.getRelativePosition( that ).y; }
-	});
-	
-	defineProperty( that, "domElement", {
-		get: function() { return that.domObject[ 0 ]; }
-	});
+	defineProperty( that, "domElement", { get: function() { return that.domObject[ 0 ]; } } );
 	
 	that.clear = function() {
 		that.html = "";
 		that.text = "";
 	}
 	
-	that.sendAddedToStageEvent = function() {
+	that._sendAddedToStageEvent = function() {
 		that.dispatchEvent( that.stage ? ASJS.Stage.ADDED_TO_STAGE : ASJS.Stage.REMOVED_FROM_STAGE, null, false );
 	}
 	
@@ -191,7 +172,6 @@ ASJS.DisplayObject = function( domElement ) {
 	that.localToGlobal = function( point ) {
 		if ( !point ) throw new Error( "DisplayObject.localToGlobal: Point is null" );
 		var pos = new ASJS.Point( point.x, point.y );
-		var i;
 		var child = that;
 		while ( child ) {
 			pos.x += child.x || 0;
@@ -204,7 +184,6 @@ ASJS.DisplayObject = function( domElement ) {
 	that.globalToLocal = function( point ) {
 		if ( !point ) throw new Error( "DisplayObject.globalToLocal: Point is null" );
 		var pos = new ASJS.Point( point.x, point.y );
-		var i;
 		var child = that;
 		while ( child ) {
 			pos.x -= child.x || 0;
@@ -214,7 +193,10 @@ ASJS.DisplayObject = function( domElement ) {
 		return pos;
 	};
 	
-	that.domObject = $( domElement || "<div />", { tabindex: "-1", style: ( "pointer-events: auto; position: absolute; display: " + _cssDisplay + "; width: 0px; height: 0px; top: 0px; left: 0px;" ) } );
+	that.domObject = $( domElement || "<div />", { 
+		tabindex: "-1", 
+		style: ( "pointer-events: auto; position: absolute; display: " + _cssDisplay + "; width: 0px; height: 0px; top: 0px; left: 0px;" ) 
+	});
 	
 	(function() {
 		that.id = "intance_" + ASJS.DisplayObject.INSTANCE_ID;

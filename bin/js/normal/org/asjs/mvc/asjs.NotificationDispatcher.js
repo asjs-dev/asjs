@@ -3,6 +3,8 @@ includeOnce( "org/asjs/mvc/asjs.NotificationHandler.js" );
 ASJS.NotificationDispatcher = function() {
 	var that = {};
 	
+	var _notificationHandler = new ASJS.NotificationHandler().instance;
+	
 	that.handlers = [];
 	
 	that.destruct = function() {
@@ -11,17 +13,17 @@ ASJS.NotificationDispatcher = function() {
 	};
 	
 	that.sendNotification = function( notificationType, data ) {
-		new ASJS.NotificationHandler().instance.sendNotification( notificationType, data );
+		_notificationHandler.sendNotification( notificationType, data );
 	}
 	
 	that.reciveNotification = function( notificationType, data ) {}
 	
 	that.registerNotificationHandlers = function() {
-		new ASJS.NotificationHandler().instance.register( that );
+		_notificationHandler.register( that );
 	}
 	
 	that.removeNotificationHandlers = function() {
-		new ASJS.NotificationHandler().instance.remove( that );
+		_notificationHandler.remove( that );
 	}
 	
 	return that;

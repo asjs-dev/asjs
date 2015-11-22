@@ -4,6 +4,7 @@ includeOnce( "org/asjs/display/asjs.DisplayObject.js" );
 ASJS.Checkbox = function() {
 	var that = new ASJS.FormElement( "<label />" );
 	var _super = {};
+	
 	var _checkbox = new ASJS.DisplayObject( "<input />" );
 	var _label = new ASJS.DisplayObject();
 	
@@ -21,9 +22,7 @@ ASJS.Checkbox = function() {
 		set: function( value ) { _checkbox.setAttr( "name", value ); }
 	});
 	
-	defineProperty( that, "label", {
-		get: function() { return _label; }
-	});
+	defineProperty( that, "label", { get: function() { return _label; } } );
 	
 	defineProperty( that, "checked", {
 		get: function() { return _checkbox.domObject.is( ":checked" ); },
@@ -33,7 +32,7 @@ ASJS.Checkbox = function() {
 		}
 	});
 	
-	(function() {
+	function init() {
 		_checkbox.setAttr( "type", "checkbox" );
 		_checkbox.visible = false;
 		that.addChild( _checkbox );
@@ -41,6 +40,10 @@ ASJS.Checkbox = function() {
 		_label.setSize( "100%", "100%" );
 		_label.enabled = false;
 		that.addChild( _label );
+	}
+	
+	(function() {
+		init();
 	})();
 	
 	return that;

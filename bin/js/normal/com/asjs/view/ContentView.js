@@ -4,6 +4,7 @@ includeOnce( "org/asjs/display/asjs.Label.js" );
 includeOnce( "org/asjs/display/form/asjs.Button.js" );
 includeOnce( "org/asjs/display/animation/asjs.AnimationDescriptor.js" );
 includeOnce( "org/asjs/display/animation/asjs.AnimatedSprite.js" );
+includeOnce( "org/asjs/display/animation/loader/asjs.AnimationLoader.js" );
 includeOnce( "org/asjs/geom/asjs.Rectangle.js" );
 includeOnce( "org/asjs/geom/asjs.Point.js" );
 includeOnce( "org/asjs/utils/asjs.Cycler.js" );
@@ -14,49 +15,8 @@ includeOnce( "com/asjs/model/Language.js" );
 function ContentView() {
 	var that = new ASJS.Sprite();
 	
-	var ANIMATION_EXPLODE_ID = "animationExplode";
-	var ANIMATION_EXPLODE_DESCRIPTORS = [
-		new ASJS.Rectangle( 0, 0, 256, 128 ),
-		new ASJS.Rectangle( 256, 0, 256, 128 ),
-		new ASJS.Rectangle( 512, 0, 256, 128 ),
-		new ASJS.Rectangle( 0, 128, 256, 128 ),
-		new ASJS.Rectangle( 256, 128, 256, 128 ),
-		new ASJS.Rectangle( 512, 128, 256, 128 ),
-		new ASJS.Rectangle( 0, 256, 256, 128 ),
-		new ASJS.Rectangle( 256, 256, 256, 128 ),
-		new ASJS.Rectangle( 512, 256, 256, 128 ),
-		new ASJS.Rectangle( 0, 384, 256, 128 ),
-		new ASJS.Rectangle( 256, 384, 256, 128 ),
-		new ASJS.Rectangle( 512, 384, 256, 128 )
-	];
-	
-	var ANIMATION_FIREWORKS_ID = "animationFireworks";
-	var ANIMATION_FIREWORKS_DESCRIPTORS = [
-		new ASJS.Rectangle( 0, 0, 200, 200 ),
-		new ASJS.Rectangle( 200, 0, 200, 200 ),
-		new ASJS.Rectangle( 400, 0, 200, 200 ),
-		new ASJS.Rectangle( 600, 0, 200, 200 ),
-		new ASJS.Rectangle( 800, 0, 200, 200 ),
-		new ASJS.Rectangle( 1000, 0, 200, 200 ),
-		new ASJS.Rectangle( 1200, 0, 200, 200 ),
-		new ASJS.Rectangle( 1400, 0, 200, 200 ),
-		new ASJS.Rectangle( 0, 200, 200, 200 ),
-		new ASJS.Rectangle( 200, 200, 200, 200 ),
-		new ASJS.Rectangle( 400, 200, 200, 200 ),
-		new ASJS.Rectangle( 600, 200, 200, 200 ),
-		new ASJS.Rectangle( 800, 200, 200, 200 ),
-		new ASJS.Rectangle( 1000, 200, 200, 200 ),
-		new ASJS.Rectangle( 1200, 200, 200, 200 ),
-		new ASJS.Rectangle( 1400, 200, 200, 200 ),
-		new ASJS.Rectangle( 0, 400, 200, 200 ),
-		new ASJS.Rectangle( 200, 400, 200, 200 ),
-		new ASJS.Rectangle( 400, 400, 200, 200 ),
-		new ASJS.Rectangle( 600, 400, 200, 200 ),
-		new ASJS.Rectangle( 800, 400, 200, 200 ),
-		new ASJS.Rectangle( 1000, 400, 200, 200 ),
-		new ASJS.Rectangle( 1200, 400, 200, 200 ),
-		new ASJS.Rectangle( 1400, 400, 200, 200 )
-	];
+	var ANIMATION_EXPLODE_ID	= "animationExplode";
+	var ANIMATION_FIREWORKS_ID	= "animationFireworks";
 
 	var _language = new Language().instance;
 	var _cycler = new ASJS.Cycler().instance;
@@ -66,7 +26,7 @@ function ContentView() {
 	var _box = new ASJS.Sprite();
 	var _label = new ASJS.Label();
 	var _button = new ASJS.Button();
-	var _animatedSprite = new ASJS.AnimatedSprite();
+	var _animatedSprite;
 	var _drag = false;
 	
 	that.drawNow = function() {
@@ -84,11 +44,13 @@ function ContentView() {
 	}
 	
 	function playExplodeAnimation() {
+		if ( !_animatedSprite ) return;
 		_animatedSprite.setSize( 256, 128 );
 		_animatedSprite.play( ANIMATION_EXPLODE_ID );
 	}
 	
 	function playFireworksAnimation() {
+		if ( !_animatedSprite ) return;
 		_animatedSprite.setSize( 200, 200 );
 		_animatedSprite.play( ANIMATION_FIREWORKS_ID );
 	}
@@ -116,7 +78,7 @@ function ContentView() {
 		_label.text = _language.getText( hitTest ? "hit_test_inside" : "hit_test_outside" );
 	}
 	
-	function initView() {
+	function animationLoaderDone( data ) {
 		_background.addClass( "background" );
 		_background.setCSS( "position", "fixed" );
 		_background.setSize( "100%", "100%" );
@@ -141,20 +103,7 @@ function ContentView() {
 		_button.addEventListener( ASJS.MouseEvent.CLICK, onButtonClick );
 		_box.addChild( _button );
 		
-		_animatedSprite.addAnimationDescriptorList([
-			new ASJS.AnimationDescriptor( 
-				ANIMATION_EXPLODE_ID, 
-				"images/explosion.png", 
-				new ASJS.Point( 768, 512 ), 
-				ANIMATION_EXPLODE_DESCRIPTORS
-			),
-			new ASJS.AnimationDescriptor(
-				ANIMATION_FIREWORKS_ID, 
-				"images/triple03_sheet.png", 
-				new ASJS.Point( 1600, 600 ), 
-				ANIMATION_FIREWORKS_DESCRIPTORS
-			)
-		]);
+		_animatedSprite = data;
 		
 		_animatedSprite.move( 10, 10 );
 		that.addChild( _animatedSprite );
@@ -169,6 +118,15 @@ function ContentView() {
 		that.addEventListener( ASJS.MouseEvent.CLICK, onMouseClick );
 		
 		_cycler.addCallback( _animatedSprite.update );
+		
+		playFireworksAnimation();
+		
+		that.drawNow();
+	}
+	
+	function initView() {
+		var animationLoader = new ASJS.AnimationLoader();
+			animationLoader.load( "json/animation/contentAnimation.json" ).done( animationLoaderDone );
 	}
 	
 	(function() {

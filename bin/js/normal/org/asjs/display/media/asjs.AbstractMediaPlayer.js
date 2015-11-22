@@ -68,61 +68,20 @@ ASJS.AbstractMediaPlayer = function( type ) {
 		set: function( value ) { that.domElement.volume = value; }
 	});
 	
-	defineProperty( that, "buffered", {
-		get: function() { return that.domElement.buffered; },
-	});
-	
-	defineProperty( that, "controller", {
-		get: function() { return that.domElement.controller; },
-	});
-	
-	defineProperty( that, "currentSrc", {
-		get: function() { return that.domElement.currentSrc; },
-	});
-	
-	defineProperty( that, "duration", {
-		get: function() { return that.domElement.duration; },
-	});
-	
-	defineProperty( that, "ended", {
-		get: function() { return that.domElement.ended; },
-	});
-	
-	defineProperty( that, "error", {
-		get: function() { return that.domElement.error; },
-	});
-	
-	defineProperty( that, "networkState", {
-		get: function() { return that.domElement.networkState; },
-	});
-	
-	defineProperty( that, "paused", {
-		get: function() { return that.domElement.paused; },
-	});
-	
-	defineProperty( that, "played", {
-		get: function() { return that.domElement.played; },
-	});
-	
-	defineProperty( that, "readyState", {
-		get: function() { return that.domElement.readyState; },
-	});
-	
-	defineProperty( that, "seekable", {
-		get: function() { return that.domElement.seekable; },
-	});
-	
-	defineProperty( that, "seeking", {
-		get: function() { return that.domElement.seeking; },
-	});
-	
-	defineProperty( that, "startDate", {
-		get: function() { return that.domElement.startDate; },
-	});
-	
-	defineProperty( that, "textTracks", {
-		get: function() { return that.domElement.textTracks; },
-	});
+	defineProperty( that, "buffered", { get: function() { return that.domElement.buffered; } } );
+	defineProperty( that, "controller", { get: function() { return that.domElement.controller; } } );
+	defineProperty( that, "currentSrc", { get: function() { return that.domElement.currentSrc; } } );
+	defineProperty( that, "duration", { get: function() { return that.domElement.duration; } } );
+	defineProperty( that, "ended", { get: function() { return that.domElement.ended; } } );
+	defineProperty( that, "error", { get: function() { return that.domElement.error; } } );
+	defineProperty( that, "networkState", { get: function() { return that.domElement.networkState; } } );
+	defineProperty( that, "paused", { get: function() { return that.domElement.paused; } } );
+	defineProperty( that, "played", { get: function() { return that.domElement.played; } } );
+	defineProperty( that, "readyState", { get: function() { return that.domElement.readyState; } } );
+	defineProperty( that, "seekable", { get: function() { return that.domElement.seekable; } } );
+	defineProperty( that, "seeking", { get: function() { return that.domElement.seeking; } } );
+	defineProperty( that, "startDate", { get: function() { return that.domElement.startDate; } } );
+	defineProperty( that, "textTracks", { get: function() { return that.domElement.textTracks; } } );
 	
 	that.play = function() {
 		that.domElement.play();

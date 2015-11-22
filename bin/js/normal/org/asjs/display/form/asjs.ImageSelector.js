@@ -4,27 +4,29 @@ ASJS.ImageSelector = function() {
 	var that = new ASJS.FileSelector();
 	
 	var _preview = new ASJS.Sprite();
+	var _reader = new FileReader();
 	
-	defineProperty( that, "preview", {
-		get: function() { return _preview; }
-	});
+	defineProperty( that, "preview", { get: function() { return _preview; } } );
 	
-	(function() {
+	that._onChange = function( event ) {
+		var target = that._fileInput.domElement;
+		if ( target.files && target.files[ 0 ] ) _reader.readAsDataURL( target.files[ 0 ] );
+	}
+	
+	function readerOnLoad( event ) {
+		_preview.setCSS( 'background-image', 'url(' + event.target.result + ')' );
+	}
+	
+	function init() {
 		_preview.setSize( "100%", "100%" );
 		_preview.move( 0, 0 );
 		that.addChild( _preview );
 		
-		that._fileInput.removeEventListeners( "change" );
-		that._fileInput.addEventListener( "change", function( event ) {
-			var target = that._fileInput.domElement;
-			if ( target.files && target.files[ 0 ] ) {
-				var reader = new FileReader();
-				reader.onload = function ( e ) {
-					_preview.setCSS( 'background-image', 'url(' + e.target.result + ')' );
-				}
-				reader.readAsDataURL( target.files[ 0 ] );
-			}
-		});
+		_reader.onload = readerOnLoad();
+	}
+	
+	(function() {
+		init();
 	})();
 	
 	return that;

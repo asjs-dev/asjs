@@ -144,13 +144,19 @@ ASJS.Scale9Grid = function() {
 	
 	defineProperty( that, "backgroundImage", {
 		set: function( value ) {
-			for ( var i = 0; i < 9; i++ ) _blocks[ i ].setCSS( "background-image", "url(" + value + ")" );
+			var i;
+			var l = 9;
+			for ( i = 0; i < l; i++ ) {
+				_blocks[ i ].setCSS( "background-image", "url(" + value + ")" );
+			}
 			that.drawNow();
 		}
 	});
 	
-	(function() {
-		for ( var i = 0; i < 9; i++ ) {
+	function init() {
+		var i;
+		var l = 9;
+		for ( i = 0; i < l; i++ ) {
 			_blocks[ i ] = new ASJS.Sprite();
 			_blocks[ i ].setCSS( "background-repeat", "no-repeat" );
 			that.addChild( _blocks[ i ] );
@@ -160,6 +166,10 @@ ASJS.Scale9Grid = function() {
 		_blocks[ 2 ].setCSS( "background-position", "right top" );
 		_blocks[ 6 ].setCSS( "background-position", "left bottom" );
 		_blocks[ 8 ].setCSS( "background-position", "right bottom" );
+	}
+	
+	(function() {
+		init();
 	})();
 	
 	return that;

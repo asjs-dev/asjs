@@ -11,9 +11,8 @@ ASJS.Loader = function() {
 	var _headers;
 	var _content;
 	
-	defineProperty( that, "url", {
-		get: function() { return _url; }
-	});
+	defineProperty( that, "url", { get: function() { return _url; } } );
+	defineProperty( that, "content", { get: function() { return _content; } } );
 	
 	defineProperty( that, "headers", {
 		get: function() { return _headers; },
@@ -35,13 +34,8 @@ ASJS.Loader = function() {
 		set: function( value ) { _dataType = value; }
 	});
 	
-	defineProperty( that, "content", {
-		get: function() { return _content; }
-	});
-	
 	that.load = function( url ) {
 		if ( !url ) return;
-		
 		_url = url;
 		
 		var requestData = {
@@ -55,17 +49,9 @@ ASJS.Loader = function() {
 				withCredentials: true,
 				onprogress: onProgress
 			},
-			success: function ( data ) {
-				_content = data;
-				onLoad();
-			},
-			error: function( xhr, textStatus, errorThrown ) {
-				_content = xhr;
-				onError( xhr );
-			},
-			complete: function() {
-				onLoadEnd();
-			}
+			success: onSuccess,
+			error: onError,
+			complete: onComplete
 		};
 	
 		if ( _dataType )	requestData.dataType = _dataType;
@@ -75,6 +61,20 @@ ASJS.Loader = function() {
 		$.ajax( requestData );
 		
 		onLoadStart();
+	}
+	
+	function onSuccess( data ) {
+		_content = data;
+		onLoad();
+	}
+	
+	function onError( xhr, textStatus, errorThrown ) {
+		_content = xhr;
+		onError( xhr );
+	}
+	
+	function onComplete() {
+		onLoadEnd();
 	}
 	
 	function onLoadStart() {

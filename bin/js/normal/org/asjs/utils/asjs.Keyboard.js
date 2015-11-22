@@ -2,33 +2,39 @@ includeOnce( "org/asjs/event/asjs.KeyboardEvent.js" );
 
 ASJS.Keyboard = function() {
 	var that = {};
-	var _pressedKeys = {};
 	
-	that.isPressed = function( which ) {
-		return _pressedKeys[ which ];
-	}
+	var _pressedKeys = {};
+	var _downCallback;
+	var _upCallback;
+	
+	that.isPressed = function( which ) { return _pressedKeys[ which ]; }
 	
 	that.addKeyListener = function( target, downCallback, upCallback ) {
 		if ( !target ) return;
+		_downCallback = downCallback;
+		_upCallback = upCallback;
 		
 		that.removeKeyListener( target );
 		
-		target.addEventListener( ASJS.KeyboardEvent.KEY_DOWN, function( event ) {
-			_pressedKeys[ event.which ] = true;
-			if ( downCallback ) downCallback();
-			return false;
-		});
-	
-		target.addEventListener( ASJS.KeyboardEvent.KEY_UP, function( event ) {
-			_pressedKeys[ event.which ] = false;
-			if ( upCallback ) upCallback();
-			return false;
-		});
+		target.addEventListener( ASJS.KeyboardEvent.KEY_DOWN, onKeyDown );
+		target.addEventListener( ASJS.KeyboardEvent.KEY_UP, onKeyUp );
 	}
 	
 	that.removeKeyListener = function( target ) {
-		target.removeEventListener( ASJS.KeyboardEvent.KEY_DOWN );
-		target.removeEventListener( ASJS.KeyboardEvent.KEY_UP );
+		target.removeEventListener( ASJS.KeyboardEvent.KEY_DOWN, onKeyDown );
+		target.removeEventListener( ASJS.KeyboardEvent.KEY_UP, onKeyUp );
+	}
+	
+	function onKeyDown( event ) {
+		_pressedKeys[ event.which ] = true;
+		if ( _downCallback ) _downCallback();
+		return false;
+	}
+	
+	function onKeyUp( event ) {
+		_pressedKeys[ event.which ] = false;
+		if ( _upCallback ) _upCallback();
+		return false;
 	}
 	
 	return that;

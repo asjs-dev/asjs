@@ -17,25 +17,11 @@ ASJS.Stage = function() {
 			set: function( value ) { document.title = value; }
 		});
 		
-		defineProperty( that, "stage", {
-			get: function() { return that; }
-		});
-	
-		defineProperty( that, "stageWidth", {
-			get: function() { return _stageWidth; }
-		});
-	
-		defineProperty( that, "stageHeight", {
-			get: function() { return _stageHeight; }
-		});
-	
-		defineProperty( that, "window", {
-			get: function() { return _window; }
-		});
-	
-		defineProperty( that, "head", {
-			get: function() { return _head; }
-		});
+		defineProperty( that, "stage", { get: function() { return that; } } );
+		defineProperty( that, "stageWidth", { get: function() { return _stageWidth; } } );
+		defineProperty( that, "stageHeight", { get: function() { return _stageHeight; } } );
+		defineProperty( that, "window", { get: function() { return _window; } } );
+		defineProperty( that, "head", { get: function() { return _head; } } );
 		
 		function recalcStageSize() {
 			var overflowX = that.getCSS( "overflow-x" );
@@ -56,9 +42,7 @@ ASJS.Stage = function() {
 		(function() {
 			that.clear();
 			that.setSize( "100%", "100%" );
-			_window.resize( function( event ) {
-				recalcStageSize();
-			});
+			_window.resize( recalcStageSize );
 			recalcStageSize();
 		})();
 		

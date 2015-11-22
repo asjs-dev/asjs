@@ -14,36 +14,33 @@ ASJS.DropDown = function() {
 			_select.enabled = that.enabled;
 			that.drawNow();
 		}
-	})
+	});
 	
 	defineProperty( that, "name", {
 		get: function() { return _select.getAttr( "name" ); },
 		set: function( value ) { _select.setAttr( "name", value ); }
 	});
 	
-	that.clearOptions = function() {
-		_select.html = "";
-	}
-	
-	defineProperty( that, "select", {
-		get: function() { return _select; }
-	})
+	defineProperty( that, "select", { get: function() { return _select; } } );
 	
 	defineProperty( that, "val", {
 		get: function() { return _select.domObject.val(); },
 		set: function( value ) { _select.domObject.val( value ); }
-	})
+	});
+	
+	that.clearOptions = function() {
+		_select.html = "";
+	}
 	
 	that.setOptions = function( options ) {
 		that.clearOptions();
 		var i;
+		var l = options.length;
 		var option;
-		for ( i = 0; i < options.length; i++ ) that.addOption( options[ i ] );
+		for ( i = 0; i < l; i++ ) that.addOption( options[ i ] );
 	}
 	
 	that.addOption = function( option ) {
-		//var optionItem = $( "<option value=\"" + option.value + "\"" + ( option.disabled ? " disabled" : "" ) + "" + ( option.selected ? " selected" : "" ) + ">" + option.label + "</option>" );
-		//_select.domObject.append( optionItem );
 		_select.addChild( option );
 	}
 	
