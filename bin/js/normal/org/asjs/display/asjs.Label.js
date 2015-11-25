@@ -1,6 +1,14 @@
 includeOnce( "org/asjs/display/asjs.DisplayObject.js" );
 
 ASJS.Label = function() {
-	var that = new ASJS.DisplayObject();
+	var that = new ASJS.DisplayObject( "<label />" );
+	
+	defineProperty( that, "for", {
+		get: function() { return that.getAttr( "for" ); },
+		set: function( value ) {
+			if ( value && value.id ) that.setAttr( "for", value.id );
+		}
+	});
+	
 	return that;
 }

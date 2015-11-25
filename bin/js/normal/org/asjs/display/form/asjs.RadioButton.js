@@ -16,7 +16,7 @@ ASJS.RadioButton = function() {
 		}
 	});
 	
-	defineProperty( that, "label", { get: function() { return _label; } } );
+	defineProperty( that, "radio", { get: function() { return _radio; } } );
 	
 	defineProperty( that, "name", {
 		get: function() { return _radio.getAttr( "name" ); },
