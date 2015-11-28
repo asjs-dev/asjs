@@ -5,9 +5,29 @@ includeOnce( "org/asjs/geom/asjs.GeomUtils.js" );
 ASJS.DisplayObject = function( domElement ) {
 	var that = new ASJS.EventDispatcher( domElement );
 	
+	var _filters = {};
+	
 	var _rotation = 0;
 	var _parent = null;
 	var _cssDisplay = "block";
+	
+	defineProperty( that, "filters", {
+		get: function() { return _filters; },
+		set: function( value ) {
+			_filters = value;
+			var filters = "";
+			var i;
+			var l = _filters.length;
+			var filter;
+			for ( i = 0; i < l; i++ ) {
+				filter = _filters[ i ];
+				filters += " " + filter.execute();
+				
+			}
+			that.setCSS( "-webkit-filter", filters );
+			that.setCSS( "filter", filters );
+		}
+	});
 	
 	defineProperty( that, "id", {
 		get: function() { return that.getAttr( "id" ); },

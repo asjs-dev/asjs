@@ -12,6 +12,8 @@ includeOnce( "org/asjs/event/asjs.MouseEvent.js" );
 includeOnce( "com/asjs/mediator/ContentMediator.js" );
 includeOnce( "com/asjs/model/Language.js" );
 
+includeOnce( "org/asjs/display/filters/asjs.BlurFilter.js" );
+
 function ContentView() {
 	var that = new ASJS.Sprite();
 	
@@ -69,6 +71,7 @@ function ContentView() {
 	}
 	
 	function onStageMouseMove( event ) {
+		that.filters = [ new ASJS.BlurFilter( Math.max( 0, that.height / ( that.height - _mouse.mouseY ) ) / 10 ) ];
 		if ( !_drag ) return;
 		_animatedSprite.move( _mouse.mouseX - _animatedSprite.width * 0.5, _mouse.mouseY - _animatedSprite.height * 0.5 );
 	}
