@@ -36,7 +36,7 @@ function Tools() {
 		}
 	
 		that.reload = function() {
-			window.location.reload( true );
+			stage.window.location.reload( true );
 		}
 		
 		return that;

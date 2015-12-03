@@ -24,7 +24,7 @@ ASJS.Mouse = function() {
 		}
 		
 		(function() {
-			stage.window.on( ASJS.MouseEvent.MOUSE_MOVE, onMouseMove );
+			stage.window.addEventListener( ASJS.MouseEvent.MOUSE_MOVE, onMouseMove );
 		})();
 		
 		return that;

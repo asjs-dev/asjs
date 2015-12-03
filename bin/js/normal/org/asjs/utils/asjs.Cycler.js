@@ -54,11 +54,11 @@ ASJS.Cycler = function() {
 	
 		that.stop = function() {
 			_isPlaying = false;
-			window.clearTimeout( _timeoutId );
+			stage.window.clearTimeout( _timeoutId );
 		}
 	
 		function tick() {
-			window.clearTimeout( _timeoutId );
+			stage.window.clearTimeout( _timeoutId );
 		
 			var i;
 			var l = _callbacks.length;
@@ -66,7 +66,7 @@ ASJS.Cycler = function() {
 				if ( _callbacks[ i ] ) _callbacks[ i ]();
 			}
 		
-			_timeoutId = window.setTimeout( tick, _interval );
+			_timeoutId = stage.window.setTimeout( tick, _interval );
 		}
 	
 		function getIntervalByFps() {

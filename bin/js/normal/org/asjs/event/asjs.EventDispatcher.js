@@ -1,4 +1,5 @@
 includeOnce( "org/asjs/event/asjs.Event.js" );
+includeOnce( "org/asjs/event/asjs.MouseEvent.js" );
 
 ASJS.EventDispatcher = function( domElement ) {
 	var that = {};
@@ -10,7 +11,8 @@ ASJS.EventDispatcher = function( domElement ) {
 	}
 	
 	that.addEventListener = function( type, callback ) {
-		that.domObject.on( type, callback );
+		if ( type == ASJS.MouseEvent.SCROLL && that.domObject == stage.window.domObject ) that.domObject.scroll( callback );
+		else that.domObject.on( type, callback );
 	}
 	
 	that.removeEventListeners = function() {

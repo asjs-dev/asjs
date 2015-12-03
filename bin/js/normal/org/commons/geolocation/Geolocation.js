@@ -38,7 +38,7 @@ Geolocation = function() {
 	}
 	
 	function getGeolocation() {
-		var geolocation = window.navigator.geolocation;
+		var geolocation = stage.window.navigator.geolocation;
 		if ( !geolocation ) geolocation = navigator.geolocation;
 		if ( !geolocation ) return null;
 		return geolocation;

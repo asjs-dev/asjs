@@ -4,7 +4,7 @@ ASJS.BlurFilter = function( value ) {
 	var that = new ASJS.AbstractFilter( value );
 	
 	that.execute = function() {
-		return "blur(" + value + "px)";
+		return "blur(" + value + ")";
 	}
 	
 	return that;

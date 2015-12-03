@@ -4,7 +4,7 @@ ASJS.SepiaFilter = function( value ) {
 	var that = new ASJS.AbstractFilter( value );
 	
 	that.execute = function() {
-		return "sepia(" + value + "%)";
+		return "sepia(" + value + ")";
 	}
 	
 	return that;

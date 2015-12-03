@@ -4,7 +4,7 @@ ASJS.HueRotateFilter = function( value ) {
 	var that = new ASJS.AbstractFilter( value );
 	
 	that.execute = function() {
-		return "hue-rotate(" + value + "deg)";
+		return "hue-rotate(" + value + ")";
 	}
 	
 	return that;

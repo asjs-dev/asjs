@@ -1,10 +1,55 @@
 includeOnce( "org/asjs/display/asjs.Sprite.js" );
+includeOnce( "org/asjs/event/asjs.WindowEvent.js" );
 
 ASJS.Stage = function() {
+	function WindowInstance() {
+		var that = new ASJS.DisplayObject();
+		
+		that.domObject = $( window );
+		
+		defineProperty( that, "scrollTop", {
+			get: function() { return that.domObject.scrollTop(); },
+			set: function( value ) { that.domObject.scrollTop( value ); }
+		});
+		
+		defineProperty( that, "scrollLeft", {
+			get: function() { return that.domObject.scrollLeft(); },
+			set: function( value ) { that.domObject.scrollLeft( value ); }
+		});
+		
+		defineProperty( that, "location", {
+			get: function() { return that.domObject[ 0 ].location; },
+			set: function( value ) { that.domObject[ 0 ].location = value; }
+		});
+		
+		defineProperty( that, "navigator", {
+			get: function() { return that.domObject[ 0 ].navigator; },
+			set: function( value ) { that.domObject[ 0 ].navigator = value; }
+		});
+		
+		that.setTimeout = function( callback, duration ) {
+			return that.domObject[ 0 ].setTimeout( callback, duration );
+		}
+		
+		that.clearTimeout = function( id ) {
+			that.domObject[ 0 ].clearTimeout( id );
+		}
+		
+		that.setInterval = function( callback, duration ) {
+			return that.domObject[ 0 ].setInterval( callback, duration );
+		}
+		
+		that.clearInterval = function( id ) {
+			that.domObject[ 0 ].clearInterval( id );
+		}
+		
+		return that;
+	};
+	
 	function StageInstance() {
 		var that = new ASJS.Sprite();
 		
-		var _window = $( window );
+		var _window = new WindowInstance();
 		var _head = $( "head" );
 	
 		that.domObject = $( "body" );
@@ -30,8 +75,8 @@ ASJS.Stage = function() {
 			that.setCSS( "overflow-x", "hidden" );
 			that.setCSS( "overflow-y", "hidden" );
 			
-			_stageWidth = _window.width();
-			_stageHeight = _window.height();
+			_stageWidth = that.window.width;
+			_stageHeight = that.window.height;
 			
 			that.setCSS( "overflow-x", overflowX );
 			that.setCSS( "overflow-y", overflowY );
@@ -42,7 +87,7 @@ ASJS.Stage = function() {
 		(function() {
 			that.clear();
 			that.setSize( "100%", "100%" );
-			_window.resize( recalcStageSize );
+			that.window.addEventListener( ASJS.WindowEvent.RESIZE, recalcStageSize );
 			recalcStageSize();
 		})();
 		
