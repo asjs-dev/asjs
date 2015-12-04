@@ -3,12 +3,13 @@ includeOnce( "org/asjs/display/list/asjs.Cell.js" );
 
 ASJS.CustomList = function() {
 	var that = new ASJS.Sprite();
+	
 	var _name;
-	var _multiselect = false;
-	var _cell = ASJS.Cell;
-	var _listItems = [];
-	var _itemsContainer = new ASJS.Sprite();
-	var _lastCellIndex = 0;
+	var _multiselect;
+	var _cell;
+	var _listItems;
+	var _itemsContainer;
+	var _lastCellIndex;
 	
 	defineProperty( that, "cell", {
 		get: function() { return _cell; },
@@ -119,18 +120,13 @@ ASJS.CustomList = function() {
 	}
 	
 	that.drawNow = function() {
-		_itemsContainer.setSize( that.width, that.height );
-		
 		var i;
 		var l = _itemsContainer.numChildren;
 		var cell;
-		var height = 0;
 		for ( i = 0; i < l; i++ ) {
 			cell = _itemsContainer.getChildAt( i );
 			cell.drawNow();
-			height += cell.calcHeight;
 		}
-		_itemsContainer.height = height;
 	}
 	
 	function onCellClick( event ) {
@@ -156,9 +152,21 @@ ASJS.CustomList = function() {
 		that.dispatchEvent( ASJS.CustomList.CHANGE );
 	}
 	
-	(function() {
+	function initView() {
+		_multiselect = false;
+		_cell = ASJS.Cell;
+		_listItems = [];
+		_lastCellIndex = 0;
+		
+		_itemsContainer = new ASJS.Sprite();
+		_itemsContainer.setCSS( "position", "relative" );
+		_itemsContainer.setSize( "auto", "auto" );
 		_itemsContainer.addEventListener( ASJS.Cell.CLICK, onCellClick );
 		that.addChild( _itemsContainer );
+	}
+	
+	(function() {
+		initView();
 	})();
 	
 	return that;

@@ -29,14 +29,21 @@ ASJS.Cell = function( domElement ) {
 	
 	that.showData = function() {}
 	
-	(function() {
+	function onClick( event ) {
+		var e = new ASJS.MouseEvent( ASJS.Cell.CLICK );
+			e.ctrlKey = event.ctrlKey;
+			e.shiftKey = event.shiftKey;
+		that.dispatchEvent( e );
+	}
+	
+	function initView() {
+		that.setCSS( "position", "relative" );
 		that.mouseChildren = false;
-		that.addEventListener( ASJS.MouseEvent.CLICK, function( event ) {
-			var e = new ASJS.MouseEvent( ASJS.Cell.CLICK );
-				e.ctrlKey = event.ctrlKey;
-				e.shiftKey = event.shiftKey;
-			that.dispatchEvent( e );
-		});
+		that.addEventListener( ASJS.MouseEvent.CLICK, onClick );
+	}
+	
+	(function() {
+		initView();
 	})();
 	
 	return that;
