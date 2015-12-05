@@ -5,6 +5,10 @@ includeOnce( "org/asjs/geom/asjs.GeomUtils.js" );
 ASJS.DisplayObject = function( domElement ) {
 	var that = new ASJS.EventDispatcher( domElement );
 	
+	var CREATED = "created";
+	
+	var _state = CREATED;
+	
 	var _filters = {};
 	
 	var _rotation = 0;
@@ -151,7 +155,9 @@ ASJS.DisplayObject = function( domElement ) {
 	}
 	
 	that._sendAddedToStageEvent = function() {
-		that.dispatchEvent( that.stage ? ASJS.Stage.ADDED_TO_STAGE : ASJS.Stage.REMOVED_FROM_STAGE, null, false );
+		var state = that.stage ? ASJS.Stage.ADDED_TO_STAGE : ASJS.Stage.REMOVED_FROM_STAGE;
+		if ( _state != CREATED ) that.dispatchEvent( state, null, false );
+		_state = state;
 	}
 	
 	that.getCSS = function( key ) { return that.domObject.css( key ); }
