@@ -156,7 +156,9 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	that._sendAddedToStageEvent = function() {
 		var state = that.stage ? ASJS.Stage.ADDED_TO_STAGE : ASJS.Stage.REMOVED_FROM_STAGE;
-		if ( _state != CREATED ) that.dispatchEvent( state, null, false );
+		if ( _state != CREATED || state != ASJS.Stage.REMOVED_FROM_STAGE ) {
+			that.dispatchEvent( state, null, false );
+		}
 		_state = state;
 	}
 	
