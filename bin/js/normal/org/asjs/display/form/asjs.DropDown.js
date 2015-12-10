@@ -5,6 +5,7 @@ includeOnce( "org/asjs/display/form/asjs.DropDownOption.js" );
 ASJS.DropDown = function() {
 	var that = new ASJS.FormElement();
 	var _super = {};
+	
 	var _select = new ASJS.Sprite( "<select />" );
 	
 	extendProperty( _super, that, "enabled" );

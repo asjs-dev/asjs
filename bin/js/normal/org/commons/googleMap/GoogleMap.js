@@ -45,7 +45,7 @@ function GoogleMap() {
 	
 	that.init = function() {
 		google.maps.visualRefresh = true;
-		_map = new google.maps.Map( that.domObject[ 0 ], that.options );
+		_map = new google.maps.Map( that.domElement, that.options );
 	}
 	
 	(function() {

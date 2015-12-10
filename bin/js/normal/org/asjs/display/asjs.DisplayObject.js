@@ -1,9 +1,9 @@
-includeOnce( "org/asjs/event/asjs.EventDispatcher.js" );
+includeOnce( "org/asjs/display/asjs.PrimitiveDisplayObject.js" );
 includeOnce( "org/asjs/utils/asjs.Mouse.js" );
 includeOnce( "org/asjs/geom/asjs.GeomUtils.js" );
 
 ASJS.DisplayObject = function( domElement ) {
-	var that = new ASJS.EventDispatcher( domElement );
+	var that = new ASJS.PrimitiveDisplayObject( domElement );
 	
 	var CREATED = "created";
 	
@@ -62,11 +62,6 @@ ASJS.DisplayObject = function( domElement ) {
 	defineProperty( that, "html", {
 		get: function() { return that.domObject.html(); },
 		set: function( value ) { that.domObject.html( value ); }
-	});
-	
-	defineProperty( that, "text", {
-		get: function() { return that.domObject.text(); },
-		set: function( value ) { that.domObject.text( value ); }
 	});
 	
 	defineProperty( that, "visible", {
@@ -147,8 +142,6 @@ ASJS.DisplayObject = function( domElement ) {
 	defineProperty( that, "mouseX", { get: function() { return new ASJS.Mouse().instance.getRelativePosition( that ).x; } } );
 	defineProperty( that, "mouseY", { get: function() { return new ASJS.Mouse().instance.getRelativePosition( that ).y; } } );
 	
-	defineProperty( that, "domElement", { get: function() { return that.domObject[ 0 ]; } } );
-	
 	that.clear = function() {
 		that.html = "";
 		that.text = "";
@@ -167,10 +160,6 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	that.addClass = function( value ) { return that.domObject.addClass( value ); }
 	that.removeClass = function( value ) { that.domObject.removeClass( value ); }
-	
-	that.getAttr = function( key ) { return that.domObject.attr( key ); }
-	that.setAttr = function( key, value ) { that.domObject.attr( key, value ); }
-	that.removeAttr = function( key ) { that.domObject.removeAttr( key ); }
 	
 	that.hitTest = function( point ) {
 		var rotationDeg = - that.rotation * ASJS.GeomUtils.THETA;

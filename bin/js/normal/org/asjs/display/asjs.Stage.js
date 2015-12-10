@@ -18,29 +18,29 @@ ASJS.Stage = function() {
 		});
 		
 		defineProperty( that, "location", {
-			get: function() { return that.domObject[ 0 ].location; },
-			set: function( value ) { that.domObject[ 0 ].location = value; }
+			get: function() { return that.domElement.location; },
+			set: function( value ) { that.domElement.location = value; }
 		});
 		
 		defineProperty( that, "navigator", {
-			get: function() { return that.domObject[ 0 ].navigator; },
-			set: function( value ) { that.domObject[ 0 ].navigator = value; }
+			get: function() { return that.domElement.navigator; },
+			set: function( value ) { that.domElement.navigator = value; }
 		});
 		
 		that.setTimeout = function( callback, duration ) {
-			return that.domObject[ 0 ].setTimeout( callback, duration );
+			return that.domElement.setTimeout( callback, duration );
 		}
 		
 		that.clearTimeout = function( id ) {
-			that.domObject[ 0 ].clearTimeout( id );
+			that.domElement.clearTimeout( id );
 		}
 		
 		that.setInterval = function( callback, duration ) {
-			return that.domObject[ 0 ].setInterval( callback, duration );
+			return that.domElement.setInterval( callback, duration );
 		}
 		
 		that.clearInterval = function( id ) {
-			that.domObject[ 0 ].clearInterval( id );
+			that.domElement.clearInterval( id );
 		}
 		
 		return that;
