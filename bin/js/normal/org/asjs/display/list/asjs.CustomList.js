@@ -11,6 +11,8 @@ ASJS.CustomList = function() {
 	var _itemsContainer;
 	var _lastCellIndex;
 	
+	defineProperty( that, "length", { get: function() { return _itemsContainer.numChildren; } } );
+	
 	defineProperty( that, "cell", {
 		get: function() { return _cell; },
 		set: function( value ) { _cell = value; }
@@ -125,6 +127,7 @@ ASJS.CustomList = function() {
 		var cell;
 		for ( i = 0; i < l; i++ ) {
 			cell = _itemsContainer.getChildAt( i );
+			cell.setSize( that.width, that.height );
 			cell.drawNow();
 		}
 	}
