@@ -1,0 +1,395 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Asjs by asjs-dev</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Asjs</h1>
+        <p>&lt;AS/JS&gt; is a JavaScript framework, for ActionScript3 like display list handling</p>
+
+        <p class="view"><a href="https://github.com/asjs-dev/asjs">View the Project on GitHub <small>asjs-dev/asjs</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/asjs-dev/asjs/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/asjs-dev/asjs/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/asjs-dev/asjs">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="asjs" class="anchor" href="#asjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt;AS/JS&gt;</h1>
+
+<p>&lt;AS/JS&gt; is a JavaScript framework, for ActionScript3 like display list handling</p>
+
+<p>Features:</p>
+
+<ul>
+<li>AS3 like display list handling</li>
+<li>Virtual-DOM</li>
+<li>OOP based development</li>
+<li>MVC</li>
+<li>Filters ( like Blur, Grayscale, etc on display objects )</li>
+<li>Use canvas like Bitmap and BitmapData</li>
+<li>Sprite Sheet Animations ( use [png|jpg|svg|...] images to animations )</li>
+<li>Easily expandable</li>
+<li>Event oritentation</li>
+<li>Easy way to port your as3 application to HTML5</li>
+<li>Responsive</li>
+<li>and many other features...</li>
+</ul>
+
+<p>Dependencies:</p>
+
+<ul>
+<li>jQuery - <a href="http://jquery.com/">http://jquery.com/</a>
+</li>
+</ul>
+
+<h2>
+<a id="how-to" class="anchor" href="#how-to" aria-hidden="true"><span class="octicon octicon-link"></span></a>HOW TO</h2>
+
+<ul>
+<li>Create your index html ( include asjs.min.js, normalize.css and the latest jquery )</li>
+</ul>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>css/normalize.css<span class="pl-pds">"</span></span>&gt;
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/lib/jquery-latest.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>../asjs.min.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<ul>
+<li>Add your script and init asjs with your base app class</li>
+</ul>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>css/normalize.css<span class="pl-pds">"</span></span>&gt;
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/lib/jquery-latest.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>../asjs.min.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;</span>
+<span class="pl-s1">          <span class="pl-k">function</span> <span class="pl-en">Application</span>() {</span>
+<span class="pl-s1">              <span class="pl-k">var</span> that <span class="pl-k">=</span> {};</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">              (<span class="pl-k">function</span>() {</span>
+<span class="pl-s1">                  <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">"</span>&lt;AS/JS&gt; Application<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1">              })();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">              <span class="pl-k">return</span> that;</span>
+<span class="pl-s1">          };</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">          <span class="pl-smi">ASJS</span>.<span class="pl-en">startASJS</span>( Application );</span>
+<span class="pl-s1">        &lt;/<span class="pl-ent">script</span>&gt;</span>
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<ul>
+<li>Add a simple ASJS.Sprite to ASJS.Stage</li>
+</ul>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>css/normalize.css<span class="pl-pds">"</span></span>&gt;
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/lib/jquery-latest.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>../asjs.min.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;</span>
+<span class="pl-s1">          <span class="pl-k">function</span> <span class="pl-en">Application</span>() {</span>
+<span class="pl-s1">              <span class="pl-k">var</span> that <span class="pl-k">=</span> {};</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">              (<span class="pl-k">function</span>() {</span>
+<span class="pl-s1">                  <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">"</span>&lt;AS/JS&gt; Application<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">                  <span class="pl-k">var</span> s <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ASJS.Sprite</span>();</span>
+<span class="pl-s1">                  <span class="pl-smi">stage</span>.<span class="pl-en">addChild</span>( s );</span>
+<span class="pl-s1">              })();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">              <span class="pl-k">return</span> that;</span>
+<span class="pl-s1">          };</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">          <span class="pl-smi">ASJS</span>.<span class="pl-en">startASJS</span>( Application );</span>
+<span class="pl-s1">        &lt;/<span class="pl-ent">script</span>&gt;</span>
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<ul>
+<li>Add style to your ASJS.Sprite</li>
+</ul>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>css/normalize.css<span class="pl-pds">"</span></span>&gt;
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/lib/jquery-latest.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>../asjs.min.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;</span>
+<span class="pl-s1">          <span class="pl-k">function</span> <span class="pl-en">Application</span>() {</span>
+<span class="pl-s1">              <span class="pl-k">var</span> that <span class="pl-k">=</span> {};</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">              (<span class="pl-k">function</span>() {</span>
+<span class="pl-s1">                  <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">"</span>&lt;AS/JS&gt; Application<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">                  <span class="pl-k">var</span> s <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ASJS.Sprite</span>();</span>
+<span class="pl-s1">                    <span class="pl-smi">s</span>.<span class="pl-en">setSize</span>( <span class="pl-c1">100</span>, <span class="pl-c1">100</span> );</span>
+<span class="pl-s1">                    <span class="pl-smi">s</span>.<span class="pl-c1">move</span>( <span class="pl-c1">50</span>, <span class="pl-c1">50</span> );</span>
+<span class="pl-s1">                    <span class="pl-smi">s</span>.<span class="pl-en">setCSS</span>( <span class="pl-s"><span class="pl-pds">"</span>background-color<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>#000000<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1">                  <span class="pl-smi">stage</span>.<span class="pl-en">addChild</span>( s );</span>
+<span class="pl-s1">              })();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">              <span class="pl-k">return</span> that;</span>
+<span class="pl-s1">          };</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">          <span class="pl-smi">ASJS</span>.<span class="pl-en">startASJS</span>( Application );</span>
+<span class="pl-s1">        &lt;/<span class="pl-ent">script</span>&gt;</span>
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<ul>
+<li>Add mouse click event listener to your ASJS.Sprite</li>
+</ul>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>css/normalize.css<span class="pl-pds">"</span></span>&gt;
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/lib/jquery-latest.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>../asjs.min.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;</span>
+<span class="pl-s1">          <span class="pl-k">function</span> <span class="pl-en">Application</span>() {</span>
+<span class="pl-s1">              <span class="pl-k">var</span> that <span class="pl-k">=</span> {};</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">              (<span class="pl-k">function</span>() {</span>
+<span class="pl-s1">                  <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">"</span>&lt;AS/JS&gt; Application<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">                  <span class="pl-k">var</span> s <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ASJS.Sprite</span>();</span>
+<span class="pl-s1">                    <span class="pl-smi">s</span>.<span class="pl-en">setSize</span>( <span class="pl-c1">100</span>, <span class="pl-c1">100</span> );</span>
+<span class="pl-s1">                    <span class="pl-smi">s</span>.<span class="pl-c1">move</span>( <span class="pl-c1">50</span>, <span class="pl-c1">50</span> );</span>
+<span class="pl-s1">                    <span class="pl-smi">s</span>.<span class="pl-en">setCSS</span>( <span class="pl-s"><span class="pl-pds">"</span>background-color<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>#000000<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1">                    <span class="pl-smi">s</span>.<span class="pl-en">addEventListener</span>( <span class="pl-smi">ASJS</span>.<span class="pl-smi">MouseEvent</span>.<span class="pl-c1">CLICK</span>, <span class="pl-k">function</span>( <span class="pl-smi">event</span> ) {</span>
+<span class="pl-s1">                      <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">"</span>click :)<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1">                    });</span>
+<span class="pl-s1">                  <span class="pl-smi">stage</span>.<span class="pl-en">addChild</span>( s );</span>
+<span class="pl-s1">              })();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">              <span class="pl-k">return</span> that;</span>
+<span class="pl-s1">          };</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">          <span class="pl-smi">ASJS</span>.<span class="pl-en">startASJS</span>( Application );</span>
+<span class="pl-s1">        &lt;/<span class="pl-ent">script</span>&gt;</span>
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<ul>
+<li>You can also add two or more ASJS.Sprite to ASJS.Stage</li>
+</ul>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>css/normalize.css<span class="pl-pds">"</span></span>&gt;
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/lib/jquery-latest.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>../asjs.min.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;</span>
+<span class="pl-s1">          <span class="pl-k">function</span> <span class="pl-en">Application</span>() {</span>
+<span class="pl-s1">            <span class="pl-k">var</span> that <span class="pl-k">=</span> {};</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">            (<span class="pl-k">function</span>() {</span>
+<span class="pl-s1">              <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">"</span>&lt;AS/JS&gt; Application<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">              <span class="pl-k">var</span> i;</span>
+<span class="pl-s1">              <span class="pl-k">var</span> s;</span>
+<span class="pl-s1">              <span class="pl-k">for</span> ( i <span class="pl-k">=</span> <span class="pl-c1">0</span>; i <span class="pl-k">&lt;</span> <span class="pl-c1">10</span>; i<span class="pl-k">++</span> ) {</span>
+<span class="pl-s1">                s <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ASJS.Sprite</span>();</span>
+<span class="pl-s1">                <span class="pl-smi">s</span>.<span class="pl-en">setSize</span>( <span class="pl-c1">40</span>, <span class="pl-c1">40</span> );</span>
+<span class="pl-s1">                <span class="pl-smi">s</span>.<span class="pl-c1">move</span>( <span class="pl-c1">50</span> <span class="pl-k">+</span> i <span class="pl-k">*</span> <span class="pl-c1">50</span> , <span class="pl-c1">50</span> );</span>
+<span class="pl-s1">                <span class="pl-smi">s</span>.<span class="pl-en">setCSS</span>( <span class="pl-s"><span class="pl-pds">"</span>background-color<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>#336699<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1">                <span class="pl-smi">s</span>.<span class="pl-en">addEventListener</span>( <span class="pl-smi">ASJS</span>.<span class="pl-smi">MouseEvent</span>.<span class="pl-c1">CLICK</span>, <span class="pl-k">function</span>( <span class="pl-smi">event</span> ) {</span>
+<span class="pl-s1">                  <span class="pl-smi">stage</span>.<span class="pl-en">getChildByDOMObject</span>( <span class="pl-smi">event</span>.<span class="pl-c1">target</span> ).<span class="pl-en">setCSS</span>( <span class="pl-s"><span class="pl-pds">"</span>background-color<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>#00FF00<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1">                });</span>
+<span class="pl-s1">                <span class="pl-smi">stage</span>.<span class="pl-en">addChild</span>( s );</span>
+<span class="pl-s1">              }</span>
+<span class="pl-s1">            })();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">            <span class="pl-k">return</span> that;</span>
+<span class="pl-s1">          };</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">          <span class="pl-smi">ASJS</span>.<span class="pl-en">startASJS</span>( Application );</span>
+<span class="pl-s1">        &lt;/<span class="pl-ent">script</span>&gt;</span>
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<ul>
+<li>Create your own display object class extended from ASJS.Sprite</li>
+</ul>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>css/normalize.css<span class="pl-pds">"</span></span>&gt;
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/lib/jquery-latest.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>../asjs.min.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;</span>
+<span class="pl-s1">          <span class="pl-k">function</span> <span class="pl-en">MySprite</span>() {</span>
+<span class="pl-s1">                <span class="pl-k">var</span> that <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ASJS.Sprite</span>();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">                <span class="pl-c1">that</span>.<span class="pl-en">setBackgroundColor</span> <span class="pl-k">=</span> <span class="pl-k">function</span>( <span class="pl-smi">color</span> ) {</span>
+<span class="pl-s1">                    <span class="pl-smi">that</span>.<span class="pl-en">setCSS</span>( <span class="pl-s"><span class="pl-pds">"</span>background-color<span class="pl-pds">"</span></span>, color );</span>
+<span class="pl-s1">                }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">                <span class="pl-k">function</span> <span class="pl-en">onClick</span>( <span class="pl-smi">event</span> ) {</span>
+<span class="pl-s1">                    <span class="pl-k">var</span> r <span class="pl-k">=</span> <span class="pl-smi">Math</span>.<span class="pl-c1">floor</span>( <span class="pl-smi">Math</span>.<span class="pl-c1">random</span>() <span class="pl-k">*</span> <span class="pl-c1">255</span> );</span>
+<span class="pl-s1">                    <span class="pl-k">var</span> g <span class="pl-k">=</span> <span class="pl-smi">Math</span>.<span class="pl-c1">floor</span>( <span class="pl-smi">Math</span>.<span class="pl-c1">random</span>() <span class="pl-k">*</span> <span class="pl-c1">255</span> );</span>
+<span class="pl-s1">                    <span class="pl-k">var</span> b <span class="pl-k">=</span> <span class="pl-smi">Math</span>.<span class="pl-c1">floor</span>( <span class="pl-smi">Math</span>.<span class="pl-c1">random</span>() <span class="pl-k">*</span> <span class="pl-c1">255</span> );</span>
+<span class="pl-s1">                    <span class="pl-smi">that</span>.<span class="pl-en">setBackgroundColor</span>( <span class="pl-s"><span class="pl-pds">"</span>rgb( <span class="pl-pds">"</span></span> <span class="pl-k">+</span> r <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>, <span class="pl-pds">"</span></span> <span class="pl-k">+</span> g <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>, <span class="pl-pds">"</span></span> <span class="pl-k">+</span> b <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span> )<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1">                    <span class="pl-smi">that</span>.<span class="pl-smi">rotation</span> <span class="pl-k">=</span> <span class="pl-smi">Math</span>.<span class="pl-c1">round</span>( <span class="pl-smi">Math</span>.<span class="pl-c1">random</span>() <span class="pl-k">*</span> <span class="pl-c1">360</span> );</span>
+<span class="pl-s1">                }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">                (<span class="pl-k">function</span>() {</span>
+<span class="pl-s1">                    <span class="pl-smi">that</span>.<span class="pl-en">setSize</span>( <span class="pl-c1">40</span>, <span class="pl-c1">40</span> );</span>
+<span class="pl-s1">                    <span class="pl-smi">that</span>.<span class="pl-en">setBackgroundColor</span>( <span class="pl-s"><span class="pl-pds">"</span>#336699<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1">                    <span class="pl-smi">that</span>.<span class="pl-en">addEventListener</span>( <span class="pl-smi">ASJS</span>.<span class="pl-smi">MouseEvent</span>.<span class="pl-c1">CLICK</span>, onClick );</span>
+<span class="pl-s1">                })();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">                <span class="pl-k">return</span> that;</span>
+<span class="pl-s1">            }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">          <span class="pl-k">function</span> <span class="pl-en">Application</span>() {</span>
+<span class="pl-s1">            <span class="pl-k">var</span> that <span class="pl-k">=</span> {};</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">            (<span class="pl-k">function</span>() {</span>
+<span class="pl-s1">              <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">"</span>&lt;AS/JS&gt; Application<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">              <span class="pl-k">var</span> i;</span>
+<span class="pl-s1">              <span class="pl-k">var</span> s;</span>
+<span class="pl-s1">              <span class="pl-k">for</span> ( i <span class="pl-k">=</span> <span class="pl-c1">0</span>; i <span class="pl-k">&lt;</span> <span class="pl-c1">10</span>; i<span class="pl-k">++</span> ) {</span>
+<span class="pl-s1">                s <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MySprite</span>();</span>
+<span class="pl-s1">                <span class="pl-smi">s</span>.<span class="pl-c1">move</span>( <span class="pl-c1">50</span> <span class="pl-k">+</span> i <span class="pl-k">*</span> <span class="pl-c1">50</span> , <span class="pl-c1">50</span> );</span>
+<span class="pl-s1">                <span class="pl-smi">s</span>.<span class="pl-en">setBackgroundColor</span>( <span class="pl-s"><span class="pl-pds">"</span>rgb( <span class="pl-pds">"</span></span> <span class="pl-k">+</span> ( i <span class="pl-k">*</span> <span class="pl-c1">2</span> ) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>, <span class="pl-pds">"</span></span> <span class="pl-k">+</span> ( i <span class="pl-k">*</span> <span class="pl-c1">10</span> ) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>, <span class="pl-pds">"</span></span> <span class="pl-k">+</span> ( i <span class="pl-k">*</span> <span class="pl-c1">20</span> ) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span> )<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1">                <span class="pl-smi">stage</span>.<span class="pl-en">addChild</span>( s );</span>
+<span class="pl-s1">              }</span>
+<span class="pl-s1">            })();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">            <span class="pl-k">return</span> that;</span>
+<span class="pl-s1">          };</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">          <span class="pl-smi">ASJS</span>.<span class="pl-en">startASJS</span>( Application );</span>
+<span class="pl-s1">        &lt;/<span class="pl-ent">script</span>&gt;</span>
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<h2>
+<a id="other-way" class="anchor" href="#other-way" aria-hidden="true"><span class="octicon octicon-link"></span></a>OTHER WAY</h2>
+
+<p>You can build your own minimized js from your code base, merged with used ASJS classes.
+You need to add a php file:</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-k">include_once</span>( <span class="pl-s"><span class="pl-pds">"</span>builder/buildJS.php<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1">    <span class="pl-smi">$buildJS</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">BuildJS</span>();</span>
+<span class="pl-s1">    <span class="pl-smi">$buildJS</span><span class="pl-k">-&gt;</span>build( <span class="pl-s"><span class="pl-pds">"</span>bin/<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>js/normal/com/asjs/Application.js<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bin/js/min/application.js<span class="pl-pds">"</span></span> );</span>
+<span class="pl-s1"></span><span class="pl-pse"><span class="pl-s1">?</span>&gt;</span></pre></div>
+
+<p>The build function parameters:</p>
+
+<ul>
+<li>source base directory</li>
+<li>base class</li>
+<li>target file into wich generated the merged js</li>
+<li>minimized ( optional )</li>
+</ul>
+
+<p>If you use this method, you need to change your html:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span>&gt;
+    &lt;<span class="pl-ent">head</span>&gt;
+        &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>css/normalize.css<span class="pl-pds">"</span></span>&gt;
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/lib/jquery-latest.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/min/application.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+    &lt;/<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">body</span>&gt;
+    &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p>And you have to change the Application.js:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">sourcePath</span>( <span class="pl-s"><span class="pl-pds">"</span>js/normal/<span class="pl-pds">"</span></span> );
+
+<span class="pl-en">includeOnce</span>( <span class="pl-s"><span class="pl-pds">"</span>org/asjs/asjs.Main.js<span class="pl-pds">"</span></span> );
+<span class="pl-en">includeOnce</span>( <span class="pl-s"><span class="pl-pds">"</span>org/asjs/display/asjs.Stage.js<span class="pl-pds">"</span></span> );
+<span class="pl-en">includeOnce</span>( <span class="pl-s"><span class="pl-pds">"</span>org/asjs/display/asjs.Sprite.js<span class="pl-pds">"</span></span> );
+
+<span class="pl-k">function</span> <span class="pl-en">Application</span>() {
+    <span class="pl-k">var</span> that <span class="pl-k">=</span> {};
+
+    (<span class="pl-k">function</span>() {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">"</span>&lt;AS/JS&gt; Application<span class="pl-pds">"</span></span> );
+
+        <span class="pl-k">var</span> s <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ASJS.Sprite</span>();
+          <span class="pl-smi">s</span>.<span class="pl-en">setSize</span>( <span class="pl-c1">100</span>, <span class="pl-c1">100</span> );
+          <span class="pl-smi">s</span>.<span class="pl-c1">move</span>( <span class="pl-c1">50</span>, <span class="pl-c1">50</span> );
+          <span class="pl-smi">s</span>.<span class="pl-en">setCSS</span>( <span class="pl-s"><span class="pl-pds">"</span>background-color<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>#000000<span class="pl-pds">"</span></span> );
+          <span class="pl-smi">s</span>.<span class="pl-en">addEventListener</span>( <span class="pl-smi">ASJS</span>.<span class="pl-smi">MouseEvent</span>.<span class="pl-c1">CLICK</span>, <span class="pl-k">function</span>( <span class="pl-smi">event</span> ) {
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">"</span>click :)<span class="pl-pds">"</span></span> );
+          });
+        <span class="pl-smi">stage</span>.<span class="pl-en">addChild</span>( s );
+    })();
+
+    <span class="pl-k">return</span> that;
+};
+
+<span class="pl-smi">ASJS</span>.<span class="pl-en">startASJS</span>( Application );</pre></div>
+
+<p>And run your php.</p>
+
+<hr>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/asjs-dev">asjs-dev</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-67622671-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
