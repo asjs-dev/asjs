@@ -2,6 +2,23 @@
 
 &lt;AS/JS> is a JavaScript framework, for ActionScript3 like display list handling
 
+Features:
+* AS3 like display list handling
+* Virtual-DOM
+* OOP based development
+* MVC
+* Filters ( like Blur, Grayscale, etc on display objects )
+* Use canvas like Bitmap and BitmapData
+* Sprite Sheet Animations ( use [png|jpg|svg|...] images to animations )
+* Easily extendable
+* Event oritentation
+* Easy way to port your as3 application to HTML5
+* Responsive
+* and many other features...
+
+Dependencies:
+* jQuery - http://jquery.com/
+
 ## HOW TO
 
 * Create your index html ( include asjs.min.js, normalize.css and the latest jquery )
