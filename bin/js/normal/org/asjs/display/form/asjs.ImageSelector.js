@@ -18,11 +18,14 @@ ASJS.ImageSelector = function() {
 	}
 	
 	function init() {
+		that._fileInput.removeEventListeners();
+		that._fileInput.addEventListener( ASJS.Event.CHANGE, that._onChange );
+		
 		_preview.setSize( "100%", "100%" );
 		_preview.move( 0, 0 );
 		that.addChild( _preview );
 		
-		_reader.onload = readerOnLoad();
+		_reader.onload = readerOnLoad;
 	}
 	
 	(function() {

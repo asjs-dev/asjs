@@ -34,6 +34,14 @@ ASJS.AbstractTextElement = function( domElement ) {
 	];
 	var _restrict;
 	
+	defineProperty( that, "readonly", {
+		get: function() { return that.getAttr( "readonly" ); },
+		set: function( value ) {
+			if ( value ) that.setAttr( "readonly", "readonly" );
+			else that.removeAttr( "readonly" );
+		}
+	})
+	
 	defineProperty( that, "placeholder", {
 		get: function() { return that.getAttr( "placeholder" ); },
 		set: function( value ) { that.setAttr( "placeholder", value ); }

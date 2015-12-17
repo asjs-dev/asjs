@@ -84,8 +84,8 @@ ASJS.DisplayObject = function( domElement ) {
 		set: function( value ) { that.setCSS( "top", value ); }
 	});
 	
-	defineProperty( that, "calcX", { get: function() { return that.x + parseFloat( that.getCSS( "marginLeft" ) ); } } );
-	defineProperty( that, "calcY", { get: function() { return that.y + parseFloat( that.getCSS( "marginTop" ) ); } } );
+	defineProperty( that, "calcX", { get: function() { return that.x + ( parseFloat( that.getCSS( "marginLeft" ) ) || 0 ); } } );
+	defineProperty( that, "calcY", { get: function() { return that.y + ( parseFloat( that.getCSS( "marginTop" ) ) || 0 ); } } );
 	
 	defineProperty( that, "right", {
 		get: function() { return parseFloat( that.getCSS( "right" ) ); },
@@ -109,13 +109,21 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	defineProperty( that, "calcWidth", {
 		get: function() {
-			return that.width + parseFloat( that.getCSS( "paddingLeft" ) ) + parseFloat( that.getCSS( "paddingRight" ) );
+			var paddingLeft = parseFloat( that.getCSS( "paddingLeft" ) ) || 0;
+			var paddingRight = parseFloat( that.getCSS( "paddingRight" ) ) || 0;
+			var borderLeft = parseFloat( that.getCSS( "borderLeft" ) ) || 0;
+			var borderRight = parseFloat( that.getCSS( "borderRight" ) ) || 0;
+			return that.width + paddingLeft + paddingRight + borderLeft + borderRight;
 		}
 	});
 	
 	defineProperty( that, "calcHeight", {
 		get: function() {
-			return that.height + parseFloat( that.getCSS( "paddingTop" ) ) + parseFloat( that.getCSS( "paddingBottom" ) );
+			var paddingTop = parseFloat( that.getCSS( "paddingTop" ) ) || 0;
+			var paddingBottom = parseFloat( that.getCSS( "paddingBottom" ) ) || 0;
+			var borderTop = parseFloat( that.getCSS( "borderTop" ) ) || 0;
+			var borderBottom = parseFloat( that.getCSS( "borderBottom" ) ) || 0;
+			return that.height + paddingTop + paddingBottom + borderTop + borderBottom;
 		}
 	});
 	

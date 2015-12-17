@@ -28,7 +28,7 @@ ASJS.FileSelector = function() {
 	defineProperty( that, "fileInput", { get: function() { return _fileInput; } } );
 	
 	that._onChange = function( event ) {
-		that.html = that.val;
+		//that.html = that.val;
 	}
 	
 	function onClick( event ) {
