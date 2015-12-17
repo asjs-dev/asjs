@@ -10,11 +10,15 @@ ASJS.ImageSelector = function() {
 	
 	that._onChange = function( event ) {
 		var target = that._fileInput.domElement;
-		if ( target.files && target.files[ 0 ] ) _reader.readAsDataURL( target.files[ 0 ] );
+		if ( target.files && target.files[ 0 ] ) {
+			that.dispatchEvent( ASJS.ImageSelector.ON_CHANGE_START );
+			_reader.readAsDataURL( target.files[ 0 ] );
+		}
 	}
 	
 	function readerOnLoad( event ) {
 		_preview.setCSS( 'background-image', 'url(' + event.target.result + ')' );
+		that.dispatchEvent( ASJS.ImageSelector.ON_CHANGE_END );
 	}
 	
 	function init() {
@@ -34,3 +38,5 @@ ASJS.ImageSelector = function() {
 	
 	return that;
 }
+ASJS.ImageSelector.ON_CHANGE_START	= "ASJS-ImageSelector-onChangeStart";
+ASJS.ImageSelector.ON_CHANGE_END	= "ASJS-ImageSelector-onChangeEnd";
