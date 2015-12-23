@@ -54,11 +54,11 @@ ASJS.Cycler = function() {
 	
 		that.stop = function() {
 			_isPlaying = false;
-			stage.window.clearTimeout( _timeoutId );
+			_timeoutId = stage.window.clearTimeout( _timeoutId );
 		}
 	
 		function tick() {
-			stage.window.clearTimeout( _timeoutId );
+			_timeoutId = stage.window.clearTimeout( _timeoutId );
 		
 			var i;
 			var l = _callbacks.length;

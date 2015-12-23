@@ -42,12 +42,12 @@ function EnvironmentCommand() {
 	}
 	
 	function onStageResize( event ) {
-		stage.window.clearTimeout( _sleepToResizeId );
+		_sleepToResizeId = stage.window.clearTimeout( _sleepToResizeId );
 		_sleepToResizeId = stage.window.setTimeout( onTimeout, _config.get( "resizeInterval" ) );
 	}
 	
 	function onTimeout() {
-		stage.window.clearTimeout( _sleepToResizeId );
+		_sleepToResizeId = stage.window.clearTimeout( _sleepToResizeId );
 		that.sendNotification( ASJS.Stage.RESIZE );
 	}
 	

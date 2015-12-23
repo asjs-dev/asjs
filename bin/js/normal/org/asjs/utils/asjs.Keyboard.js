@@ -28,13 +28,13 @@ ASJS.Keyboard = function() {
 	function onKeyDown( event ) {
 		_pressedKeys[ event.which ] = true;
 		if ( _downCallback ) _downCallback();
-		return false;
+		//return false;
 	}
 	
 	function onKeyUp( event ) {
 		_pressedKeys[ event.which ] = false;
 		if ( _upCallback ) _upCallback();
-		return false;
+		//return false;
 	}
 	
 	return that;

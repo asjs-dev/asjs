@@ -32,7 +32,7 @@ ASJS.Stage = function() {
 		}
 		
 		that.clearTimeout = function( id ) {
-			that.domElement.clearTimeout( id );
+			return that.domElement.clearTimeout( id );
 		}
 		
 		that.setInterval = function( callback, duration ) {
@@ -40,7 +40,7 @@ ASJS.Stage = function() {
 		}
 		
 		that.clearInterval = function( id ) {
-			that.domElement.clearInterval( id );
+			return that.domElement.clearInterval( id );
 		}
 		
 		return that;

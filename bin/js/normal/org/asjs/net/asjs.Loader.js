@@ -49,6 +49,9 @@ ASJS.Loader = function() {
 				withCredentials: true,
 				onprogress: onProgress
 			},
+			progress: function( event ) {
+				if ( event.lengthComputable ) onProgress( event );
+		    },
 			success: onSuccess,
 			error: onError,
 			complete: onComplete
@@ -82,8 +85,7 @@ ASJS.Loader = function() {
 	}
 	
 	function onProgress( data ) {
-		//if ( data.lengthComputable ) 
-		dispatch( ASJS.LoaderEvent.PROGRESS, { total: data.total, loaded: data.loaded } );
+		dispatch( ASJS.LoaderEvent.PROGRESS, data );
 	}
 	
 	function onLoad() {
@@ -105,4 +107,4 @@ ASJS.Loader = function() {
 	}
 	
 	return that;
-}
+};
