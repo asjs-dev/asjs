@@ -28,9 +28,9 @@ ASJS.CustomList = function() {
 			var value = [];
 			var i;
 			var item;
-			var l = _itemsContainer.numChildren;
+			var l = that.length;
 			for ( i = 0; i < l; i++ ) {
-				item = _itemsContainer.getChildAt( i );
+				item = that.getCellAt( i );
 				if ( item.checked ) value.push( item );
 			}
 			return value;
@@ -41,11 +41,11 @@ ASJS.CustomList = function() {
 			var i;
 			var j;
 			var item;
-			var l = _itemsContainer.numChildren;
+			var l = that.length;
 			var valueLength = that.multiselect ? value.length : 1;
 			for ( j = 0; j < valueLength; j++ ) {
 				for ( i = 0; i < l; i++ ) {
-					item = _itemsContainer.getChildAt( i );
+					item = that.getCellAt( i );
 					if ( i == value[ j ] ) {
 						item.checked = true;
 					}
@@ -60,9 +60,9 @@ ASJS.CustomList = function() {
 			_name = value;
 			var i;
 			var item;
-			var l = _itemsContainer.numChildren;
+			var l = that.length;
 			for ( i = 0; i < l; i++ ) {
-				item = _itemsContainer.getChildAt( i );
+				item = that.getCellAt( i );
 				item.name = _name;
 			}
 		}
@@ -71,15 +71,15 @@ ASJS.CustomList = function() {
 	that.clearSelection = function() {
 		var i;
 		var item;
-		var l = _itemsContainer.numChildren;
+		var l = that.length;
 		for ( i = 0; i < l; i++ ) {
-			item = _itemsContainer.getChildAt( i );
+			item = that.getCellAt( i );
 			item.checked = false;
 		}
 	}
 	
 	that.clearList = function() {
-		while ( _itemsContainer.numChildren > 0 ) _itemsContainer.removeChildAt( 0 );
+		while ( that.length > 0 ) _itemsContainer.removeChildAt( 0 );
 	}
 	
 	that.setList = function( cellDataVoList ) {
@@ -92,20 +92,30 @@ ASJS.CustomList = function() {
 		}
 	}
 	
+	that.getCellAt = function( index ) {
+		if ( index < 0 || index >= that.length ) return null;
+		return _itemsContainer.getChildAt( index );
+	}
+	
 	that.getItemAt = function( index ) {
-		return _itemsContainer.getChildAt( index ).data;
+		var cell = that.getCellAt( index );
+		return cell ? cell.data : null;
+	}
+	
+	that.getCellById = function( id ) {
+		var cell;
+		var i;
+		var l = that.length;
+		for ( i = 0; i < l; i++ ) {
+			cell = that.getCellAt( i );
+			if ( cell.id == id ) return cell;
+		}
+		return null;
 	}
 	
 	that.getItemById = function( id ) {
-		var data;
-		var i;
-		var item;
-		var l = _itemsContainer.numChildren;
-		for ( i = 0; i < l; i++ ) {
-			item = _itemsContainer.getChildAt( i );
-			if ( item.id == id ) data = item.data;
-		}
-		return data;
+		var cell = that.getCellById( id );
+		return cell ? cell.data : null;
 	}
 	
 	that.addItem = function( cellDataVo ) {
@@ -123,10 +133,10 @@ ASJS.CustomList = function() {
 	
 	that.drawNow = function() {
 		var i;
-		var l = _itemsContainer.numChildren;
+		var l = that.length;
 		var cell;
 		for ( i = 0; i < l; i++ ) {
-			cell = _itemsContainer.getChildAt( i );
+			cell = that.getCellAt( i );
 			cell.setSize( that.width, that.height );
 			cell.drawNow();
 		}
@@ -146,7 +156,7 @@ ASJS.CustomList = function() {
 			var l = Math.abs( cellIndex - _lastCellIndex );
 			var step = cellIndex > _lastCellIndex ? -1 : 1;
 			for ( i = 0; i < l; i++ ) {
-				cell = _itemsContainer.getChildAt( cellIndex + ( i * step ) );
+				cell = that.getCellAt( cellIndex + ( i * step ) );
 				cell.checked = true;
 			}
 		}
