@@ -13,10 +13,5 @@ ASJS.Image = function() {
 		set: function( value ) { that.setAttr( "alt", value ); }
 	});
 	
-	defineProperty( that, "title", {
-		get: function() { return that.getAttr( "title" ); },
-		set: function( value ) { that.setAttr( "title", value ); }
-	});
-	
 	return that;
 }

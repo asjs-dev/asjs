@@ -15,6 +15,11 @@ ASJS.DisplayObject = function( domElement ) {
 	var _parent = null;
 	var _cssDisplay = "block";
 	
+	defineProperty( that, "tooltip", {
+		get: function() { return that.setAttr( "title" ); },
+		set: function( value ) { that.setAttr( "title", value ); }
+	});
+	
 	defineProperty( that, "filters", {
 		get: function() { return _filters; },
 		set: function( value ) {
