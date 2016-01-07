@@ -9,6 +9,10 @@ ASJS.FileSelector = function() {
 	
 	that._fileInput = new ASJS.DisplayObject( "<input />" );
 	
+	var _preview = new ASJS.Sprite();
+	
+	defineProperty( that, "preview", { get: function() { return _preview; } } );
+	
 	defineProperty( that, "val", { get: function() { return that._fileInput.domObject.val(); } } );
 	
 	defineProperty( that, "name", {
@@ -28,7 +32,8 @@ ASJS.FileSelector = function() {
 	defineProperty( that, "fileInput", { get: function() { return _fileInput; } } );
 	
 	that._onChange = function( event ) {
-		//that.html = that.val;
+		_preview.text = that.val;
+		that.dispatchEvent( ASJS.FileSelector.ON_CHANGE );
 	}
 	
 	function onClick( event ) {
@@ -42,6 +47,10 @@ ASJS.FileSelector = function() {
 		that._fileInput.visible = false;
 		that.addChild( that._fileInput );
 		
+		_preview.setSize( "100%", "100%" );
+		_preview.move( 0, 0 );
+		that.addChild( _preview );
+		
 		that.addEventListener( ASJS.MouseEvent.CLICK, onClick );
 	}
 	
@@ -51,3 +60,4 @@ ASJS.FileSelector = function() {
 	
 	return that;
 }
+ASJS.FileSelector.ON_CHANGE		= "ASJS-FileSelector-onChange";
