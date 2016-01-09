@@ -13,6 +13,11 @@ ASJS.Link = function() {
 		set: function( value ) { that.setAttr( "target", value ); }
 	});
 	
+	defineProperty( that, "download", {
+		get: function() { return that.getAttr( "download" ); },
+		set: function( value ) { that.setAttr( "download", value ); }
+	});
+	
 	return that;
 }
 

@@ -22,6 +22,10 @@ ASJS.Form = function() {
 		that.domElement.reset();
 	}
 	
+	that.submit = function() {
+		that.domElement.submit();
+	}
+	
 	return that;
 };
 ASJS.Form.ENCTYPE_MULTIPART	= "multipart/form-data";

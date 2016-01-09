@@ -52,9 +52,9 @@ ASJS.Loader = function() {
 			progress: function( event ) {
 				if ( event.lengthComputable ) onProgress( event );
 		    },
-			success: onSuccess,
-			error: onError,
-			complete: onComplete
+			success: onSuccessEvent,
+			error: onErrorEvent,
+			complete: onCompleteEvent
 		};
 	
 		if ( _dataType )	requestData.dataType = _dataType;
@@ -66,17 +66,17 @@ ASJS.Loader = function() {
 		onLoadStart();
 	}
 	
-	function onSuccess( data ) {
+	function onSuccessEvent( data ) {
 		_content = data;
 		onLoad();
 	}
 	
-	function onError( xhr, textStatus, errorThrown ) {
+	function onErrorEvent( xhr, textStatus, errorThrown ) {
 		_content = xhr;
 		onError( xhr );
 	}
 	
-	function onComplete() {
+	function onCompleteEvent() {
 		onLoadEnd();
 	}
 	
