@@ -20,12 +20,18 @@ function GoogleMap() {
 	
 	defineProperty( that, "latitude", {
 		get: function() { return _latitude; },
-		set: function( value ) { _latitude = value; }
+		set: function( value ) {
+			_latitude = value;
+			_map.setCenter( that.latLng );
+		}
 	});
 	
 	defineProperty( that, "longitude", {
 		get: function() { return _longitude; },
-		set: function( value ) { _longitude = value; }
+		set: function( value ) {
+			_longitude = value;
+			_map.setCenter( that.latLng );
+		}
 	});
 	
 	defineProperty( that, "latLng", {
@@ -34,7 +40,10 @@ function GoogleMap() {
 	
 	defineProperty( that, "zoom", {
 		get: function() { return _zoom; },
-		set: function( value ) { _zoom = value; }
+		set: function( value ) {
+			_zoom = value;
+			_map.setZoom( _zoom );
+		}
 	});
 	
 	that.setPosition = function( latitude, longitude ) {

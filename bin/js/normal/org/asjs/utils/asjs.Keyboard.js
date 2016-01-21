@@ -1,4 +1,5 @@
 includeOnce( "org/asjs/event/asjs.KeyboardEvent.js" );
+includeOnce( "org/asjs/event/asjs.FocusEvent.js" );
 
 ASJS.Keyboard = function() {
 	var that = {};
@@ -18,11 +19,18 @@ ASJS.Keyboard = function() {
 		
 		target.addEventListener( ASJS.KeyboardEvent.KEY_DOWN, onKeyDown );
 		target.addEventListener( ASJS.KeyboardEvent.KEY_UP, onKeyUp );
+		stage.window.addEventListener( ASJS.FocusEvent.BLUR, onBlur );
 	}
 	
 	that.removeKeyListener = function( target ) {
 		target.removeEventListener( ASJS.KeyboardEvent.KEY_DOWN, onKeyDown );
 		target.removeEventListener( ASJS.KeyboardEvent.KEY_UP, onKeyUp );
+		stage.window.removeEventListener( ASJS.FocusEvent.BLUR, onBlur );
+	}
+	
+	function onBlur( event ) {
+		var key;
+		for ( key in _pressedKeys ) _pressedKeys[ key ] = false;
 	}
 	
 	function onKeyDown( event ) {
