@@ -12,6 +12,10 @@ ASJS.DisplayObject = function( domElement ) {
 	var _filters = {};
 	
 	var _rotation = 0;
+	var _scaleX = 1;
+	var _scaleY = 1;
+	var _skewX = 0;
+	var _skewY = 0;
 	var _parent = null;
 	var _cssDisplay = "block";
 	
@@ -136,7 +140,39 @@ ASJS.DisplayObject = function( domElement ) {
 		get: function() { return _rotation; },
 		set: function( value ) {
 			_rotation = parseFloat( value );
-			that.setCSS( "transform", 'rotate(' + _rotation + 'deg)' );
+			drawTransform();
+		}
+	});
+	
+	defineProperty( that, "scaleX", {
+		get: function() { return _scaleX; },
+		set: function( value ) {
+			_scaleX = parseFloat( value );
+			drawTransform();
+		}
+	});
+	
+	defineProperty( that, "scaleY", {
+		get: function() { return _scaleY; },
+		set: function( value ) {
+			_scaleY = parseFloat( value );
+			drawTransform();
+		}
+	});
+	
+	defineProperty( that, "skewX", {
+		get: function() { return _skewX; },
+		set: function( value ) {
+			_skewX = parseFloat( value );
+			drawTransform();
+		}
+	});
+	
+	defineProperty( that, "skewY", {
+		get: function() { return _skewY; },
+		set: function( value ) {
+			_skewY = parseFloat( value );
+			drawTransform();
 		}
 	});
 	
@@ -154,6 +190,11 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	defineProperty( that, "mouseX", { get: function() { return new ASJS.Mouse().instance.getRelativePosition( that ).x; } } );
 	defineProperty( that, "mouseY", { get: function() { return new ASJS.Mouse().instance.getRelativePosition( that ).y; } } );
+	
+	that.scale = function( scaleX, scaleY ) {
+		that.scaleX = scaleX;
+		that.scaleY = scaleY;
+	}
 	
 	that.clear = function() {
 		that.html = "";
@@ -227,6 +268,10 @@ ASJS.DisplayObject = function( domElement ) {
 		tabindex: "-1", 
 		style: ( "pointer-events: auto; position: absolute; display: " + _cssDisplay + "; width: 0px; height: 0px; top: 0px; left: 0px;" ) 
 	});
+	
+	function drawTransform() {
+		that.setCSS( "transform", 'rotate(' + _rotation + 'deg) scaleX(' + _scaleX + ') scaleY(' + _scaleY + ') skewX(' + _skewX + 'deg) skewY(' + _skewY + 'deg)' );
+	}
 	
 	(function() {
 		that.id = "intance_" + ASJS.DisplayObject.INSTANCE_ID;
