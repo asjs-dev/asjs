@@ -71,7 +71,7 @@ function ContentView() {
 	}
 	
 	function onStageMouseMove( event ) {
-		that.filters = [ new ASJS.BlurFilter( ( Math.max( 0, that.height / ( that.height - _mouse.mouseY ) ) / 10 ) + "px" ) ];
+		that.filters = [ new ASJS.BlurFilter( ( Math.max( 0, that.height / ( that.height - _mouse.mouseY ) ) / 10 ) ) ];
 		if ( !_drag ) return;
 		_animatedSprite.move( _mouse.mouseX - _animatedSprite.width * 0.5, _mouse.mouseY - _animatedSprite.height * 0.5 );
 	}

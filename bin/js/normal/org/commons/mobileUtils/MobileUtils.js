@@ -21,7 +21,6 @@ function MobileUtils() {
 		}
 		
 		that.getRatio = function( fixedPortrait ) {
-			console.log( that.getScreenWidth( fixedPortrait ) + " / " + that.baseWidth );
 			return that.getScreenWidth( fixedPortrait ) / that.baseWidth;
 		}
 		

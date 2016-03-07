@@ -4,7 +4,7 @@ ASJS.BrightnessFilter = function( value ) {
 	var that = new ASJS.AbstractFilter( value );
 	
 	that.execute = function() {
-		return "brightness(" + value + ")";
+		return "brightness(" + value + "%)";
 	}
 	
 	return that;

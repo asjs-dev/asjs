@@ -8,11 +8,11 @@ includeOnce( "org/asjs/utils/asjs.Cycler.js" );
 function EnvironmentCommand() {
 	var that = new ASJS.AbstractCommand();
 	
-	var _language = new Language().instance;
-	var _cookies = new Cookies().instance;
-	var _tools = new Tools().instance;
-	var _cycler = new ASJS.Cycler().instance;
-	var _config = new Config().instance;
+	var _language	= new Language().instance;
+	var _cookies	= new Cookies().instance;
+	var _tools		= new Tools().instance;
+	var _cycler		= new ASJS.Cycler().instance;
+	var _config		= new Config().instance;
 	
 	var _sleepToResizeId;
 	

@@ -4,7 +4,7 @@ ASJS.SaturateFilter = function( value ) {
 	var that = new ASJS.AbstractFilter( value );
 	
 	that.execute = function() {
-		return "saturate(" + value + ")";
+		return "saturate(" + value + "%)";
 	}
 	
 	return that;

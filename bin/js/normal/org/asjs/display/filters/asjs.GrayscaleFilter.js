@@ -4,7 +4,7 @@ ASJS.GrayscaleFilter = function( value ) {
 	var that = new ASJS.AbstractFilter( value );
 	
 	that.execute = function() {
-		return "grayscale(" + value + ")";
+		return "grayscale(" + value + "%)";
 	}
 	
 	return that;
