@@ -6,6 +6,34 @@ ASJS.Sprite = function( domElement ) {
 	var _children = [];
 	var _mouseChildren = true;
 	
+	extendProperty( _super, that, "bounds" );
+	defineProperty( that, "bounds", {
+		get: function() {
+			var rect = _super.bounds;
+			var pos = new ASJS.Point();
+			
+			var childRect;
+			var i;
+			var l = that.numChildren;
+			var child;
+			for ( i = 0; i < l; i++ ) {
+				child = that.getChildAt( i );
+				childRect = child.bounds;
+				if ( childRect.x < pos.x ) pos.x = childRect.x;
+				if ( childRect.y < pos.y ) pos.y = childRect.y;
+				if ( ( childRect.x + childRect.width ) > rect.width ) rect.width = childRect.x + childRect.width;
+				if ( ( childRect.y + childRect.height ) > rect.height ) rect.height = childRect.y + childRect.height;
+			}
+			
+			rect.x += pos.x;
+			rect.y += pos.y;
+			rect.width -= rect.x;
+			rect.height -= rect.y;
+			
+			return rect;
+		}
+	});
+	
 	extendFunction( _super, that, "_sendAddedToStageEvent" );
 	that._sendAddedToStageEvent = function() {
 		_super._sendAddedToStageEvent();

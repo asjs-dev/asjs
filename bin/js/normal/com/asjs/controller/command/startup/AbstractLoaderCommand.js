@@ -28,7 +28,7 @@ function AbstractLoaderCommand() {
 	
 	function onLoadError( event ) {
 		_loader.removeEventListeners();
-		throw new Error( "Missing: " + _loader.url );
+		throw new Error( "Missing file [" + _loader.url + "]" );
 		_dfd.reject();
 	}
 	

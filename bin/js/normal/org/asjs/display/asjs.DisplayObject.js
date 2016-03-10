@@ -1,6 +1,8 @@
 includeOnce( "org/asjs/display/asjs.PrimitiveDisplayObject.js" );
 includeOnce( "org/asjs/utils/asjs.Mouse.js" );
 includeOnce( "org/asjs/geom/asjs.GeomUtils.js" );
+includeOnce( "org/asjs/geom/asjs.Rectangle.js" );
+includeOnce( "org/asjs/geom/asjs.Point.js" );
 
 ASJS.DisplayObject = function( domElement ) {
 	var that = new ASJS.PrimitiveDisplayObject( domElement );
@@ -18,6 +20,10 @@ ASJS.DisplayObject = function( domElement ) {
 	var _skewY = 0;
 	var _parent = null;
 	var _cssDisplay = "block";
+	
+	defineProperty( that, "bounds", {
+		get: function() { return new ASJS.Rectangle( that.calcX, that.calcY, that.calcWidth, that.calcHeight ); }
+	});
 	
 	defineProperty( that, "tooltip", {
 		get: function() { return that.setAttr( "title" ); },
