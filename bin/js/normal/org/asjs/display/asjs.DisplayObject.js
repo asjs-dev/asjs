@@ -224,8 +224,10 @@ ASJS.DisplayObject = function( domElement ) {
 	that.hitTest = function( point ) {
 		var rotationDeg = - that.rotation * ASJS.GeomUtils.THETA;
 		
+		var rect = that.bounds;
+		
 		var globalPos = that.localToGlobal( new ASJS.Point( 0, 0 ) );
-		var diffPoint = new ASJS.Point( point.x - ( globalPos.x + that.calcWidth * 0.5 ), point.y - ( globalPos.y + that.calcHeight * 0.5 ) );
+		var diffPoint = new ASJS.Point( point.x - ( globalPos.x + rect.width * 0.5 ), point.y - ( globalPos.y + rect.height * 0.5 ) );
 		var rotatedDiffPoint = new ASJS.Point( 
 			diffPoint.x * Math.cos( rotationDeg ) - diffPoint.y * Math.sin( rotationDeg ), 
 			diffPoint.x * Math.sin( rotationDeg ) + diffPoint.y * Math.cos( rotationDeg ) 
@@ -233,7 +235,7 @@ ASJS.DisplayObject = function( domElement ) {
 		var recalcPoint = new ASJS.Point( point.x - ( diffPoint.x - rotatedDiffPoint.x ), point.y - ( diffPoint.y - rotatedDiffPoint.y ) );
 		
 		var localPoint = that.globalToLocal( recalcPoint );
-		return localPoint.x >= 0 && localPoint.y >= 0 && localPoint.x <= that.calcWidth && localPoint.y <= that.calcHeight;
+		return localPoint.x >= 0 && localPoint.y >= 0 && localPoint.x <= rect.width && localPoint.y <= rect.height;
 	}
 	
 	that.move = function( x, y ) {
