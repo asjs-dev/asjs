@@ -1,5 +1,6 @@
 includeOnce( "org/asjs/display/form/asjs.FormElement.js" );
 includeOnce( "org/asjs/event/asjs.KeyboardEvent.js" );
+includeOnce( "org/asjs/event/asjs.Event.js" );
 includeOnce( "org/asjs/utils/asjs.Keyboard.js" );
 
 ASJS.AbstractTextElement = function( domElement ) {
@@ -72,7 +73,11 @@ ASJS.AbstractTextElement = function( domElement ) {
 	
 	function onKeyUp( event ) {
 		var charCode = event.which ? event.which : event.keyCode;
-		if ( _restrict && ( event.ctrlKey && _controlChars.indexOf( charCode ) > -1 ) ) {
+		if ( event.ctrlKey && _controlChars.indexOf( charCode ) > -1 ) onChange( event );
+	}
+	
+	function onChange( event ) {
+		if ( _restrict ) {
 			var regExp = new RegExp( "(?!" + _restrict + ").", "g" );
 			that.val = that.val.replace( regExp, '' );
 		}
@@ -81,6 +86,7 @@ ASJS.AbstractTextElement = function( domElement ) {
 	(function() {
 		that.addEventListener( ASJS.KeyboardEvent.KEY_PRESS, onKeyPress );
 		that.addEventListener( ASJS.KeyboardEvent.KEY_UP, onKeyUp );
+		that.addEventListener( ASJS.Event.CHANGE, onChange );
 	})();
 	
 	return that;
