@@ -19,12 +19,14 @@ ASJS.Mouse = function() {
 		};
 		
 		function onMouseMove( event ) {
-			_mouseX = event.pageX;
-			_mouseY = event.pageY;
+			var evt = event.originalEvent && event.originalEvent.touches && event.originalEvent.touches[ 0 ] ? 
+						event.originalEvent.touches[ 0 ] : event;
+			_mouseX = evt.pageX;
+			_mouseY = evt.pageY;
 		}
 		
 		(function() {
-			stage.window.addEventListener( ASJS.MouseEvent.MOUSE_MOVE, onMouseMove );
+			stage.window.addEventListener( ASJS.MouseEvent.MOUSE_MOVE + " " + ASJS.MouseEvent.TOUCH_MOVE, onMouseMove );
 		})();
 		
 		return that;

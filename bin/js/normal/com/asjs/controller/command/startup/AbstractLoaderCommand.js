@@ -16,6 +16,7 @@ function AbstractLoaderCommand() {
 		_loader.requestType = ASJS.RequestMethod.GET;
 		_loader.addEventListener( ASJS.LoaderEvent.LOAD_END, onLoadEnd );
 		_loader.addEventListener( ASJS.LoaderEvent.ERROR, onLoadError );
+		_loader.dataType = "json";
 		_loader.load( url );
 		
 		return _dfd.promise();

@@ -112,11 +112,11 @@ function ContentView() {
 		that.addChild( _animatedSprite );
 		
 		_animatedSprite.addEventListener( ASJS.MouseEvent.CLICK, onAnimatedSpriteClick );
-		_animatedSprite.addEventListener( ASJS.MouseEvent.MOUSE_DOWN, onAnimatedSpriteMouseDown );
+		_animatedSprite.addEventListener( ASJS.MouseEvent.MOUSE_DOWN + " " + ASJS.MouseEvent.TOUCH_START, onAnimatedSpriteMouseDown );
 		
-		stage.addEventListener( ASJS.MouseEvent.MOUSE_UP, onDragStop );
+		stage.addEventListener( ASJS.MouseEvent.MOUSE_UP + " " + ASJS.MouseEvent.TOUCH_END, onDragStop );
 		stage.addEventListener( ASJS.MouseEvent.MOUSE_LEAVE, onDragStop );
-		stage.addEventListener( ASJS.MouseEvent.MOUSE_MOVE, onStageMouseMove );
+		stage.addEventListener( ASJS.MouseEvent.MOUSE_MOVE + " " + ASJS.MouseEvent.TOUCH_MOVE, onStageMouseMove );
 		
 		that.addEventListener( ASJS.MouseEvent.CLICK, onMouseClick );
 		
