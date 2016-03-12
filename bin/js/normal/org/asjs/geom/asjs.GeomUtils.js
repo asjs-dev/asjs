@@ -17,6 +17,12 @@ ASJS.GeomUtils = function() {
 		return pointA.x == pointB.x && pointA.y == pointB.y;
 	}
 	
+	that.twoPointAngle = function( pointA, pointB ) {
+		var v = new ASJS.Point( pointB.x - pointA.x, pointB.y - pointA.y );
+		var angle = Math.acos( v.x / Math.sqrt( Math.pow( v.x, 2 ) + Math.pow( v.y, 2 ) ) );
+    	return angle / ASJS.GeomUtils.THETA;
+	}
+	
 	that.rectInRect = function( rectA, rectB ) {
 		return rectA.x >= rectB.x && rectA.y == rectB.y && rectA.x + rectA.width <= rectB.x + rectB.width && rectA.y + rectA.height <= rectB.y + rectB.height;
 	}

@@ -11,6 +11,16 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	var _drawLine = false;
 	var _drawFill = false;
 	
+	var _bitmapFilters;
+	
+	defineProperty( that, "bitmapFilters", {
+		get: function() { return _bitmapFilters; },
+		set: function( value ) {
+			_bitmapFilters = value;
+			executeFilters();
+		}
+	});
+	
 	defineProperty( that, "bitmapWidth", {
 		get: function() { return that.getAttr( "width" ); },
 		set: function( value ) { that.setAttr( "width", value ); }
@@ -23,10 +33,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	
 	defineProperty( that, "blendMode", {
 		get: function() { return getContext().globalCompositeOperation; },
-		set: function( value ) {
-			console.log( value );
-			getContext().globalCompositeOperation = value;
-		}
+		set: function( value ) { getContext().globalCompositeOperation = value; }
 	});
 	
 	defineProperty( that, "globalAlpha", {
@@ -151,7 +158,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	}
 	
 	that.getDataUrl = function() {
-		return getContext().toDataURL();
+		return that.domElement.toDataURL();
 	}
 	
 	that.getColorRgb = function( x, y ) {
@@ -225,7 +232,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 			case ASJS.Bitmap.GRADIENT_RADIAL: gradient = ctx.createRadialGradient( gradientParams );
 			break;
 		}
-		var i;
+		var i;getContext
 		var color;
 		for ( i = 0; i < colors.length; i++ ) {
 			color = colors[ i ];
@@ -262,12 +269,28 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 		} : null;
 	}
 	
+	function executeFilters() {
+		var i;
+		var l = that.bitmapFilters.length;
+		var filter;
+		var pixels;
+		for ( i = 0; i < l; i++ ) {
+			pixels = that.getImageData( 0, 0, that.bitmapWidth, that.bitmapHeight );
+			filter = that.bitmapFilters[ i ];
+			that.putImageData( filter.execute( pixels ), 0, 0 );
+		}
+	}
+	
 	(function() {
 		that.bitmapWidth = bitmapWidth || 1;
 		that.bitmapHeight = bitmapHeight || 1;
 	})();
 	
 	return that;
+}
+ASJS.Bitmap.isSupported = function() {
+  var elem = document.createElement('canvas');
+  return !!( elem.getContext && elem.getContext( '2d' ) );
 }
 ASJS.Bitmap.GRADIENT_LINEAR	= "ASJS-Bitmap-gradientLinear";
 ASJS.Bitmap.GRADIENT_RADIAL	= "ASJS-Bitmap-gradientRadial";
