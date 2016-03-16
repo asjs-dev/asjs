@@ -9,6 +9,7 @@ Features:
 * MVC
 * Filters ( like Blur, Grayscale, etc on display objects )
 * Use canvas like Bitmap and BitmapData
+* Bitmap Filters
 * Sprite Sheet Animations ( use [png|jpg|svg|...] images to animations )
 * Easily extendable
 * Event oritentation
