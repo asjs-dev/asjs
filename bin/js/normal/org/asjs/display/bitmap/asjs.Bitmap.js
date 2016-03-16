@@ -12,6 +12,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	var _drawFill = false;
 	
 	var _bitmapFilters;
+	var _original;
 	
 	defineProperty( that, "bitmapFilters", {
 		get: function() { return _bitmapFilters; },
@@ -23,12 +24,18 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	
 	defineProperty( that, "bitmapWidth", {
 		get: function() { return that.getAttr( "width" ); },
-		set: function( value ) { that.setAttr( "width", value ); }
+		set: function( value ) {
+			var w = Math.max( 1, value || 1 );
+			that.setAttr( "width", w );
+		}
 	});
 	
 	defineProperty( that, "bitmapHeight", {
 		get: function() { return that.getAttr( "height" ); },
-		set: function( value ) { that.setAttr( "height", value ); }
+		set: function( value ) {
+			var h = Math.max( 1, value || 1 );
+			that.setAttr( "height", h );
+		}
 	});
 	
 	defineProperty( that, "blendMode", {
@@ -187,6 +194,28 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 		that.putImageData( bitmap.getImageData( srcX, srcY, srcW, srcH ), x, y );
 	}
 	
+	that.destroy = function() {
+		that.clearRect( 0, 0, that.bitmapWidth, that.bitmapHeight );
+		that.setBitmapSize( 1, 1 );
+		if ( _original ) _original.destroy();
+	}
+	
+	that.setBitmapSize = function( width, height ) {
+		that.bitmapWidth = width;
+		that.bitmapHeight = height;
+	}
+	
+	that.clone = function() {
+		var bmp = new ASJS.Bitmap( that.bitmapWidth, that.bitmapHeight );
+			bmp.setSize( that.bitmapWidth, that.bitmapHeight );
+			bmp.drawImage( that, 0, 0, that.bitmapWidth, that.bitmapHeight, 0, 0, that.bitmapWidth, that.bitmapHeight );
+		return bmp;
+	}
+	
+	that.getOriginal = function() {
+		return _original;
+	}
+	
 	function beginPath() {
 		getContext().beginPath();
 		_drawLine = true;
@@ -270,6 +299,13 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	}
 	
 	function executeFilters() {
+		if ( !_original ) _original = that.clone();
+		else {
+			that.drawImage( _original, 0, 0, that.bitmapWidth, that.bitmapHeight, 0, 0, that.bitmapWidth, that.bitmapHeight );
+			_original.destroy();
+			_original = null;
+		}
+		
 		var i;
 		var l = that.bitmapFilters.length;
 		var filter;
@@ -282,8 +318,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	}
 	
 	(function() {
-		that.bitmapWidth = bitmapWidth || 1;
-		that.bitmapHeight = bitmapHeight || 1;
+		that.setBitmapSize( bitmapWidth, bitmapHeight );
 	})();
 	
 	return that;
@@ -292,8 +327,8 @@ ASJS.Bitmap.isSupported = function() {
   var elem = document.createElement('canvas');
   return !!( elem.getContext && elem.getContext( '2d' ) );
 }
-ASJS.Bitmap.GRADIENT_LINEAR	= "ASJS-Bitmap-gradientLinear";
-ASJS.Bitmap.GRADIENT_RADIAL	= "ASJS-Bitmap-gradientRadial";
+ASJS.Bitmap.GRADIENT_LINEAR		= "ASJS-Bitmap-gradientLinear";
+ASJS.Bitmap.GRADIENT_RADIAL		= "ASJS-Bitmap-gradientRadial";
 ASJS.Bitmap.PATTERN_REPEAT		= "repeat";
 ASJS.Bitmap.PATTERN_NO_REPEAT	= "no-repeat";
 ASJS.Bitmap.PATTERN_REPEAT_X	= "repeat-x";

@@ -10,7 +10,7 @@ ASJS.Sprite = function( domElement ) {
 	defineProperty( that, "bounds", {
 		get: function() {
 			var rect = _super.bounds;
-			var pos = new ASJS.Point();
+			var size = new ASJS.Rectangle();
 			
 			var childRect;
 			var i;
@@ -19,16 +19,23 @@ ASJS.Sprite = function( domElement ) {
 			for ( i = 0; i < l; i++ ) {
 				child = that.getChildAt( i );
 				childRect = child.bounds;
-				if ( childRect.x < pos.x ) pos.x = childRect.x;
-				if ( childRect.y < pos.y ) pos.y = childRect.y;
-				if ( ( childRect.x + childRect.width ) > rect.width ) rect.width = childRect.x + childRect.width;
-				if ( ( childRect.y + childRect.height ) > rect.height ) rect.height = childRect.y + childRect.height;
+				if ( i == 0 ) {
+					size.x = childRect.x;
+					size.y = childRect.y;
+					size.width = childRect.width + childRect.x;
+					size.height = childRect.height + childRect.y;
+				} else {
+					if ( childRect.x < size.x ) size.x = childRect.x;
+					if ( childRect.y < size.y ) size.y = childRect.y;
+					if ( childRect.width + childRect.x > size.width ) size.width = childRect.width + childRect.x;
+					if ( childRect.height + childRect.y > size.height ) size.height = childRect.height + childRect.y;
+				}
 			}
 			
-			rect.x += pos.x;
-			rect.y += pos.y;
-			rect.width -= rect.x;
-			rect.height -= rect.y;
+			rect.x += size.x;
+			rect.y += size.y;
+			if ( size.width - size.x > rect.width ) rect.width = size.width - size.x;
+			if ( size.height - size.y > rect.height ) rect.height = size.height - size.y;
 			
 			return rect;
 		}
