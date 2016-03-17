@@ -85,41 +85,41 @@ ASJS.DisplayObject = function( domElement ) {
 	});
 	
 	defineProperty( that, "alpha", {
-		get: function() { return parseFloat( that.getCSS( "opacity" ) ); },
+		get: function() { return parseFloat( that.getCSS( "opacity" ) ) || 1; },
 		set: function( value ) { that.setCSS( "opacity", value ); }
 	});
 	
 	defineProperty( that, "x", {
-		get: function() { return parseFloat( that.getCSS( "left" ) ); },
-		set: function( value ) { that.setCSS( "left", value ); }
+		get: function() { return ( parseFloat( that.getCSS( "left" ) ) || 0 ) - ( that.width - that.width / _scaleX ) * 0.5; },
+		set: function( value ) { that.setCSS( "left", value + ( that.width - that.width / _scaleX ) * 0.5 ); }
 	});
 	
 	defineProperty( that, "y", {
-		get: function() { return parseFloat( that.getCSS( "top" ) ); },
-		set: function( value ) { that.setCSS( "top", value ); }
+		get: function() { return ( parseFloat( that.getCSS( "top" ) ) || 0 ) - ( that.height - that.height / _scaleY ) * 0.5; },
+		set: function( value ) { that.setCSS( "top", value + ( that.height - that.height / _scaleY ) * 0.5 ); }
 	});
 	
 	defineProperty( that, "calcX", { get: function() { return that.x + ( parseFloat( that.getCSS( "marginLeft" ) ) || 0 ); } } );
 	defineProperty( that, "calcY", { get: function() { return that.y + ( parseFloat( that.getCSS( "marginTop" ) ) || 0 ); } } );
 	
 	defineProperty( that, "right", {
-		get: function() { return parseFloat( that.getCSS( "right" ) ); },
+		get: function() { return parseFloat( that.getCSS( "right" ) ) || 0; },
 		set: function( value ) { that.setCSS( "right", value ); }
 	});
 	
 	defineProperty( that, "bottom", {
-		get: function() { return parseFloat( that.getCSS( "bottom" ) ); },
+		get: function() { return parseFloat( that.getCSS( "bottom" ) ) || 0; },
 		set: function( value ) { that.setCSS( "bottom", value ); }
 	});
 	
 	defineProperty( that, "width", {
-		get: function() { return that.domObject.width(); },
-		set: function( value ) { that.setCSS( "width", value ); }
+		get: function() { return that.domObject.width() * _scaleX; },
+		set: function( value ) { that.setCSS( "width", value / _scaleX ); }
 	});
 	
 	defineProperty( that, "height", {
-		get: function() { return that.domObject.height(); },
-		set: function( value ) { that.setCSS( "height", value ); }
+		get: function() { return that.domObject.height() * _scaleY; },
+		set: function( value ) { that.setCSS( "height", value / _scaleY ); }
 	});
 	
 	defineProperty( that, "calcWidth", {
@@ -154,6 +154,8 @@ ASJS.DisplayObject = function( domElement ) {
 		get: function() { return _scaleX; },
 		set: function( value ) {
 			_scaleX = parseFloat( value );
+			var oW = that.width / _scaleX;
+			that.x += ( that.width - oW ) * 0.5;
 			drawTransform();
 		}
 	});
@@ -162,6 +164,8 @@ ASJS.DisplayObject = function( domElement ) {
 		get: function() { return _scaleY; },
 		set: function( value ) {
 			_scaleY = parseFloat( value );
+			var oH = that.height / _scaleY;
+			that.y += ( that.height - oH ) * 0.5;
 			drawTransform();
 		}
 	});
@@ -253,8 +257,10 @@ ASJS.DisplayObject = function( domElement ) {
 		var pos = new ASJS.Point( point.x, point.y );
 		var child = that;
 		while ( child ) {
-			pos.x += child.x || 0;
-			pos.y += child.y || 0;
+			pos.x *= child.scaleX;
+			pos.y *= child.scaleY;
+			pos.x += child.x;
+			pos.y += child.y;
 			child = child.parent;
 		}
 		return pos;
@@ -264,10 +270,19 @@ ASJS.DisplayObject = function( domElement ) {
 		if ( !point ) throw new Error( "DisplayObject.globalToLocal: Point is null" );
 		var pos = new ASJS.Point( point.x, point.y );
 		var child = that;
+		var children = [ child ];
 		while ( child ) {
-			pos.x -= child.x || 0;
-			pos.y -= child.y || 0;
 			child = child.parent;
+			children.push( child );
+		}
+		var i;
+		var l = children.length - 2;
+		for ( i = l; i > -1; i-- ) {
+			child = children[ i ];
+			pos.x -= child.x;
+			pos.y -= child.y;
+			pos.x /= child.scaleX;
+			pos.y /= child.scaleY;
 		}
 		return pos;
 	};
