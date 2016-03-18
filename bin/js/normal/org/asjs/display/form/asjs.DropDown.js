@@ -35,10 +35,9 @@ ASJS.DropDown = function() {
 	
 	that.setOptions = function( options ) {
 		that.clearOptions();
-		var i;
+		var i = -1;
 		var l = options.length;
-		var option;
-		for ( i = 0; i < l; i++ ) that.addOption( options[ i ] );
+		while ( ++i < l ) that.addOption( options[ i ] );
 	}
 	
 	that.addOption = function( option ) {

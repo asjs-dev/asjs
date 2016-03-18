@@ -16,8 +16,8 @@ ASJS.DisplayObject = function( domElement ) {
 	var _rotation = 0;
 	var _scaleX = 1;
 	var _scaleY = 1;
-	var _skewX = 0;
-	var _skewY = 0;
+	//var _skewX = 0;
+	//var _skewY = 0;
 	var _parent = null;
 	var _cssDisplay = "block";
 	
@@ -172,7 +172,7 @@ ASJS.DisplayObject = function( domElement ) {
 			drawTransform();
 		}
 	});
-	
+	/*
 	defineProperty( that, "skewX", {
 		get: function() { return _skewX; },
 		set: function( value ) {
@@ -188,7 +188,7 @@ ASJS.DisplayObject = function( domElement ) {
 			drawTransform();
 		}
 	});
-	
+	*/
 	defineProperty( that, "parent", {
 		get: function() { return _parent; },
 		set: function( value ) {
@@ -296,7 +296,7 @@ ASJS.DisplayObject = function( domElement ) {
 	});
 	
 	function drawTransform() {
-		that.setCSS( "transform", 'rotate(' + _rotation + 'deg) scaleX(' + _scaleX + ') scaleY(' + _scaleY + ') skewX(' + _skewX + 'deg) skewY(' + _skewY + 'deg)' );
+		that.setCSS( "transform", 'rotate(' + _rotation + 'deg) scaleX(' + _scaleX + ') scaleY(' + _scaleY + ')' );// skewX(' + _skewX + 'deg) skewY(' + _skewY + 'deg)' );
 	}
 	
 	(function() {

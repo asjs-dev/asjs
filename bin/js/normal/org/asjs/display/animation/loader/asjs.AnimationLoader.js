@@ -27,12 +27,11 @@ ASJS.AnimationLoader = function() {
 	}
 	
 	function parseAnimationDescriptor( data ) {
-		var i;
+		var i = -1;
 		var l = data.frames.length;
 		var frames = [];
-		var frame;
-		for ( i = 0; i < l; i++ ) {
-			frame = data.frames[ i ];
+		while ( ++i < l ) {
+			var frame = data.frames[ i ];
 			frames.push( new ASJS.Rectangle( frame.x, frame.y, frame.w, frame.h ) );
 		}
 		
@@ -48,12 +47,10 @@ ASJS.AnimationLoader = function() {
 		_loader.removeEventListeners();
 		
 		try {
-			var i;
+			var i = -1;
 			var l = _loader.content.length;
 			var animationDescriptorList = [];
-			for ( i = 0; i < l; i++ ) {
-				animationDescriptorList.push( parseAnimationDescriptor( _loader.content[ i ] ) );
-			}
+			while ( ++i < l ) animationDescriptorList.push( parseAnimationDescriptor( _loader.content[ i ] ) );
 			
 			var animatedSprite = new ASJS.AnimatedSprite();
 				animatedSprite.addAnimationDescriptorList( animationDescriptorList );

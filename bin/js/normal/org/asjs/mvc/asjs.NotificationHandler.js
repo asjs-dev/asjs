@@ -5,11 +5,10 @@ ASJS.NotificationHandler = function() {
 	
 		that.register = function( notificationDispatcher ) {
 			if ( !notificationDispatcher.handlers ) return;
-			var i;
+			var i = -1;
 			var l = notificationDispatcher.handlers.length;
-			var notificationType;
-			for ( i = 0; i < l; i++ ) {
-				notificationType = notificationDispatcher.handlers[ i ];
+			while ( ++i < l ) {
+				var notificationType = notificationDispatcher.handlers[ i ];
 				if ( !_notificationHandlers[ notificationType ] ) _notificationHandlers[ notificationType ] = [];
 				_notificationHandlers[ notificationType ].push( notificationDispatcher );
 			}
@@ -17,11 +16,10 @@ ASJS.NotificationHandler = function() {
 	
 		that.remove = function( notificationDispatcher ) {
 			if ( !notificationDispatcher.handlers ) return;
-			var i;
+			var i = -1;
 			var l = notificationDispatcher.handlers ? notificationDispatcher.handlers.length : 0;
-			var notificationType;
-			for ( i = 0; i < l; i++ ) {
-				notificationType = notificationDispatcher.handlers[ i ];
+			while ( ++i < l ) {
+				var notificationType = notificationDispatcher.handlers[ i ];
 				if ( _notificationHandlers[ notificationType ] ) {
 					var index = _notificationHandlers[ notificationType ].indexOf( notificationDispatcher );
 					if ( index > -1 ) _notificationHandlers[ notificationType ].splice( index, 1 );
@@ -30,10 +28,10 @@ ASJS.NotificationHandler = function() {
 		}
 	
 		that.sendNotification = function( notificationType, data ) {
-			var i;
+			var i = -1;
 			var l = _notificationHandlers[ notificationType ] ? _notificationHandlers[ notificationType ].length : 0;
 			var removeHandlers = [];
-			for ( i = 0; i < l; i++ ) {
+			while ( ++i < l ) {
 				if ( _notificationHandlers[ notificationType ][ i ] ) {
 					_notificationHandlers[ notificationType ][ i ].reciveNotification( notificationType, data );
 				} else {

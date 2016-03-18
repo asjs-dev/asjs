@@ -11,9 +11,9 @@ ASJS.AnimatedSprite = function() {
 	defineProperty( that, "selectedAnimation", { get: function() { return _selectedAnimation; } } );
 	
 	that.addAnimationDescriptorList = function( animationDescriptorList ) {
-		var i;
+		var i = -1;
 		var l = animationDescriptorList.length;
-		for ( i = 0; i < l; i++ ) that.addAnimationDescriptor( animationDescriptorList[ i ] );
+		while ( ++i < l ) that.addAnimationDescriptor( animationDescriptorList[ i ] );
 	}
 	
 	that.addAnimationDescriptor = function( animationDescriptor ) {

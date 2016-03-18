@@ -144,9 +144,9 @@ ASJS.Scale9Grid = function() {
 	
 	defineProperty( that, "backgroundImage", {
 		set: function( value ) {
-			var i;
+			var i = -1;
 			var l = 9;
-			for ( i = 0; i < l; i++ ) {
+			while ( ++i < l ) {
 				_blocks[ i ].setCSS( "background-image", "url(" + value + ")" );
 			}
 			that.drawNow();
@@ -154,9 +154,9 @@ ASJS.Scale9Grid = function() {
 	});
 	
 	function init() {
-		var i;
+		var i = -1;
 		var l = 9;
-		for ( i = 0; i < l; i++ ) {
+		while ( ++i < l ) {
 			_blocks[ i ] = new ASJS.Sprite();
 			_blocks[ i ].setCSS( "background-repeat", "no-repeat" );
 			that.addChild( _blocks[ i ] );

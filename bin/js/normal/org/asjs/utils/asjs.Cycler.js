@@ -27,10 +27,10 @@ ASJS.Cycler = function() {
 		that.removeCallback = function( callback ) {
 			if ( !that.callbackExists( callback ) ) return;
 		
-			var i;
+			var i = -1;
 			var l = _callbacks.length;
 			var index;
-			for ( i = 0; i < l; i++ ) {
+			while ( ++i < l ) {
 				if ( _callbacks[ i ] == callback ) index = i;
 			}
 		
@@ -38,9 +38,9 @@ ASJS.Cycler = function() {
 		}
 	
 		that.callbackExists = function( callback ) {
-			var i;
+			var i = -1;
 			var l = _callbacks.length;
-			for ( i = 0; i < l; i++ ) {
+			while ( ++i < l ) {
 				if ( _callbacks[ i ] == callback ) return true;
 			}
 		
@@ -60,9 +60,9 @@ ASJS.Cycler = function() {
 		function tick() {
 			_timeoutId = stage.window.clearTimeout( _timeoutId );
 		
-			var i;
+			var i = -1;
 			var l = _callbacks.length;
-			for ( i = 0; i < l; i++ ) {
+			while ( ++i < l ) {
 				if ( _callbacks[ i ] ) _callbacks[ i ]();
 			}
 		

@@ -12,7 +12,13 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	var _drawFill = false;
 	
 	var _bitmapFilters;
+	var _keepOriginal = true;
 	var _original;
+	
+	defineProperty( that, "keepOriginal", {
+		get: function() { return _keepOriginal; },
+		set: function( value ) { _keepOriginal = value; }
+	});
 	
 	defineProperty( that, "bitmapFilters", {
 		get: function() { return _bitmapFilters; },
@@ -197,7 +203,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	that.destroy = function() {
 		that.clearRect( 0, 0, that.bitmapWidth, that.bitmapHeight );
 		that.setBitmapSize( 1, 1 );
-		if ( _original ) _original.destroy();
+		if ( _original ) _original = null;
 	}
 	
 	that.setBitmapSize = function( width, height ) {
@@ -213,7 +219,9 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	}
 	
 	that.getOriginal = function() {
-		return _original;
+		var bmp = new ASJS.Bitmap( that.bitmapWidth, that.bitmapHeight );
+		if ( _original ) bmp.drawImage( _original, 0, 0, that.bitmapWidth, that.bitmapHeight, 0, 0, that.bitmapWidth, that.bitmapHeight );
+		return bmp;
 	}
 	
 	function beginPath() {
@@ -300,15 +308,21 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	}
 	
 	function executeFilters() {
-		if ( !_original ) _original = that.clone();
-		else {
-			that.drawImage( _original, 0, 0, that.bitmapWidth, that.bitmapHeight, 0, 0, that.bitmapWidth, that.bitmapHeight );
-			_original.destroy();
-			_original = null;
-		}
-		
 		var i = -1;
 		var l = that.bitmapFilters.length;
+		
+		if ( l == 0 ) return;
+		
+		if ( that.keepOriginal ) {
+			if ( !_original ) {
+				_original = new ASJS.Image();
+				_original.src = that.getDataUrl();
+			} else {
+				that.drawImage( _original, 0, 0, that.bitmapWidth, that.bitmapHeight, 0, 0, that.bitmapWidth, that.bitmapHeight );
+				_original = null;
+			}
+		}
+		
 		var filter;
 		var pixels;
 		while ( ++i < l ) {
