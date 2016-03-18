@@ -8,11 +8,7 @@ ASJS.AbstractConvoluteBitmapFilter = function( opaque ) {
 	
 	defineProperty( that, "matrix", {
 		get: function() {
-			return [
-				0, 0, 0,
-				0, 0, 0,
-				0, 0, 0
-			];
+			return [1];
 		}
 	});
 	
@@ -39,40 +35,28 @@ ASJS.AbstractConvoluteBitmapFilter = function( opaque ) {
 		
 		var alphaFac = _opaque ? 1 : 0;
 		
-		var y;
-		var x;
-		var sy = y;
-		var sx = x;
-		var dstOff = ( y * w + x ) * 4;
-		
-		var r;
-		var g;
-		var b;
-		var a;
-		var cy;
-		var cx;
-		var scy;
-		var scx;
-		var srcOff;
-		var wt;
-					
-		for ( y = 0; y < h; y++ ) {
-			for ( x = 0; x < w; x++ ) {
-				sy = y;
-				sx = x;
-				dstOff = ( y * w + x ) * 4;
+		var y = -1;
+		while ( ++y < h ) {
+			var x = -1;
+			while ( ++x < w ) {
+				var sy = y;
+				var sx = x;
+				var dstOff = ( y * w + x ) * 4;
 				
-				r = 0;
-				g = 0;
-				b = 0;
-				a = 0;
-				for ( cy = 0; cy < side; cy++ ) {
-					for ( cx = 0; cx < side; cx++ ) {
-						scy = sy + cy - halfSide;
-						scx = sx + cx - halfSide;
+				var r = 0;
+				var g = 0;
+				var b = 0;
+				var a = 0;
+				
+				var cy = -1;
+				while ( ++cy < side ) {
+					var cx = -1;
+					while ( ++cx < side ) {
+						var scy = sy + cy - halfSide;
+						var scx = sx + cx - halfSide;
 						if ( scy >= 0 && scy < sh && scx >= 0 && scx < sw ) {
-							srcOff = ( scy * sw + scx ) * 4;
-							wt = weights[ cy * side + cx ];
+							var srcOff = ( scy * sw + scx ) * 4;
+							var wt = weights[ cy * side + cx ];
 							r += src[ srcOff ] * wt;
 							g += src[ srcOff + 1 ] * wt;
 							b += src[ srcOff + 2 ] * wt;

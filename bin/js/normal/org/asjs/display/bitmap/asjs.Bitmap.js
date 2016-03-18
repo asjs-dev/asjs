@@ -261,9 +261,10 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 			case ASJS.Bitmap.GRADIENT_RADIAL: gradient = ctx.createRadialGradient( gradientParams );
 			break;
 		}
-		var i;getContext
+		var i = -1;
+		var l = colors.length;
 		var color;
-		for ( i = 0; i < colors.length; i++ ) {
+		while ( ++i < l ) {
 			color = colors[ i ];
 			addColorToGradient( gradient, color.stop, color.color, color.alpha );
 		}
@@ -306,11 +307,11 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 			_original = null;
 		}
 		
-		var i;
+		var i = -1;
 		var l = that.bitmapFilters.length;
 		var filter;
 		var pixels;
-		for ( i = 0; i < l; i++ ) {
+		while ( ++i < l ) {
 			pixels = that.getImageData( 0, 0, that.bitmapWidth, that.bitmapHeight );
 			filter = that.bitmapFilters[ i ];
 			that.putImageData( filter.execute( pixels ), 0, 0 );

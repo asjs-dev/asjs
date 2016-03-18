@@ -13,10 +13,10 @@ ASJS.Sprite = function( domElement ) {
 			var size = new ASJS.Rectangle();
 			
 			var childRect;
-			var i;
+			var i = -1;
 			var l = that.numChildren;
 			var child;
-			for ( i = 0; i < l; i++ ) {
+			while ( ++i < l ) {
 				child = that.getChildAt( i );
 				childRect = child.bounds;
 				if ( i == 0 ) {
@@ -44,10 +44,10 @@ ASJS.Sprite = function( domElement ) {
 	extendFunction( _super, that, "_sendAddedToStageEvent" );
 	that._sendAddedToStageEvent = function() {
 		_super._sendAddedToStageEvent();
-		var i;
+		var i = -1;
 		var l = that.numChildren;
 		var child;
-		for ( i = 0; i < l; i++ ) {
+		while ( ++i < l ) {
 			child = that.getChildAt( i );
 			child._sendAddedToStageEvent();
 		}
@@ -57,11 +57,9 @@ ASJS.Sprite = function( domElement ) {
 		get: function() { return _mouseChildren; },
 		set: function( value ) {
 			_mouseChildren = value;
-			var i;
+			var i = -1;
 			var l = that.numChildren;
-			for ( i = 0; i < l; i++ ){
-				that.getChildAt( i ).enabled = _mouseChildren;
-			}
+			while ( ++i < l ) that.getChildAt( i ).enabled = _mouseChildren;
 		}
 	});
 	
@@ -136,9 +134,10 @@ ASJS.Sprite = function( domElement ) {
 	
 	that.getChildByDOMObject = function( domObject ) {
 		if ( !domObject ) return null;
-		var i;
+		var i = -1;
+		var l = that.numChildren;
 		var child;
-		for ( i = 0; i < that.numChildren; i++ ) {
+		while ( ++i < l ) {
 			child = that.getChildAt( i );
 			if ( domObject.id == child.id ) return child;
 		}

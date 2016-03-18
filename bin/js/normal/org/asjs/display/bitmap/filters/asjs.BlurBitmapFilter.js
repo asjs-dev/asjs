@@ -9,10 +9,10 @@ ASJS.BlurBitmapFilter = function( value ) {
 		get: function() {
 			var value = 1 / Math.pow( _blurValue, 2 );
 			var matrix = [];
-			var i;
-			var j;
-			for ( i = 0; i < _blurValue; i++ ) {
-				for ( j = 0; j < _blurValue; j++ ) {
+			var i = -1;
+			while ( ++i < _blurValue ) {
+				var j = -1;
+				while ( ++j < _blurValue ) {
 					matrix.push( value );
 				}
 			}

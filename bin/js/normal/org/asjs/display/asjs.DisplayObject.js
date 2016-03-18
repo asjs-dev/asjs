@@ -35,13 +35,12 @@ ASJS.DisplayObject = function( domElement ) {
 		set: function( value ) {
 			_filters = value;
 			var filters = "";
-			var i;
+			var i = -1;
 			var l = _filters.length;
 			var filter;
-			for ( i = 0; i < l; i++ ) {
+			while ( ++i < l ) {
 				filter = _filters[ i ];
 				filters += " " + filter.execute();
-				
 			}
 			that.setCSS( "-webkit-filter", filters );
 			that.setCSS( "filter", filters );
@@ -114,12 +113,16 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	defineProperty( that, "width", {
 		get: function() { return that.domObject.width() * _scaleX; },
-		set: function( value ) { that.setCSS( "width", value / _scaleX ); }
+		set: function( value ) {
+			that.setCSS( "width", typeof value != "number" ? value : ( parseFloat( value ) / _scaleX ) );
+		}
 	});
 	
 	defineProperty( that, "height", {
 		get: function() { return that.domObject.height() * _scaleY; },
-		set: function( value ) { that.setCSS( "height", value / _scaleY ); }
+		set: function( value ) {
+			that.setCSS( "height", typeof value != "number" ? value : ( parseFloat( value ) / _scaleY ) );
+		}
 	});
 	
 	defineProperty( that, "calcWidth", {
@@ -273,11 +276,11 @@ ASJS.DisplayObject = function( domElement ) {
 		var children = [ child ];
 		while ( child ) {
 			child = child.parent;
-			children.push( child );
+			children.unshift( child );
 		}
-		var i;
-		var l = children.length - 2;
-		for ( i = l; i > -1; i-- ) {
+		var i = 0;
+		var l = children.length;
+		while ( ++i < l ) {
 			child = children[ i ];
 			pos.x -= child.x;
 			pos.y -= child.y;

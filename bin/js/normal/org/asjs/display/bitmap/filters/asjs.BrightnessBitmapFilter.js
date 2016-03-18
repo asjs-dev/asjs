@@ -7,9 +7,9 @@ ASJS.BrightnessBitmapFilter = function( adjustment ) {
 	
 	that.execute = function( pixels ) {
 		var d = pixels.data;
-		var i;
+		var i = -4;
 		var l = d.length;
-		for ( i = 0; i < l; i += 4 ) {
+		while ( ( i += 4 ) < l ) {
 			d[ i ] += _adjustment;
 			d[ i + 1 ] += _adjustment;
 			d[ i + 2 ] += _adjustment;

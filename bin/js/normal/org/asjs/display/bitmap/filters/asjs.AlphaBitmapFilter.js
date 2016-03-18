@@ -7,14 +7,12 @@ ASJS.AlphaBitmapFilter = function( type ) {
 	
 	that.execute = function( pixels ) {
 		var d = pixels.data;
-		var i;
+		var i = -4;
 		var l = d.length;
-		var average;
-		var a;
-		for ( i = 0; i < l; i += 4 ) {
-			average = ( ( d[ i ] + d[ i + 1 ] + d[ i + 2 ] ) / 3 );
-			a = Math.round( _type ? 255 - average : average );
-			d[ i + 3 ] = d[ i + 3 ] - a;
+		while ( ( i += 4 ) < l ) {
+			var average = ( ( d[ i ] + d[ i + 1 ] + d[ i + 2 ] ) / 3 );
+			var a = Math.round( _type ? 255 - average : average );
+			d[ i + 3 ] -= a;
 		}
 		return pixels;
 	}

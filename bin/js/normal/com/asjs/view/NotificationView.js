@@ -77,7 +77,6 @@ function NotificationView() {
 		that.setSize( "100%", "100%" );
 		that.setCSS( "position", "fixed" );
 		
-		//_window.setCSS( "background-color", "#8b8a7b" );
 		_window.size = new ASJS.Point( 30, 80 );
 		_window.rect = new ASJS.Rectangle( 13, 60, 4, 7 );
 		_window.backgroundImage = "images/window.png";
