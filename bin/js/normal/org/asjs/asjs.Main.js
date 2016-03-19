@@ -41,6 +41,7 @@ ASJS.startASJS = function( baseClass ) {
 	var dfd = new $.Deferred();
 	$( document ).ready( function() {
 		stage = new ASJS.Stage().instance;
+		stage.init();
 		dfd.resolve( new baseClass() );
 	});
 	return dfd.promise();

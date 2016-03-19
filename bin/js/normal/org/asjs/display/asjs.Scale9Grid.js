@@ -24,22 +24,6 @@ ASJS.Scale9Grid = function() {
 		}
 	});
 	
-	extendProperty( _super, that, "right" );
-	defineProperty( that, "right", {
-		set: function( value ) {
-			_super.right = value;
-			that.drawNow();
-		}
-	});
-	
-	extendProperty( _super, that, "bottom" );
-	defineProperty( that, "bottom", {
-		set: function( value ) {
-			_super.bottom = value;
-			that.drawNow();
-		}
-	});
-	
 	extendProperty( _super, that, "width" );
 	defineProperty( that, "width", {
 		set: function( value ) {

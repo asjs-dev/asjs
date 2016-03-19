@@ -12,13 +12,11 @@ ASJS.Sprite = function( domElement ) {
 			var rect = _super.bounds;
 			var size = new ASJS.Rectangle();
 			
-			var childRect;
 			var i = -1;
 			var l = that.numChildren;
-			var child;
 			while ( ++i < l ) {
-				child = that.getChildAt( i );
-				childRect = child.bounds;
+				var child = that.getChildAt( i );
+				var childRect = child.bounds;
 				if ( i == 0 ) {
 					size.x = childRect.x;
 					size.y = childRect.y;
@@ -46,9 +44,8 @@ ASJS.Sprite = function( domElement ) {
 		_super._sendAddedToStageEvent();
 		var i = -1;
 		var l = that.numChildren;
-		var child;
 		while ( ++i < l ) {
-			child = that.getChildAt( i );
+			var child = that.getChildAt( i );
 			child._sendAddedToStageEvent();
 		}
 	}
@@ -136,9 +133,8 @@ ASJS.Sprite = function( domElement ) {
 		if ( !domObject ) return null;
 		var i = -1;
 		var l = that.numChildren;
-		var child;
 		while ( ++i < l ) {
-			child = that.getChildAt( i );
+			var child = that.getChildAt( i );
 			if ( domObject.id == child.id ) return child;
 		}
 		return null;

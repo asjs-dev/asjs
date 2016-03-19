@@ -308,7 +308,6 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	}
 	
 	function executeFilters() {
-		var i = -1;
 		var l = that.bitmapFilters.length;
 		
 		if ( l == 0 ) return;
@@ -323,13 +322,14 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 			}
 		}
 		
+		var i = -1;
 		var filter;
-		var pixels;
+		var pixels = that.getImageData( 0, 0, that.bitmapWidth, that.bitmapHeight );
 		while ( ++i < l ) {
-			pixels = that.getImageData( 0, 0, that.bitmapWidth, that.bitmapHeight );
 			filter = that.bitmapFilters[ i ];
-			that.putImageData( filter.execute( pixels ), 0, 0 );
+			pixels = filter.execute( pixels );
 		}
+		that.putImageData( pixels, 0, 0 );
 	}
 	
 	(function() {

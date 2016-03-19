@@ -1,5 +1,6 @@
 includeOnce( "org/asjs/display/asjs.Sprite.js" );
 includeOnce( "org/asjs/event/asjs.WindowEvent.js" );
+includeOnce( "org/asjs/utils/asjs.Mouse.js" );
 
 ASJS.Stage = function() {
 	function WindowInstance() {
@@ -49,6 +50,10 @@ ASJS.Stage = function() {
 	function StageInstance() {
 		var that = new ASJS.Sprite();
 		
+		var _inited = false;
+		
+		var _mouse = new ASJS.Mouse().instance;
+		
 		var _window = new WindowInstance();
 		var _head = $( "head" );
 	
@@ -68,6 +73,18 @@ ASJS.Stage = function() {
 		defineProperty( that, "window", { get: function() { return _window; } } );
 		defineProperty( that, "head", { get: function() { return _head; } } );
 		
+		that.init = function() {
+			if ( _inited ) return;
+			_inited = true;
+			
+			that.clear();
+			that.setSize( "100%", "100%" );
+			that.window.addEventListener( ASJS.WindowEvent.RESIZE, recalcStageSize );
+			recalcStageSize();
+			
+			_mouse.init();
+		};
+		
 		function recalcStageSize() {
 			var overflowX = that.getCSS( "overflow-x" );
 			var overflowY = that.getCSS( "overflow-y" );
@@ -83,13 +100,6 @@ ASJS.Stage = function() {
 			
 			that.dispatchEvent( ASJS.Stage.RESIZE );
 		}
-		
-		(function() {
-			that.clear();
-			that.setSize( "100%", "100%" );
-			that.window.addEventListener( ASJS.WindowEvent.RESIZE, recalcStageSize );
-			recalcStageSize();
-		})();
 		
 		return that;
 	};

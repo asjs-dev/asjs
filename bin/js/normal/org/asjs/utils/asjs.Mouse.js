@@ -5,29 +5,28 @@ ASJS.Mouse = function() {
 	function MouseInstance() {
 		var that = {};
 	
-		var _mouseX = 0;
-		var _mouseY = 0;
+		var EVENT = ASJS.MouseEvent.MOUSE_MOVE + " " + ASJS.MouseEvent.TOUCH_MOVE;
+		
+		var _mousePos = new ASJS.Point();
 	
-		defineProperty( that, "mouseX", { get: function() { return _mouseX; } } );
-		defineProperty( that, "mouseY", { get: function() { return _mouseY; } } );
+		defineProperty( that, "mouseX", { get: function() { return _mousePos.x; } } );
+		defineProperty( that, "mouseY", { get: function() { return _mousePos.y; } } );
 	
 		that.show = function() { stage.setCSS( "cursor", "default" ); }	
 		that.hide = function() { stage.setCSS( "cursor", "none" ); }
 	
-		that.getRelativePosition = function( value ) {
-			return value.globalToLocal( new ASJS.Point( that.mouseX, that.mouseY ) );
-		};
+		that.getRelativePosition = function( value ) { return value.globalToLocal( _mousePos ); };
+		
+		that.init = function() {
+			if ( stage && !stage.window.hasEventListener( EVENT, onMouseMove ) ) stage.window.addEventListener( EVENT, onMouseMove );
+		}
 		
 		function onMouseMove( event ) {
 			var evt = event.originalEvent && event.originalEvent.touches && event.originalEvent.touches[ 0 ] ? 
 						event.originalEvent.touches[ 0 ] : event;
-			_mouseX = evt.pageX;
-			_mouseY = evt.pageY;
+			_mousePos.x = evt.pageX;
+			_mousePos.y = evt.pageY;
 		}
-		
-		(function() {
-			stage.window.addEventListener( ASJS.MouseEvent.MOUSE_MOVE + " " + ASJS.MouseEvent.TOUCH_MOVE, onMouseMove );
-		})();
 		
 		return that;
 	}

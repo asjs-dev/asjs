@@ -13,5 +13,13 @@ ASJS.Image = function() {
 		set: function( value ) { that.setAttr( "alt", value ); }
 	});
 	
+	defineProperty( that, "imageWidth", {
+		get: function() { return that.domElement.width; }
+	});
+	
+	defineProperty( that, "imageHeight", {
+		get: function() { return that.domElement.height; }
+	});
+	
 	return that;
 }

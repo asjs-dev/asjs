@@ -23,6 +23,25 @@ ASJS.EventDispatcher = function( domElement ) {
 		that.domObject.off( type, null, callback );
 	}
 	
+	that.hasEventListener = function( which, handler ) {
+		var events = $._data( that.domElement, "events" );
+		if ( events == undefined ) return false;
+		var w = which.indexOf( " " ) > -1 ? which.split( " " ) : [ which ];
+		var i = -1;
+		var l = w.length;
+		while ( ++i < l ) {
+			var event = events[ w[ i ] ];
+			if ( event != undefined ) {
+				var j = -1;
+				var k = event.length;
+				while ( ++j < k ) {
+					if ( event[ j ].handler == handler ) return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	that.domObject = $( domElement || "<div />" );
 	
 	return that;

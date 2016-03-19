@@ -7,6 +7,8 @@ includeOnce( "org/asjs/geom/asjs.Point.js" );
 ASJS.DisplayObject = function( domElement ) {
 	var that = new ASJS.PrimitiveDisplayObject( domElement );
 	
+	var _mouse = new ASJS.Mouse().instance;
+	
 	var CREATED = "created";
 	
 	var _state = CREATED;
@@ -16,8 +18,6 @@ ASJS.DisplayObject = function( domElement ) {
 	var _rotation = 0;
 	var _scaleX = 1;
 	var _scaleY = 1;
-	//var _skewX = 0;
-	//var _skewY = 0;
 	var _parent = null;
 	var _cssDisplay = "block";
 	
@@ -37,9 +37,8 @@ ASJS.DisplayObject = function( domElement ) {
 			var filters = "";
 			var i = -1;
 			var l = _filters.length;
-			var filter;
 			while ( ++i < l ) {
-				filter = _filters[ i ];
+				var filter = _filters[ i ];
 				filters += " " + filter.execute();
 			}
 			that.setCSS( "-webkit-filter", filters );
@@ -100,16 +99,6 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	defineProperty( that, "calcX", { get: function() { return that.x + ( parseFloat( that.getCSS( "marginLeft" ) ) || 0 ); } } );
 	defineProperty( that, "calcY", { get: function() { return that.y + ( parseFloat( that.getCSS( "marginTop" ) ) || 0 ); } } );
-	
-	defineProperty( that, "right", {
-		get: function() { return parseFloat( that.getCSS( "right" ) ) || 0; },
-		set: function( value ) { that.setCSS( "right", value ); }
-	});
-	
-	defineProperty( that, "bottom", {
-		get: function() { return parseFloat( that.getCSS( "bottom" ) ) || 0; },
-		set: function( value ) { that.setCSS( "bottom", value ); }
-	});
 	
 	defineProperty( that, "width", {
 		get: function() { return that.domObject.width() * _scaleX; },
@@ -172,23 +161,7 @@ ASJS.DisplayObject = function( domElement ) {
 			drawTransform();
 		}
 	});
-	/*
-	defineProperty( that, "skewX", {
-		get: function() { return _skewX; },
-		set: function( value ) {
-			_skewX = parseFloat( value );
-			drawTransform();
-		}
-	});
 	
-	defineProperty( that, "skewY", {
-		get: function() { return _skewY; },
-		set: function( value ) {
-			_skewY = parseFloat( value );
-			drawTransform();
-		}
-	});
-	*/
 	defineProperty( that, "parent", {
 		get: function() { return _parent; },
 		set: function( value ) {
@@ -201,8 +174,7 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	defineProperty( that, "stage", { get: function() { return that.parent ? that.parent.stage : null; } } );
 	
-	defineProperty( that, "mouseX", { get: function() { return new ASJS.Mouse().instance.getRelativePosition( that ).x; } } );
-	defineProperty( that, "mouseY", { get: function() { return new ASJS.Mouse().instance.getRelativePosition( that ).y; } } );
+	defineProperty( that, "mouse", { get: function() { return _mouse.getRelativePosition( that ); } } );
 	
 	that.scale = function( scaleX, scaleY ) {
 		that.scaleX = scaleX;
@@ -228,23 +200,6 @@ ASJS.DisplayObject = function( domElement ) {
 	that.addClass = function( value ) { return that.domObject.addClass( value ); }
 	that.removeClass = function( value ) { that.domObject.removeClass( value ); }
 	
-	that.hitTest = function( point ) {
-		var rotationDeg = - that.rotation * ASJS.GeomUtils.THETA;
-		
-		var rect = that.bounds;
-		
-		var globalPos = that.localToGlobal( new ASJS.Point( 0, 0 ) );
-		var diffPoint = new ASJS.Point( point.x - ( globalPos.x + rect.width * 0.5 ), point.y - ( globalPos.y + rect.height * 0.5 ) );
-		var rotatedDiffPoint = new ASJS.Point( 
-			diffPoint.x * Math.cos( rotationDeg ) - diffPoint.y * Math.sin( rotationDeg ), 
-			diffPoint.x * Math.sin( rotationDeg ) + diffPoint.y * Math.cos( rotationDeg ) 
-		);
-		var recalcPoint = new ASJS.Point( point.x - ( diffPoint.x - rotatedDiffPoint.x ), point.y - ( diffPoint.y - rotatedDiffPoint.y ) );
-		
-		var localPoint = that.globalToLocal( recalcPoint );
-		return localPoint.x >= 0 && localPoint.y >= 0 && localPoint.x <= rect.width && localPoint.y <= rect.height;
-	}
-	
 	that.move = function( x, y ) {
 		that.x = x;
 		that.y = y;
@@ -255,39 +210,16 @@ ASJS.DisplayObject = function( domElement ) {
 		that.height = h;
 	}
 	
+	that.hitTest = function( point ) {
+		return ASJS.GeomUtils.hitTest( that, point );
+	}
+	
 	that.localToGlobal = function( point ) {
-		if ( !point ) throw new Error( "DisplayObject.localToGlobal: Point is null" );
-		var pos = new ASJS.Point( point.x, point.y );
-		var child = that;
-		while ( child ) {
-			pos.x *= child.scaleX;
-			pos.y *= child.scaleY;
-			pos.x += child.x;
-			pos.y += child.y;
-			child = child.parent;
-		}
-		return pos;
+		return ASJS.GeomUtils.localToGlobal( that, point );
 	};
 	
 	that.globalToLocal = function( point ) {
-		if ( !point ) throw new Error( "DisplayObject.globalToLocal: Point is null" );
-		var pos = new ASJS.Point( point.x, point.y );
-		var child = that;
-		var children = [ child ];
-		while ( child ) {
-			child = child.parent;
-			children.unshift( child );
-		}
-		var i = 0;
-		var l = children.length;
-		while ( ++i < l ) {
-			child = children[ i ];
-			pos.x -= child.x;
-			pos.y -= child.y;
-			pos.x /= child.scaleX;
-			pos.y /= child.scaleY;
-		}
-		return pos;
+		return ASJS.GeomUtils.globalToLocal( that, point );
 	};
 	
 	that.domObject = $( domElement || "<div />", { 
@@ -296,7 +228,7 @@ ASJS.DisplayObject = function( domElement ) {
 	});
 	
 	function drawTransform() {
-		that.setCSS( "transform", 'rotate(' + _rotation + 'deg) scaleX(' + _scaleX + ') scaleY(' + _scaleY + ')' );// skewX(' + _skewX + 'deg) skewY(' + _skewY + 'deg)' );
+		that.setCSS( "transform", 'rotate(' + _rotation + 'deg) scaleX(' + _scaleX + ') scaleY(' + _scaleY + ')' );
 	}
 	
 	(function() {
