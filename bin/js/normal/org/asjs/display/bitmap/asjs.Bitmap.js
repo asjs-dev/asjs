@@ -1,4 +1,5 @@
 includeOnce( "org/asjs/display/asjs.DisplayObject.js" );
+includeOnce( "org/asjs/display/asjs.Image.js" );
 includeOnce( "org/asjs/geom/asjs.Matrix.js" );
 includeOnce( "org/asjs/geom/asjs.GeomUtils.js" );
 
@@ -323,10 +324,9 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 		}
 		
 		var i = -1;
-		var filter;
 		var pixels = that.getImageData( 0, 0, that.bitmapWidth, that.bitmapHeight );
 		while ( ++i < l ) {
-			filter = that.bitmapFilters[ i ];
+			var filter = that.bitmapFilters[ i ];
 			pixels = filter.execute( pixels );
 		}
 		that.putImageData( pixels, 0, 0 );

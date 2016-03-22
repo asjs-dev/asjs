@@ -1,8 +1,6 @@
 function Tools() {
 	function ToolsInstance() {
 		var that = {};
-	
-		var _urlParams = {};
 		
 		that.replaceText = function( text, data ) {
 			for ( var key in data ) text = text.split( "{{" + key + "}}" ).join( data[ key ] );
@@ -18,11 +16,14 @@ function Tools() {
 			var url = decodeURIComponent( $( location ).attr( 'href' ) ).split( "#" );
 			if ( url[ 1 ] == '' || url[ 1 ] == undefined ) return [];
 			var params = url[ 1 ].split( '&' );
-			for ( var i = 0; i < params.length; i++ ) {
-				line = params[ i ].split( '=' );
-				_urlParams[ line[ 0 ] ] = line[ 1 ];
+			var i = -1;
+			var l = params.length;
+			var urlParams = {};
+			while ( ++i < l ) {
+				var line = params[ i ].split( '=' );
+				urlParams[ line[ 0 ] ] = line[ 1 ];
 			}
-			return _urlParams[ param ];
+			return urlParams[ param ];
 		}
 	
 		that.createUrlParams = function( params ) {

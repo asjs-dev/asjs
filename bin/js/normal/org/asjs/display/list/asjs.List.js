@@ -7,22 +7,20 @@ ASJS.List = function() {
 	defineProperty( that, "val", {
 		get: function() {
 			var value;
-			var i;
+			var i = -1;
 			var l = that.numChildren;
-			var item;
-			for ( i = 0; i < l; i++ ) {
-				item = that.getChildAt( i );
+			while ( ++i < l ) {
+				var item = that.getChildAt( i );
 				if ( item.checked ) value = item.val;
 			}
 			return value;
 		},
 		set: function( value ) {
 			if ( that.val == value ) return;
-			var i;
+			var i = -1;
 			var l = that.numChildren;
-			var item;
-			for ( i = 0; i < l; i++ ) {
-				item = that.getChildAt( i );
+			while ( ++i < l ) {
+				var item = that.getChildAt( i );
 				item.checked = item.val == value;
 			}
 		}
@@ -32,11 +30,10 @@ ASJS.List = function() {
 		get: function() { return _name; },
 		set: function( value ) {
 			_name = value;
-			var i;
+			var i = -1;
 			var l = that.numChildren;
-			var item;
-			for ( i = 0; i < l; i++ ) {
-				item = that.getChildAt( i );
+			while ( ++i < l ) {
+				var item = that.getChildAt( i );
 				item.name = _name;
 			}
 		}
@@ -48,9 +45,9 @@ ASJS.List = function() {
 	
 	that.setListItems = function( items ) {
 		that.clearList();
-		var i;
+		var i = -1;
 		var l = items.length;
-		for ( i = 0; i < l; i++ ) that.addItem( items[ i ] );
+		while ( ++i < l ) that.addItem( items[ i ] );
 	}
 	
 	that.addItem = function( item ) {
