@@ -30,38 +30,14 @@
 			$this->output = preg_replace( "/\n+/", "\n", $this->output );
 			$this->output = str_replace( "\n", ";", $this->output );
 			$this->output = preg_replace( "/;+/", ";", $this->output );
-		
+			
 			$f = fopen( $outputPath, "w" );
 			fwrite( $f, $this->output );
 			fclose( $f );
 			
-			//$this->checkClassesWhereNotUsed();
-			
 			return $this->output;
 		}
-		/*
-		private function checkClassesWhereNotUsed() {
-			$output = strtolower( $this->output );
-			foreach ( $this->includedClasses as $key => $value ) {
-				$classHelper = explode( "/", $key );
-				$classHelper = str_replace( ".js", "", $classHelper[ count( $classHelper ) - 1 ] );
-				$class = strtolower( $classHelper );
-				$createClass = "new " . $class;
-				$addClass = "=" . $class;
-				$paramClassA = "(" . $class;
-				$paramClassB = "," . $class;
-				$classConst = $class . ".";
-				$numberOfUse = substr_count( $output, $createClass ) + 
-								substr_count( $output, $addClass ) + 
-								substr_count( $output, $paramClassA ) + 
-								substr_count( $output, $paramClassB ) +
-								substr_count( $output, $classConst );
-				if ( $numberOfUse == 0 ) {
-					echo "Unusable class: " . $class . "\n";
-				}
-			}
-		}
-		*/
+		
 		private function openFile( $projectFolder, $path ) {
 			$dir = $projectFolder;
 			for ( $i = 0; $i < count( $this->packages ); $i++ ) {

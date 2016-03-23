@@ -1,7 +1,5 @@
-ASJS.GeomUtils = function() {
-	var that = {};
-	return that;
-}
+ASJS.GeomUtils = {};
+
 ASJS.GeomUtils.THETA	= Math.PI / 180;
 
 ASJS.GeomUtils.pointInOrigo = function( point ) {

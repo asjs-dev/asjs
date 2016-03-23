@@ -16,8 +16,6 @@ function extendFunction( target, parent, propertyName ) {
 	target[ propertyName ] = parent[ propertyName ];
 }
 
-var ASJS = {};
-
 var sourcePath = "";
 function sourcePath( value ) {
 	if ( sourcePath != "" ) return;
@@ -33,8 +31,10 @@ function includeOnce( filename ) {
 	$.ajaxSetup( { async: true } );
 }
 
-ASJS.inited;
 var stage;
+var ASJS = {};
+
+ASJS.inited;
 ASJS.startASJS = function( baseClass ) {
 	if ( ASJS.inited ) return;
 	ASJS.inited = true;

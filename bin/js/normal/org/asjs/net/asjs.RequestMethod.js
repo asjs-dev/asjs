@@ -1,7 +1,4 @@
-ASJS.RequestMethod = function() {
-	var that = {};
-	return that;
-}
+ASJS.RequestMethod = {};
 ASJS.RequestMethod.DELETE	= "DELETE";
 ASJS.RequestMethod.GET		= "GET";
 ASJS.RequestMethod.HEAD		= "HEAD";

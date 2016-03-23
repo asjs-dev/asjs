@@ -1,7 +1,4 @@
-ASJS.BlendMode = function() {
-	var that = {};
-	return that;
-}
+ASJS.BlendMode = {};
 ASJS.BlendMode.SOURCE_OVER		= "source-over";
 ASJS.BlendMode.SOURCE_IN		= "source-in";
 ASJS.BlendMode.SOURCE_OUT		= "source-out";
