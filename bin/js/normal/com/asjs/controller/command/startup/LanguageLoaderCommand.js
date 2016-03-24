@@ -1,23 +1,22 @@
-includeOnce( "com/asjs/controller/command/startup/AbstractLoaderCommand.js" );
+includeOnce( "org/asjs/mvc/controller/command/asjs.AbstractCommand.js" );
 includeOnce( "com/asjs/model/Language.js" );
+includeOnce( "com/asjs/model/proxy/DataProxy.js" );
 
 function LanguageLoaderCommand() {
-	var that = new AbstractLoaderCommand();
+	var that = new ASJS.AbstractCommand();
 	
-	var _language = new Language().instance;
-	var _dfd;
+	var _language	= new Language().instance;
+	var _dataProxy	= new DataProxy().instance;
 	
 	that.execute = function() {
-		_dfd = $.Deferred();
+		var dfd = _dataProxy.loadJSON( "json/language.json" );
+			dfd.done( loadComplete );
 		
-		that.load( "json/language.json" ).done( loadComplete );
-		
-		return _dfd.promise();
+		return dfd;
 	}
 	
 	function loadComplete( response ) {
 		_language.data = response;
-		_dfd.resolve();
 	}
 	
 	return that;

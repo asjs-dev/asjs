@@ -2,9 +2,7 @@ includeOnce( "org/asjs/display/asjs.Sprite.js" );
 includeOnce( "org/asjs/display/asjs.Stage.js" );
 includeOnce( "org/asjs/display/asjs.Label.js" );
 includeOnce( "org/asjs/display/form/asjs.Button.js" );
-includeOnce( "org/asjs/display/animation/asjs.AnimationDescriptor.js" );
 includeOnce( "org/asjs/display/animation/asjs.AnimatedSprite.js" );
-includeOnce( "org/asjs/display/animation/loader/asjs.AnimationLoader.js" );
 includeOnce( "org/asjs/geom/asjs.Rectangle.js" );
 includeOnce( "org/asjs/geom/asjs.Point.js" );
 includeOnce( "org/asjs/utils/asjs.Cycler.js" );
@@ -35,9 +33,55 @@ function ContentView() {
 		_box.x = ( that.width - _box.width ) * 0.5;
 	}
 	
+	that.init = function( data ) {
+		_background.addClass( "background" );
+		_background.setCSS( "position", "fixed" );
+		_background.setSize( "100%", "100%" );
+		_background.alpha = 0.5;
+		that.addChild( _background );
+		
+		_box.addClass( "box" );
+		_box.setSize( 320, 130 );
+		_box.y = 100;
+		that.addChild( _box );
+		
+		_label.text = _language.getText( "new_asjs_base_site" );
+		_label.addClass( "box_label" );
+		_label.setSize( 320, 30 );
+		_label.move( 0, 34 );
+		_box.addChild( _label );
+		
+		_button.label = _language.getText( "show_notification_window" );
+		_button.addClass( "box_button" );
+		_button.setSize( 320, 40 );
+		_button.move( 0, _box.height - _button.height );
+		_button.addEventListener( ASJS.MouseEvent.CLICK, onButtonClick );
+		_box.addChild( _button );
+		
+		_animatedSprite = new ASJS.AnimatedSprite();
+		_animatedSprite.addAnimationDescriptorList( data );
+		
+		_animatedSprite.move( 10, 10 );
+		that.addChild( _animatedSprite );
+		
+		_animatedSprite.addEventListener( ASJS.MouseEvent.CLICK, onAnimatedSpriteClick );
+		_animatedSprite.addEventListener( ASJS.MouseEvent.MOUSE_DOWN + " " + ASJS.MouseEvent.TOUCH_START, onAnimatedSpriteMouseDown );
+		
+		stage.addEventListener( ASJS.MouseEvent.MOUSE_UP + " " + ASJS.MouseEvent.TOUCH_END, onDragStop );
+		stage.addEventListener( ASJS.MouseEvent.MOUSE_LEAVE, onDragStop );
+		stage.addEventListener( ASJS.MouseEvent.MOUSE_MOVE + " " + ASJS.MouseEvent.TOUCH_MOVE, onStageMouseMove );
+		
+		that.addEventListener( ASJS.MouseEvent.CLICK, onMouseClick );
+		
+		_cycler.addCallback( _animatedSprite.update );
+		
+		playFireworksAnimation();
+		
+		that.drawNow();
+	}
+	
 	function addedToStage() {
 		that.removeEventListener( ASJS.Stage.ADDED_TO_STAGE, addedToStage );
-		console.log( "view.stage: " + that.stage );
 		playFireworksAnimation();
 	}
 	
@@ -48,7 +92,7 @@ function ContentView() {
 	function playExplodeAnimation() {
 		if ( !_animatedSprite ) return;
 		_animatedSprite.setSize( 256, 128 );
-		_animatedSprite.play( ANIMATION_EXPLODE_ID );
+		_animatedSprite.play( ANIMATION_EXPLODE_ID, ASJS.AnimatedSprite.PLAY_REVERSE );
 	}
 	
 	function playFireworksAnimation() {
@@ -81,60 +125,8 @@ function ContentView() {
 		_label.text = _language.getText( hitTest ? "hit_test_inside" : "hit_test_outside" );
 	}
 	
-	function animationLoaderDone( data ) {
-		_background.addClass( "background" );
-		_background.setCSS( "position", "fixed" );
-		_background.setSize( "100%", "100%" );
-		_background.alpha = 0.5;
-		that.addChild( _background );
-		
-		_box.addClass( "box" );
-		_box.setSize( 320, 130 );
-		_box.y = 100;
-		that.addChild( _box );
-		
-		_label.text = _language.getText( "new_asjs_base_site" );
-		_label.addClass( "box_label" );
-		_label.setSize( 320, 30 );
-		_label.move( 0, 34 );
-		_box.addChild( _label );
-		
-		_button.label = _language.getText( "show_notification_window" );
-		_button.addClass( "box_button" );
-		_button.setSize( 320, 40 );
-		_button.move( 0, _box.height - _button.height );
-		_button.addEventListener( ASJS.MouseEvent.CLICK, onButtonClick );
-		_box.addChild( _button );
-		
-		_animatedSprite = data;
-		
-		_animatedSprite.move( 10, 10 );
-		that.addChild( _animatedSprite );
-		
-		_animatedSprite.addEventListener( ASJS.MouseEvent.CLICK, onAnimatedSpriteClick );
-		_animatedSprite.addEventListener( ASJS.MouseEvent.MOUSE_DOWN + " " + ASJS.MouseEvent.TOUCH_START, onAnimatedSpriteMouseDown );
-		
-		stage.addEventListener( ASJS.MouseEvent.MOUSE_UP + " " + ASJS.MouseEvent.TOUCH_END, onDragStop );
-		stage.addEventListener( ASJS.MouseEvent.MOUSE_LEAVE, onDragStop );
-		stage.addEventListener( ASJS.MouseEvent.MOUSE_MOVE + " " + ASJS.MouseEvent.TOUCH_MOVE, onStageMouseMove );
-		
-		that.addEventListener( ASJS.MouseEvent.CLICK, onMouseClick );
-		
-		_cycler.addCallback( _animatedSprite.update );
-		
-		playFireworksAnimation();
-		
-		that.drawNow();
-	}
-	
-	function initView() {
-		var animationLoader = new ASJS.AnimationLoader();
-			animationLoader.load( "json/animation/contentAnimation.json" ).done( animationLoaderDone );
-	}
-	
 	(function() {
 		that.addEventListener( ASJS.Stage.ADDED_TO_STAGE, addedToStage );
-		initView();
 	})();
 	
 	return that;

@@ -1,23 +1,22 @@
-includeOnce( "com/asjs/controller/command/startup/AbstractLoaderCommand.js" );
+includeOnce( "org/asjs/mvc/controller/command/asjs.AbstractCommand.js" );
 includeOnce( "com/asjs/model/Config.js" );
+includeOnce( "com/asjs/model/proxy/DataProxy.js" );
 
 function ConfigLoaderCommand() {
-	var that = new AbstractLoaderCommand();
+	var that = new ASJS.AbstractCommand();
 	
-	var _config = new Config().instance;
-	var _dfd;
+	var _config		= new Config().instance;
+	var _dataProxy	= new DataProxy().instance;
 	
 	that.execute = function() {
-		_dfd = $.Deferred();
+		var dfd = _dataProxy.loadJSON( "json/config.json" );
+			dfd.done( loadComplete );
 		
-		that.load( "json/config.json" ).done( loadComplete );
-		
-		return _dfd.promise();
+		return dfd;
 	}
 	
 	function loadComplete( response ) {
 		_config.data = response;
-		_dfd.resolve();
 	}
 	
 	return that;

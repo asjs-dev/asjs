@@ -2,7 +2,6 @@ includeOnce( "org/asjs/net/asjs.Loader.js" );
 includeOnce( "org/asjs/net/asjs.RequestMethod.js" );
 includeOnce( "org/asjs/event/asjs.LoaderEvent.js" );
 
-includeOnce( "org/asjs/display/animation/asjs.AnimatedSprite.js" );
 includeOnce( "org/asjs/display/animation/asjs.AnimationDescriptor.js" );
 
 includeOnce( "org/asjs/geom/asjs.Rectangle.js" );
@@ -19,31 +18,38 @@ ASJS.AnimationLoader = function() {
 		
 		_loader = new ASJS.Loader();
 		_loader.requestType = ASJS.RequestMethod.GET;
-		_loader.addEventListener( ASJS.LoaderEvent.LOAD_END, onLoadEnd );
+		_loader.addEventListener( ASJS.LoaderEvent.LOAD, onLoad );
 		_loader.addEventListener( ASJS.LoaderEvent.ERROR, onLoadError );
+		_loader.dataType = "json";
 		_loader.load( url );
 		
 		return _dfd.promise();
 	}
 	
 	function parseAnimationDescriptor( data ) {
+		var animationDescriptor = new ASJS.AnimationDescriptor(
+			data.id, 
+			data.image, 
+			new ASJS.Point( data.imageSize.w, data.imageSize.h ),  
+			data.frameDelay
+		);
+		
 		var i = -1;
 		var l = data.frames.length;
 		var frames = [];
 		while ( ++i < l ) {
 			var frame = data.frames[ i ];
-			frames.push( new ASJS.Rectangle( frame.x, frame.y, frame.w, frame.h ) );
+			
+			var j = -1;
+			var m = Math.max( 1, frame.l || 1 ) * animationDescriptor.frameDelay;
+			while ( ++j < m ) frames.push( new ASJS.Rectangle( frame.x, frame.y, frame.w, frame.h ) );
 		}
 		
-		return new ASJS.AnimationDescriptor(
-			data.id, 
-			data.image, 
-			new ASJS.Point( data.imageSize.w, data.imageSize.h ), 
-			frames
-		);
+		animationDescriptor.sequenceList = frames;
+		return animationDescriptor;
 	}
 	
-	function onLoadEnd( event ) {
+	function onLoad( event ) {
 		_loader.removeEventListeners();
 		
 		try {
@@ -52,10 +58,7 @@ ASJS.AnimationLoader = function() {
 			var animationDescriptorList = [];
 			while ( ++i < l ) animationDescriptorList.push( parseAnimationDescriptor( _loader.content[ i ] ) );
 			
-			var animatedSprite = new ASJS.AnimatedSprite();
-				animatedSprite.addAnimationDescriptorList( animationDescriptorList );
-			
-			_dfd.resolve( animatedSprite );
+			_dfd.resolve( animationDescriptorList );
 		} catch ( e ) {
 			throw new Error( "Invalid animation descriptor file: " + _loader.url );
 			_dfd.reject();
@@ -64,7 +67,6 @@ ASJS.AnimationLoader = function() {
 	
 	function onLoadError( event ) {
 		_loader.removeEventListeners();
-		throw new Error( "Missing: " + _loader.url );
 		_dfd.reject();
 	}
 	
