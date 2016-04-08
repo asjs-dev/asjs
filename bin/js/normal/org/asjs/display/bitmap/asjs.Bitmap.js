@@ -9,6 +9,8 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	var TARGET_FILL = "targetFill";
 	var TARGET_STROKE = "targetStroke";
 	
+	var _context;
+	
 	var _drawLine = false;
 	var _drawFill = false;
 	
@@ -286,7 +288,8 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	}
 	
 	function getContext() {
-		return that.domElement.getContext( "2d" );
+		if ( !_context ) _context = that.domElement.getContext( "2d" );
+		return _context;
 	}
 	
 	function rgbToString( rgb ) {
@@ -333,14 +336,13 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	}
 	
 	(function() {
+		if ( !getContext() ) {
+			throw new Error( "ASJS.Bitmap (canvas) is not supported in your browser!" );
+		}
 		that.setBitmapSize( bitmapWidth, bitmapHeight );
 	})();
 	
 	return that;
-}
-ASJS.Bitmap.isSupported = function() {
-  var elem = document.createElement('canvas');
-  return !!( elem.getContext && elem.getContext( '2d' ) );
 }
 ASJS.Bitmap.GRADIENT_LINEAR		= "ASJS-Bitmap-gradientLinear";
 ASJS.Bitmap.GRADIENT_RADIAL		= "ASJS-Bitmap-gradientRadial";
