@@ -1,11 +1,18 @@
 <?php
 	class BuildJS {
-		private $output = "";
-		private $sourcePath = "";
-		private $includedClasses = array();
-		private $packages = array();
+		private $output				= "";
+		private $sourcePath			= "";
+		private $includedClasses	= array();
+		private $packages			= array();
 		
 		public function __construct() {}
+		
+		public function clearCache() {
+			$this->output			= "";
+			$this->sourcePath		= "";
+			$this->includedClasses	= array();
+			$this->packages			= array();
+		}
 		
 		public function addPackage( $path, $relativePath ) {
 			array_push( $this->packages, array(
@@ -13,29 +20,29 @@
 				"relativePath" => $relativePath
 			));
 		}
-	
+		
 		public function build( $projectFolder, $baseClass, $outputPath, $minimize = true ) {
 			if ( !isset( $baseClass ) || $baseClass == "" ) {
-				exit( "Missing Parameter: baseClass" );
+				throw new Exception( "Missing Parameter: baseClass" );
 			}
-		
+			
+			$this->clearCache();
+			
 			$this->includeJS( $projectFolder, $baseClass, "baseClass", 0 );
 			
 			if ( $minimize ) {
 				include_once( dirname(__FILE__) . "/jsmin.php" );
 				$this->output = JSMin::minify( $this->output );
+			
+				$this->output = preg_replace( "/\r+/", "\n", $this->output );
+				$this->output = preg_replace( "/\n+/", "\n", $this->output );
+				$this->output = str_replace( "\n", ";", $this->output );
 			}
-		
-			$this->output = preg_replace( "/\r+/", "\n", $this->output );
-			$this->output = preg_replace( "/\n+/", "\n", $this->output );
-			$this->output = str_replace( "\n", ";", $this->output );
 			$this->output = preg_replace( "/;+/", ";", $this->output );
 			
 			$f = fopen( $outputPath, "w" );
 			fwrite( $f, $this->output );
 			fclose( $f );
-			
-			return $this->output;
 		}
 		
 		private function openFile( $projectFolder, $path ) {
@@ -56,39 +63,39 @@
 		private function includeJS( $projectFolder, $path, $parent, $line ) {
 			$fileContent = $this->openFile( $projectFolder, $path );
 			if ( $fileContent === false ) {
-				exit( "Missing dependency: " . $path . " in " . $parent . " on line " . ( $line + 1 ) );
-			} else {
-				$out = "";
-				for ( $i = 0; $i < count( $fileContent ); $i++ ) {
-					$isSourcePath = strpos( $fileContent[ $i ], "sourcePath" ) === 0;
-					$isIncludeOnce = strpos( $fileContent[ $i ], "includeOnce" ) === 0;
-					$line = $fileContent[ $i ];
-					if ( $isSourcePath || $isIncludeOnce ) {
-						$line = str_replace( "includeOnce(", "", $line );
-						$line = str_replace( "sourcePath(", "", $line );
-						$line = str_replace( ")", "", $line );
-						$line = str_replace( "'", "", $line );
-						$line = str_replace( "\"", "", $line );
-						$line = str_replace( " ", "", $line );
-						$line = str_replace( "\n", "", $line );
-						$line = str_replace( "\r", "", $line );
-						$line = str_replace( ";", "", $line );
-						if ( $isIncludeOnce ) {
-							if ( !isset( $this->includedClasses[ $line ] ) || $this->includedClasses[ $line ] != true ) {
-								$this->includedClasses[ $line ] = true;
-								$this->includeJS( $projectFolder, $this->sourcePath . $line, $path, $i );
-							}
-						} else if ( $isSourcePath ) {
-							if ( $this->sourcePath == "" ) {
-								$this->sourcePath = $line;
-							}
-						}
-					} else {
-						$out .= $line . "\n";
-					}
-				}
-				$this->output .= ";" . $out;
+				throw new Exception( "Missing dependency:\n\t" . $path . " in\n\t" . $parent . " on line " . ( $line + 1 ) );
 			}
+			
+			$out = "";
+			for ( $i = 0; $i < count( $fileContent ); $i++ ) {
+				$isSourcePath = strpos( $fileContent[ $i ], "sourcePath" ) === 0;
+				$isIncludeOnce = strpos( $fileContent[ $i ], "includeOnce" ) === 0;
+				$line = $fileContent[ $i ];
+				if ( $isSourcePath || $isIncludeOnce ) {
+					$line = str_replace( "includeOnce(", "", $line );
+					$line = str_replace( "sourcePath(", "", $line );
+					$line = str_replace( ")", "", $line );
+					$line = str_replace( "'", "", $line );
+					$line = str_replace( "\"", "", $line );
+					$line = str_replace( " ", "", $line );
+					$line = str_replace( "\n", "", $line );
+					$line = str_replace( "\r", "", $line );
+					$line = str_replace( ";", "", $line );
+					if ( $isIncludeOnce ) {
+						if ( !isset( $this->includedClasses[ $line ] ) || $this->includedClasses[ $line ] != true ) {
+							$this->includedClasses[ $line ] = true;
+							$this->includeJS( $projectFolder, $this->sourcePath . $line, $path, $i );
+						}
+					} else if ( $isSourcePath ) {
+						if ( $this->sourcePath == "" ) {
+							$this->sourcePath = $line;
+						}
+					}
+				} else {
+					$out .= $line;
+				}
+			}
+			$this->output .= ";" . $out;
 		}
 	
 	}

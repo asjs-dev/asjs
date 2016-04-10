@@ -1,8 +1,10 @@
+includeOnce( "org/asjs/display/asjs.Sprite.js" );
 includeOnce( "org/asjs/geom/asjs.Point.js" );
 includeOnce( "org/asjs/geom/asjs.Rectangle.js" );
 
 ASJS.Scale9Grid = function() {
 	var that = new ASJS.Sprite();
+	
 	var _size = new ASJS.Point();
 	var _rectangle = new ASJS.Rectangle();
 	var _blocks = [];

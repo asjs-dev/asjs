@@ -5,7 +5,7 @@ ASJS.BlurBitmapFilter = function( value ) {
 	
 	var _blurValue = Math.max( 1, value || 1 );
 	
-	defineProperty( that, "matrix", {
+	defineProperty( that, "_matrix", {
 		get: function() {
 			var value = 1 / Math.pow( _blurValue, 2 );
 			var matrix = [];

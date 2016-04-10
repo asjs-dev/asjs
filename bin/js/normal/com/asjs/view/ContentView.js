@@ -121,6 +121,10 @@ function ContentView() {
 	}
 	
 	function onMouseClick( event ) {
+		var child = stage.getChildByDOMObject( event.target );
+		console.log( child );
+		console.log( "child == _box :", child == _box );
+		
 		var hitTest = _box.hitTest( new ASJS.Point( _mouse.mouseX, _mouse.mouseY ) );
 		_label.text = _language.getText( hitTest ? "hit_test_inside" : "hit_test_outside" );
 	}

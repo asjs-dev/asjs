@@ -6,12 +6,12 @@ ASJS.Button = function() {
 	defineProperty( that, "label", {
 		get: function() { return that.getAttr( "value" ); },
 		set: function( value ) { that.setAttr( "value", value ); }
-	})
+	});
 	
 	defineProperty( that, "submit", {
 		get: function() { return that.getAttr( "type" ) == "submit"; },
 		set: function( value ) { that.setAttr( "type", value ? "submit" : "button" ); }
-	})
+	});
 	
 	(function() {
 		that.setAttr( "type", "button" );

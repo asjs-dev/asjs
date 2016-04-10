@@ -68,7 +68,7 @@ ASJS.Loader = function() {
 	
 	function onSuccessEvent( data ) {
 		_content = data;
-		onLoad();
+		onLoad( data );
 	}
 	
 	function onErrorEvent( xhr, textStatus, errorThrown ) {
@@ -76,8 +76,8 @@ ASJS.Loader = function() {
 		onError( xhr );
 	}
 	
-	function onCompleteEvent() {
-		onLoadEnd();
+	function onCompleteEvent( data ) {
+		onLoadEnd( data );
 	}
 	
 	function onLoadStart() {
@@ -88,12 +88,12 @@ ASJS.Loader = function() {
 		dispatch( ASJS.LoaderEvent.PROGRESS, data );
 	}
 	
-	function onLoad() {
-		dispatch( ASJS.LoaderEvent.LOAD );
+	function onLoad( data ) {
+		dispatch( ASJS.LoaderEvent.LOAD, data );
 	}
 	
-	function onLoadEnd() {
-		dispatch( ASJS.LoaderEvent.LOAD_END );
+	function onLoadEnd( data ) {
+		dispatch( ASJS.LoaderEvent.LOAD_END, data );
 	}
 	
 	function onError( data ) {

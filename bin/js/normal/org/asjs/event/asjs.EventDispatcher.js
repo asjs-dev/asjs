@@ -5,8 +5,9 @@ ASJS.EventDispatcher = function( domElement ) {
 	var that = {};
 	
 	that.dispatchEvent = function( type, data, bubble ) {
-		bubble = bubble = bubble == undefined ? true : bubble;
-		if ( bubble ) that.domObject.trigger( type, data );
+		var eventBubble = bubble == undefined ? true : bubble;
+		
+		if ( eventBubble ) that.domObject.trigger( type, data );
 		else that.domObject.triggerHandler( type, data );
 	}
 	

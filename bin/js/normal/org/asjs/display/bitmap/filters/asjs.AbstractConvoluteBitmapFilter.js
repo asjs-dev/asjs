@@ -6,7 +6,7 @@ ASJS.AbstractConvoluteBitmapFilter = function( opaque ) {
 	
 	var _opaque = opaque;
 	
-	defineProperty( that, "matrix", {
+	defineProperty( that, "_matrix", {
 		get: function() {
 			return [1];
 		}
@@ -18,7 +18,7 @@ ASJS.AbstractConvoluteBitmapFilter = function( opaque ) {
 	}
 	
 	function convolute( pixels ) {
-		var weights = that.matrix;
+		var weights = that._matrix;
 		var side = Math.round( Math.sqrt( weights.length ) );
 		var halfSide = Math.floor( side * 0.5 );
 		

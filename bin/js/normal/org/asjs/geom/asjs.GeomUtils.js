@@ -40,7 +40,7 @@ ASJS.GeomUtils.localToGlobal = function( target, point ) {
 		child = child.parent;
 	}
 	return pos;
-};
+}
 
 ASJS.GeomUtils.globalToLocal = function( target, point ) {
 	if ( !point ) throw new Error( "DisplayObject.globalToLocal: Point is null" );
@@ -61,7 +61,7 @@ ASJS.GeomUtils.globalToLocal = function( target, point ) {
 		pos.y /= child.scaleY;
 	}
 	return pos;
-};
+}
 
 ASJS.GeomUtils.hitTest = function( target, point ) {
 	var rotationDeg = - target.rotation * ASJS.GeomUtils.THETA;
