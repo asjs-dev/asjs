@@ -1,4 +1,6 @@
 <?php
+	include_once( dirname(__FILE__) . "/jsmin.php" );
+	
 	class BuildJS {
 		private $output				= "";
 		private $sourcePath			= "";
@@ -21,33 +23,35 @@
 			));
 		}
 		
-		public function build( $projectFolder, $baseClass, $outputPath, $minimize = true ) {
+		public function build( $projectFolder, $baseClass, $minimize = true ) {
 			if ( !isset( $baseClass ) || $baseClass == "" ) {
 				throw new Exception( "Missing Parameter: baseClass" );
 			}
 			
-			$this->clearCache();
-			
 			$this->includeJS( $projectFolder, $baseClass, "baseClass", 0 );
 			
-			if ( $minimize ) {
-				include_once( dirname(__FILE__) . "/jsmin.php" );
-				$this->output = JSMin::minify( $this->output );
-			
-				$this->output = preg_replace( "/\r+/", "\n", $this->output );
-				$this->output = preg_replace( "/\n+/", "\n", $this->output );
-				$this->output = str_replace( "\n", ";", $this->output );
-			}
+			if ( $minimize ) $this->minimize();
 			$this->output = preg_replace( "/;+/", ";", $this->output );
-			
-			$f = fopen( $outputPath, "w" );
+		}
+		
+		public function save( $path ) {
+			$f = fopen( $path, "w" );
 			fwrite( $f, $this->output );
 			fclose( $f );
 		}
 		
+		private function minimize() {
+			$this->output = JSMin::minify( $this->output );
+			$this->output = preg_replace( "/\r+/", "\n", $this->output );
+			$this->output = preg_replace( "/\n+/", "\n", $this->output );
+			$this->output = str_replace( "\n", ";", $this->output );
+		}
+		
 		private function openFile( $projectFolder, $path ) {
 			$dir = $projectFolder;
-			for ( $i = 0; $i < count( $this->packages ); $i++ ) {
+			$i = -1;
+			$l = count( $this->packages );
+			while ( ++$i < $l ) {
 				if ( stripos( $path, $this->packages[ $i ][ "path" ] ) > -1 ) {
 					$explodePath = explode( $this->packages[ $i ][ "path" ], $path );
 					$customDir = $this->packages[ $i ][ "relativePath" ];
@@ -91,9 +95,7 @@
 							$this->sourcePath = $line;
 						}
 					}
-				} else {
-					$out .= $line;
-				}
+				} else $out .= $line;
 			}
 			$this->output .= ";" . $out;
 		}

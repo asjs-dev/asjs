@@ -1,4 +1,4 @@
-sourcePath( "js/normal/" );
+sourcePath( "./" );
 
 includeOnce( "org/asjs/asjs.Main.js" );
 includeOnce( "org/asjs/display/asjs.Stage.js" );

@@ -1,59 +1,33 @@
 <?php
-	$minimizeCL		= readline( "minimize script: " );
-	$watchingCL		= readline( "watching modifications: " );
+	include_once( "builder/builder.php" );
 	
-	$minimize		= $minimizeCL == "true";
-	$watching		= $watchingCL == "true";
+	$config = array();
 	
-	$projectFolder	= "bin/";
-	$jsFolder		= "js/";
-	$inputFolder	= $jsFolder . "normal/";
-	$outputFolder	= $projectFolder . $jsFolder . "min/";
-	$watcherPath	= $projectFolder . $inputFolder;
+	/* Common config */
+	$config[ "minimize" ] 			= true; // optional (boolean)
+	$config[ "watching" ] 			= true; // optional (boolean)
 	
-	include_once( "builder/colors.php" );
-	$colors = new Colors();
+	/* Watcher config */
+	$config[ "watcherPath" ]		= "src/"; // required, when use watcher (folder)
+	$config[ "watcherTimeout" ]		= 5; // optional (seconds)
 	
-	include_once( "builder/buildJS.php" );
-	$buildJS = new BuildJS();
+	/* JS build config */
+	$config[ "js" ] = array();
+	$config[ "js" ][ "sourcePath" ]	= "src/js/"; // required (folder)
+	$config[ "js" ][ "baseClass" ]	= "com/asjs/Application.js"; // required (path/to/baseClass.js)
+	$config[ "js" ][ "packages" ]	= array( // required, when use other packages
+		// array( "path", "relativePath" )
+	);
+	$config[ "js" ][ "output" ]		= "bin/app/js/application.js"; // required
 	
-	$build = function() {
-		global $buildJS, $projectFolder, $inputFolder, $outputFolder, $minimize, $colors;
-		
-		echo date( "H:i:s" ) . "	";
-		
-		try {
-			$buildJS->build( $projectFolder, $inputFolder . "com/asjs/Application.js", $outputFolder . "application.js", $minimize );
-			echo $colors->getColoredString( "build complete", "yellow" );
-		} catch( Exception $e ) {
-			echo $colors->getColoredString( $e->getMessage(), "light_red" );
-		}
-		
-		echo "\n";
-	};
+	/* CSS build config */
+	$config[ "css" ] = array();
+	$config[ "css" ][ "packages" ]	= array( // required
+		"src/css/lib/",
+		"src/css/style/"
+	);
+	$config[ "css" ][ "output" ]	= "bin/app/css/application.css"; // required
 	
-	function watching() {
-		global $watcherPath, $build;
-		
-		$timeoutCL		= readline( "watcher timeout: " );
-		$timeout		= max( 1, (int)$timeoutCL );
-		
-		system( 'clear' );
-		
-		ini_set( 'xdebug.max_nesting_level', -1 );
-		include_once( "builder/watcher.php" );
-		
-		$watcher = new Watcher();
-		$watcher->setCallback( $build );
-		$watcher->setPathToWatch( $watcherPath );
-		$watcher->setWaitingMessage( "waiting: " );
-		$watcher->startWatching( $timeout );
-		
-		ini_set( 'xdebug.max_nesting_level', 100 );
-	}
-	
-	if ( $watching ) watching();
-	else call_user_func( $build );
-	
-	$buildJS->clearCache();
+	$builder = new Builder();
+	$builder->run( $config );
 ?>
