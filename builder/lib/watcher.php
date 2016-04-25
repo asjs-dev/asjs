@@ -22,11 +22,15 @@
 		}
 		
 		public function startWatching( $timeout ) {
-			if ( $this->isRunning || $this->path == null || $this->callback == null ) return;
+			if ( $this->isRunning || $this->path == null || !is_array( $this->path ) || $this->callback == null ) return;
 			
 			$this->isRunning	= true;
 			$this->timeout		= max( 1, (int)$timeout );
-			$this->stat			= $this->getStat( $this->path );
+			
+			$this->stat			= array();
+			$i = -1;
+			$l = count( $this->path );
+			while ( ++$i < $l ) $this->stat[ $i ] = 0;
 			
 			$this->run();
 		}
@@ -53,10 +57,14 @@
 		
 		private function run() {
 			echo "\033[0K\r" . $this->message;
-			$newStat = $this->getStat( $this->path );
-			if ( $newStat != $this->stat ) {
-				$this->stat = $newStat;
-				call_user_func( $this->callback );
+			$i = -1;
+			$l = count( $this->path );
+			while ( ++$i < $l ) {
+				$newStat = $this->getStat( $this->path[ $i ] );
+				if ( $newStat != $this->stat[ $i ] ) {
+					$this->stat[ $i ] = $newStat;
+					call_user_func( $this->callback );
+				}
 			}
 			$line = $this->readlineTimeout( $this->timeout, "" );
 			if ( substr( $line, 0, 4 ) != "exit" ) $this->run();

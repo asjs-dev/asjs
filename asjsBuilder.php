@@ -8,7 +8,7 @@
 	$config[ "watching" ] 			= true; // optional (boolean)
 	
 	/* Watcher config */
-	$config[ "watcherPath" ]		= "src/"; // required, when use watcher (folder)
+	$config[ "watcherPath" ]		= array( "src/" ); // required, when use watcher (array(folder, folder, ... ))
 	$config[ "watcherTimeout" ]		= 5; // optional (seconds)
 	
 	/* JS build config */
