@@ -177,7 +177,9 @@ option {
 option:disabled {
 	color: #666666;
 }
-
+iframe {
+	border: none;
+}
 html, body {
 	margin: 0;
 	padding: 0;

@@ -7,6 +7,7 @@ ASJS.Stage = function() {
 		var that = new ASJS.DisplayObject();
 		
 		that.domObject = $( window );
+		var _requestAnimationFrame;
 		
 		defineProperty( that, "scrollTop", {
 			get: function() { return that.domObject.scrollTop(); },
@@ -29,7 +30,9 @@ ASJS.Stage = function() {
 		});
 		
 		that.setTimeout = function( callback, duration ) {
-			return that.domElement.setTimeout( callback, duration );
+			return that.domElement.setTimeout( function() {
+				that.requestAnimationFrame( callback );
+			}, duration );
 		}
 		
 		that.clearTimeout = function( id ) {
@@ -37,12 +40,26 @@ ASJS.Stage = function() {
 		}
 		
 		that.setInterval = function( callback, duration ) {
-			return that.domElement.setInterval( callback, duration );
+			return that.domElement.setInterval( function() {
+				that.requestAnimationFrame( callback );
+			}, duration );
 		}
 		
 		that.clearInterval = function( id ) {
 			return that.domElement.clearInterval( id );
 		}
+		
+		that.requestAnimationFrame = function( callback ) {
+			_requestAnimationFrame( callback );
+		}
+		
+		(function() {
+			_requestAnimationFrame = window.requestAnimationFrame
+				|| window.mozRequestAnimationFrame
+				|| window.webkitRequestAnimationFrame
+				|| window.msRequestAnimationFrame
+				|| function( f ) { return setTimeout( f, 1000 / 60 ) };
+		})();
 		
 		return that;
 	};
