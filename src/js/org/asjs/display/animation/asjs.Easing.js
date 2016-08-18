@@ -1,8 +1,12 @@
 includeOnce( "org/asjs/display/asjs.Stage.js" );
+includeOnce( "org/asjs/utils/asjs.Cycler.js" );
 
 ASJS.Easing = function() {
 	var that = {};
 	
+	var _cycler	= new ASJS.Cycler().instance;
+	
+	var _isPlaying;
 	var _id;
 	var _step;
 	var _target;
@@ -15,17 +19,17 @@ ASJS.Easing = function() {
 	var _completeCallback;
 	
 	that.stop = function() {
-		_id = stage.window.clearTimeout( _id );
+		_isPlaying = false;
+		_cycler.removeCallback( update );
 	}
 	
-	that.animate = function( target, to, duration, type, stepCallback, completeCallback ) {
-		_step = 0;
+	that.play = function( target, to, duration, type, stepCallback, completeCallback ) {
 		_target = target;
 		_from = {};
 		_change = {};
 		_to = to;
 		_type = type;
-		_duration = duration;
+		_duration = ( duration / ( 1000 / _cycler.fps ) );
 		_stepCallback = stepCallback;
 		_completeCallback = completeCallback;
 		
@@ -36,10 +40,19 @@ ASJS.Easing = function() {
 		
 		if ( !ASJS.Easing[ _type ] ) _type = "linearTween";
 		
-		stepper();
+		letsPlay();
 	}
 	
-	function stepper() {
+	function letsPlay() {
+		if ( _isPlaying ) return;
+		_step = 0;
+		_isPlaying = true;
+		_cycler.addCallback( update );
+	}
+	
+	function update() {
+		if ( !_isPlaying ) return;
+		
 		if ( _step >= _duration ) {
 			that.stop();
 			iterateParameters( function( key ) {
@@ -55,11 +68,7 @@ ASJS.Easing = function() {
 		});
 		
 		if ( _stepCallback ) _stepCallback();
-		
-		_id = stage.window.setTimeout( function() {
-			_step++;
-			stepper();
-		}, 1 );
+		_step++;
 	}
 	
 	function iterateParameters( callback ) {
@@ -68,6 +77,10 @@ ASJS.Easing = function() {
 			callback( key );
 		}
 	}
+	
+	(function() {
+		that.stop();
+	})();
 	
 	return that;
 }

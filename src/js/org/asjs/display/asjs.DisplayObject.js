@@ -176,6 +176,24 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	defineProperty( that, "mouse", { get: function() { return _mouse.getRelativePosition( that ); } } );
 	
+	that.requestFullscreen = function() {
+		if ( !ASJS.DisplayObject.FULLSCREEN_ENABLED ) return;
+		
+		if ( that.domElement.requestFullscreen ) that.domElement.requestFullscreen();
+		else if ( that.domElement.webkitRequestFullscreen ) that.domElement.webkitRequestFullscreen();
+		else if ( that.domElement.mozRequestFullScreen ) that.domElement.mozRequestFullScreen();
+		else if ( that.domElement.msRequestFullscreen ) that.domElement.msRequestFullscreen();
+	}
+	
+	that.exitFullscreen = function() {
+		if ( !ASJS.DisplayObject.FULLSCREEN_ENABLED ) return;
+		
+		if ( document.exitFullscreen ) document.exitFullscreen();
+		else if ( document.webkitExitFullscreen ) document.webkitExitFullscreen();
+		else if ( document.mozCancelFullScreen ) document.mozCancelFullScreen();
+		else if ( document.msExitFullscreen ) document.msExitFullscreen();
+	}
+	
 	that.scale = function( scaleX, scaleY ) {
 		that.scaleX = scaleX;
 		that.scaleY = scaleY;
@@ -238,4 +256,5 @@ ASJS.DisplayObject = function( domElement ) {
 	
 	return that;
 };
-ASJS.DisplayObject.INSTANCE_ID	= 0;
+ASJS.DisplayObject.INSTANCE_ID			= 0;
+ASJS.DisplayObject.FULLSCREEN_ENABLED	= document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled;

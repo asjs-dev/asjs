@@ -21,11 +21,17 @@ ASJS.Mouse = function() {
 			if ( stage && !stage.window.hasEventListener( EVENT, onMouseMove ) ) stage.window.addEventListener( EVENT, onMouseMove );
 		}
 		
+		that.getTouchPointByEvent = function( event ) {
+			var touches = event.touches || event.originalEvent.touches;
+			if ( touches && touches.length > 0 ) {
+				var touch = touches[ 0 ];
+				return new ASJS.Point( touch.pageX, touch.pageY );
+			}
+			return new ASJS.Point( event.pageX, event.pageY );
+		}
+		
 		function onMouseMove( event ) {
-			var evt = event.originalEvent && event.originalEvent.touches && event.originalEvent.touches[ 0 ] ? 
-						event.originalEvent.touches[ 0 ] : event;
-			_mousePos.x = evt.pageX;
-			_mousePos.y = evt.pageY;
+			_mousePos = that.getTouchPointByEvent( event );
 		}
 		
 		return that;

@@ -5,7 +5,6 @@ includeOnce( "org/asjs/display/form/asjs.Button.js" );
 includeOnce( "org/asjs/display/animation/asjs.AnimatedSprite.js" );
 includeOnce( "org/asjs/geom/asjs.Rectangle.js" );
 includeOnce( "org/asjs/geom/asjs.Point.js" );
-includeOnce( "org/asjs/utils/asjs.Cycler.js" );
 includeOnce( "org/asjs/event/asjs.MouseEvent.js" );
 includeOnce( "com/asjs/mediator/ContentMediator.js" );
 includeOnce( "com/asjs/model/Language.js" );
@@ -19,7 +18,6 @@ function ContentView() {
 	var ANIMATION_FIREWORKS_ID	= "animationFireworks";
 
 	var _language = new Language().instance;
-	var _cycler = new ASJS.Cycler().instance;
 	var _mouse = new ASJS.Mouse().instance;
 	
 	var _background = new ASJS.Sprite();
@@ -72,8 +70,6 @@ function ContentView() {
 		stage.addEventListener( ASJS.MouseEvent.MOUSE_MOVE + " " + ASJS.MouseEvent.TOUCH_MOVE, onStageMouseMove );
 		
 		that.addEventListener( ASJS.MouseEvent.CLICK, onMouseClick );
-		
-		_cycler.addCallback( _animatedSprite.update );
 		
 		playFireworksAnimation();
 		

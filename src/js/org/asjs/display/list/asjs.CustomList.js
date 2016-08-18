@@ -7,7 +7,6 @@ ASJS.CustomList = function() {
 	var _name;
 	var _multiselect;
 	var _cell;
-	var _listItems;
 	var _itemsContainer;
 	var _lastCellIndex;
 	
@@ -78,10 +77,20 @@ ASJS.CustomList = function() {
 	
 	that.setList = function( cellDataVoList ) {
 		that.clearList();
-		_listItems = cellDataVoList;
 		var i = -1;
-		var l = _listItems.length;
-		while ( ++i < l ) that.addItem( _listItems[ i ] );
+		var l = cellDataVoList.length;
+		while ( ++i < l ) that.addItem( cellDataVoList[ i ] );
+	}
+	
+	that.getList = function() {
+		var list = [];
+		var i = -1;
+		var l = that.length;
+		while ( ++i < l ) {
+			var cellData = that.getItemAt( i );
+			list.push( cellData );
+		}
+		return list;
 	}
 	
 	that.getCellAt = function( index ) {
@@ -122,6 +131,20 @@ ASJS.CustomList = function() {
 		return cell;
 	}
 	
+	that.removeCell = function( cell ) {
+		if ( !cell || !_itemsContainer.contains( cell ) ) return;
+		_itemsContainer.removeChild( cell );
+	}
+	
+	that.removeCellById = function( id ) {
+		var i = -1;
+		var l = that.length;
+		while ( ++i < l ) {
+			var cell = that.getCellAt( i );
+			if ( cell.id == id ) that.removeCell( cell );
+		}
+	}
+	
 	that.drawNow = function() {
 		var i = -1;
 		var l = that.length;
@@ -158,7 +181,6 @@ ASJS.CustomList = function() {
 	function initView() {
 		_multiselect = false;
 		_cell = ASJS.Cell;
-		_listItems = [];
 		_lastCellIndex = 0;
 		
 		_itemsContainer = new ASJS.Sprite();

@@ -1,9 +1,12 @@
 includeOnce( "org/asjs/display/asjs.DisplayObject.js" );
 includeOnce( "org/asjs/display/asjs.Image.js" );
 includeOnce( "org/asjs/event/asjs.LoaderEvent.js" );
+includeOnce( "org/asjs/utils/asjs.Cycler.js" );
 
 ASJS.AnimatedSprite = function() {
 	var that = new ASJS.DisplayObject();
+	
+	var _cycler	= new ASJS.Cycler().instance;
 
 	var _animations			= {};
 	var _isPlaying			= false;
@@ -28,11 +31,20 @@ ASJS.AnimatedSprite = function() {
 		delete _animations[ name ];
 	}
 	
+	that.stop = function() {
+		_step = 0;
+		_isPlaying = false;
+		_cycler.removeCallback( update );
+	}
+	
 	that.play = function( name, type ) {
 		if ( !_animations[ name ] ) return;
 		
 		var angle = !type ? ASJS.AnimatedSprite.PLAY_NORMAL : ( type == ASJS.AnimatedSprite.PLAY_NORMAL ? ASJS.AnimatedSprite.PLAY_NORMAL : ASJS.AnimatedSprite.PLAY_REVERSE );
-		if ( _selectedAnimation == name && _angle == angle ) return;
+		if ( _selectedAnimation == name && _angle == angle ) {
+			letsPlay();
+			return;
+		}
 		
 		_selectedAnimation = name;
 		_angle = angle;
@@ -43,18 +55,22 @@ ASJS.AnimatedSprite = function() {
 			var image = new ASJS.Image();
 				image.addEventListener( ASJS.LoaderEvent.LOAD, function() {
 					that.setCSS( "background-image", "url(" + spriteSheet + ")" );
-					_isPlaying = true;
+					letsPlay();
 				});
-				image.addEventListener( ASJS.LoaderEvent.ERROR, function() {});
+				image.addEventListener( ASJS.LoaderEvent.ERROR, function() {
+					console.log( "Error: missing animation sprite sheet" );
+				});
 				image.src = spriteSheet;
-		}
+		} else letsPlay();
 	}
 	
-	that.stop = function() {
-		_isPlaying = false;
+	function letsPlay() {
+		if ( _isPlaying ) return;
+		_isPlaying = true;
+		_cycler.addCallback( update );
 	}
 	
-	that.update = function() {
+	function update() {
 		if ( !_isPlaying ) return;
 		
 		var selectedAnimation = _animations[ _selectedAnimation ];
@@ -78,6 +94,10 @@ ASJS.AnimatedSprite = function() {
 			if ( _step < 0 ) _step = sequenceList.length - 1;
 		}
 	}
+	
+	(function() {
+		that.stop();
+	})();
 	
 	return that;
 }

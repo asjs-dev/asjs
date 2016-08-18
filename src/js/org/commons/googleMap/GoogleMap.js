@@ -1,5 +1,3 @@
-includeOnce( "org/asjs/display/asjs.Sprite.js" );
-
 function GoogleMap() {
 	var that = new ASJS.Sprite( "<p />");
 	
@@ -22,7 +20,7 @@ function GoogleMap() {
 		get: function() { return _latitude; },
 		set: function( value ) {
 			_latitude = value;
-			_map.setCenter( that.latLng );
+			_map.panTo( that.latLng );
 		}
 	});
 	
@@ -30,7 +28,7 @@ function GoogleMap() {
 		get: function() { return _longitude; },
 		set: function( value ) {
 			_longitude = value;
-			_map.setCenter( that.latLng );
+			_map.panTo( that.latLng );
 		}
 	});
 	
@@ -47,14 +45,26 @@ function GoogleMap() {
 	});
 	
 	that.setPosition = function( latitude, longitude ) {
-		that.latitude = lat;
-		that.longitude = lng;
+		_latitude = latitude;
+		_longitude = longitude;
 		_map.panTo( that.latLng );
 	}
 	
 	that.init = function() {
 		google.maps.visualRefresh = true;
 		_map = new google.maps.Map( that.domElement, that.options );
+		_map.addListener( 'center_changed', onCenterChanged );
+	}
+	
+	that.destruct = function() {
+		google.maps.event.clearListeners( _map, 'center_changed' );
+		_map = null;
+	}
+	
+	function onCenterChanged() {
+		var latLng = _map.getCenter();
+		_latitude = latLng.lat();
+		_longitude = latLng.lng();
 	}
 	
 	(function() {

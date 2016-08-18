@@ -17,5 +17,6 @@ ASJS.MouseEvent.MOUSE_OUT		= "mouseout";
 ASJS.MouseEvent.TOUCH_START		= "touchstart";
 ASJS.MouseEvent.TOUCH_END		= "touchend";
 ASJS.MouseEvent.TOUCH_MOVE		= "touchmove";
+ASJS.MouseEvent.TOUCH_CANCEL	= "touchcancel";
 ASJS.MouseEvent.CONTEXT_MENU	= "contextmenu";
 ASJS.MouseEvent.SELECT_START	= "onselectstart";

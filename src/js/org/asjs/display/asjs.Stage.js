@@ -29,6 +29,10 @@ ASJS.Stage = function() {
 			set: function( value ) { that.domElement.navigator = value; }
 		});
 		
+		defineProperty( that, "devicePixelRatio", { get: function() { return that.domElement.devicePixelRatio; } } );
+		
+		defineProperty( that, "screen", { get: function() { return that.domElement.screen; } } );
+		
 		that.setTimeout = function( callback, duration ) {
 			return that.domElement.setTimeout( function() {
 				that.requestAnimationFrame( callback );
@@ -87,6 +91,12 @@ ASJS.Stage = function() {
 		defineProperty( that, "stage", { get: function() { return that; } } );
 		defineProperty( that, "stageWidth", { get: function() { return _stageWidth; } } );
 		defineProperty( that, "stageHeight", { get: function() { return _stageHeight; } } );
+		defineProperty( that, "screenTop", { get: function() { return _window.screen.availTop; } } );
+		defineProperty( that, "screenLeft", { get: function() { return _window.screen.availLeft; } } );
+		defineProperty( that, "screenWidth", { get: function() { return _window.screen.width; } } );
+		defineProperty( that, "screenHeight", { get: function() { return _window.screen.height; } } );
+		defineProperty( that, "screenAvailWidth", { get: function() { return _window.screen.availWidth; } } );
+		defineProperty( that, "screenAvailHeight", { get: function() { return _window.screen.availHeight; } } );
 		defineProperty( that, "window", { get: function() { return _window; } } );
 		defineProperty( that, "head", { get: function() { return _head; } } );
 		

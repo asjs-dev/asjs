@@ -108,7 +108,6 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	
 	that.endLineStyle = function() {
 		var ctx = getContext();
-		getContext().closePath();
 		if ( _drawLine ) ctx.stroke();
 		_drawLine = false;
 	}
@@ -135,7 +134,11 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	}
 	
 	that.drawCircle = function( x, y, r ) {
-		getContext().arc( x, y, r, 0, 2 * Math.PI );
+		that.drawArc( x, y, r, 0, 2 * Math.PI );
+	}
+	
+	that.drawArc = function( x, y, r, begin, end, counterclockwise ) {
+		getContext().arc( x, y, r, begin, end, counterclockwise );
 	}
 	
 	that.drawHTML = function( value ) {
