@@ -6,7 +6,7 @@ ASJS.ImageSelector = function() {
 	var _reader = new FileReader();
 	
 	that._onChange = function( event ) {
-		var target = that._fileInput.domElement;
+		var target = that._fileInput.el;
 		if ( target.files && target.files[ 0 ] ) {
 			that.dispatchEvent( ASJS.ImageSelector.ON_CHANGE_START );
 			_reader.readAsDataURL( target.files[ 0 ] );

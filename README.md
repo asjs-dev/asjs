@@ -51,13 +51,13 @@ Dependencies:
               var that = {};
              
               (function() {
-                  console.log( "<AS/JS> Application" );
+                  trace( "<AS/JS> Application" );
               })();
              
               return that;
           };
           
-          ASJS.startASJS( Application );
+          ASJS.start( Application );
         </script>
     </head>
     <body>
@@ -79,7 +79,7 @@ Dependencies:
               var that = {};
              
               (function() {
-                  console.log( "<AS/JS> Application" );
+                  trace( "<AS/JS> Application" );
                  
                   var s = new ASJS.Sprite();
                   stage.addChild( s );
@@ -88,7 +88,7 @@ Dependencies:
               return that;
           };
           
-          ASJS.startASJS( Application );
+          ASJS.start( Application );
         </script>
     </head>
     <body>
@@ -110,7 +110,7 @@ Dependencies:
               var that = {};
              
               (function() {
-                  console.log( "<AS/JS> Application" );
+                  trace( "<AS/JS> Application" );
                  
                   var s = new ASJS.Sprite();
                     s.setSize( 100, 100 );
@@ -122,7 +122,7 @@ Dependencies:
               return that;
           };
           
-          ASJS.startASJS( Application );
+          ASJS.start( Application );
         </script>
     </head>
     <body>
@@ -144,14 +144,14 @@ Dependencies:
               var that = {};
              
               (function() {
-                  console.log( "<AS/JS> Application" );
+                  trace( "<AS/JS> Application" );
                  
                   var s = new ASJS.Sprite();
                     s.setSize( 100, 100 );
                     s.move( 50, 50 );
                     s.setCSS( "background-color", "#000000" );
                     s.addEventListener( ASJS.MouseEvent.CLICK, function( event ) {
-                      console.log( "click :)" );
+                      trace( "click :)" );
                     });
                   stage.addChild( s );
               })();
@@ -159,7 +159,7 @@ Dependencies:
               return that;
           };
           
-          ASJS.startASJS( Application );
+          ASJS.start( Application );
         </script>
     </head>
     <body>
@@ -181,7 +181,7 @@ Dependencies:
             var that = {};
            
             (function() {
-              console.log( "<AS/JS> Application" );
+              trace( "<AS/JS> Application" );
              
               var i;
               var s;
@@ -200,7 +200,7 @@ Dependencies:
             return that;
           };
           
-          ASJS.startASJS( Application );
+          ASJS.start( Application );
         </script>
     </head>
     <body>
@@ -246,7 +246,7 @@ Dependencies:
             var that = {};
 
             (function() {
-              console.log( "<AS/JS> Application" );
+              trace( "<AS/JS> Application" );
 
               var i;
               var s;
@@ -261,7 +261,7 @@ Dependencies:
             return that;
           };
 
-          ASJS.startASJS( Application );
+          ASJS.start( Application );
         </script>
     </head>
     <body>
@@ -312,14 +312,14 @@ function Application() {
     var that = {};
    
     (function() {
-        console.log( "<AS/JS> Application" );
+        trace( "<AS/JS> Application" );
        
         var s = new ASJS.Sprite();
           s.setSize( 100, 100 );
           s.move( 50, 50 );
           s.setCSS( "background-color", "#000000" );
           s.addEventListener( ASJS.MouseEvent.CLICK, function( event ) {
-            console.log( "click :)" );
+            trace( "click :)" );
           });
         stage.addChild( s );
     })();
@@ -327,7 +327,7 @@ function Application() {
     return that;
 };
 
-ASJS.startASJS( Application );
+ASJS.start( Application );
 ```
 
 And run your php.

@@ -4,7 +4,7 @@ ASJS.List = function() {
 	var that = new ASJS.Sprite();
 	var _name;
 	
-	defineProperty( that, "val", {
+	property( that, "val", {
 		get: function() {
 			var value;
 			var i = -1;
@@ -26,7 +26,7 @@ ASJS.List = function() {
 		}
 	});
 	
-	defineProperty( that, "name", {
+	property( that, "name", {
 		get: function() { return _name; },
 		set: function( value ) {
 			_name = value;

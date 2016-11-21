@@ -9,7 +9,7 @@ ASJS.Checkbox = function() {
 	var _label = new ASJS.DisplayObject();
 	
 	extendProperty( _super, that, "enabled" );
-	defineProperty( that, "enabled", {
+	property( that, "enabled", {
 		set: function( value ) {
 			_super.enabled = value;
 			_checkbox.enabled = that.enabled;
@@ -17,18 +17,20 @@ ASJS.Checkbox = function() {
 		}
 	});
 	
-	defineProperty( that, "checkbox", { get: function() { return _checkbox; } } );
+	property( that, "label", { get: function() { return _label; } } );
 	
-	defineProperty( that, "name", {
+	property( that, "checkbox", { get: function() { return _checkbox; } } );
+	
+	property( that, "name", {
 		get: function() { return _checkbox.getAttr( "name" ); },
 		set: function( value ) { _checkbox.setAttr( "name", value ); }
 	});
 	
-	defineProperty( that, "checked", {
-		get: function() { return _checkbox.domObject.is( ":checked" ); },
+	property( that, "checked", {
+		get: function() { return _checkbox.jQuery.is( ":checked" ); },
 		set: function( value ) {
-			_checkbox.domObject.prop( "checked", value );
-			_checkbox.domObject.change();
+			_checkbox.jQuery.prop( "checked", value );
+			_checkbox.jQuery.change();
 		}
 	});
 	

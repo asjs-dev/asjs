@@ -10,19 +10,19 @@ ASJS.CustomList = function() {
 	var _itemsContainer;
 	var _lastCellIndex;
 	
-	defineProperty( that, "length", { get: function() { return _itemsContainer.numChildren; } } );
+	property( that, "length", { get: function() { return _itemsContainer.numChildren; } } );
 	
-	defineProperty( that, "cell", {
+	property( that, "cell", {
 		get: function() { return _cell; },
 		set: function( value ) { _cell = value; }
 	});
 	
-	defineProperty( that, "multiselect", {
+	property( that, "multiselect", {
 		get: function() { return _multiselect; },
 		set: function( value ) { _multiselect = value; }
 	});
 	
-	defineProperty( that, "selected", {
+	property( that, "selected", {
 		get: function() {
 			var value = [];
 			var i = -1;
@@ -49,7 +49,7 @@ ASJS.CustomList = function() {
 		}
 	});
 	
-	defineProperty( that, "name", {
+	property( that, "name", {
 		get: function() { return _name; },
 		set: function( value ) {
 			_name = value;
@@ -137,12 +137,7 @@ ASJS.CustomList = function() {
 	}
 	
 	that.removeCellById = function( id ) {
-		var i = -1;
-		var l = that.length;
-		while ( ++i < l ) {
-			var cell = that.getCellAt( i );
-			if ( cell.id == id ) that.removeCell( cell );
-		}
+		that.removeCell( that.getCellById( id ) );
 	}
 	
 	that.drawNow = function() {

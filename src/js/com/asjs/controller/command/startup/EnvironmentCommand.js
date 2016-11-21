@@ -4,13 +4,15 @@ includeOnce( "com/asjs/model/Language.js" );
 includeOnce( "com/asjs/model/Config.js" );
 includeOnce( "com/asjs/model/Cookies.js" );
 includeOnce( "org/asjs/utils/asjs.Cycler.js" );
+includeOnce( "org/asjs/window/asjs.Window.js" );
 
 function EnvironmentCommand() {
 	var that = new ASJS.AbstractCommand();
 	
+	var _window = new ASJS.Window().instance;
+	
 	var _language	= new Language().instance;
 	var _cookies	= new Cookies().instance;
-	var _tools		= new Tools().instance;
 	var _cycler		= new ASJS.Cycler().instance;
 	var _config		= new Config().instance;
 	
@@ -23,7 +25,7 @@ function EnvironmentCommand() {
 	}
 	
 	function setupLanguage() {
-		var selectedLanguage = _tools.getURLParams( 'lang' );
+		var selectedLanguage = Tools.getURLParams( 'lang' );
 		if ( selectedLanguage == undefined || _language.supportedLanguages.indexOf( selectedLanguage ) == -1 ) selectedLanguage = _cookies.readCookie( 'language' );
 		if ( selectedLanguage == undefined || _language.supportedLanguages.indexOf( selectedLanguage ) == -1 ) selectedLanguage = _language.selectedLanguage;
 		_language.selectedLanguage = selectedLanguage;
@@ -42,12 +44,12 @@ function EnvironmentCommand() {
 	}
 	
 	function onStageResize( event ) {
-		_sleepToResizeId = stage.window.clearTimeout( _sleepToResizeId );
-		_sleepToResizeId = stage.window.setTimeout( onTimeout, _config.get( "resizeInterval" ) );
+		_sleepToResizeId = _window.clearTimeout( _sleepToResizeId );
+		_sleepToResizeId = _window.setTimeout( onTimeout, _config.get( "resizeInterval" ) );
 	}
 	
 	function onTimeout() {
-		_sleepToResizeId = stage.window.clearTimeout( _sleepToResizeId );
+		_sleepToResizeId = _window.clearTimeout( _sleepToResizeId );
 		that.sendNotification( ASJS.Stage.RESIZE );
 	}
 	

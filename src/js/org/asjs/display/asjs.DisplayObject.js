@@ -4,8 +4,8 @@ includeOnce( "org/asjs/geom/asjs.GeomUtils.js" );
 includeOnce( "org/asjs/geom/asjs.Rectangle.js" );
 includeOnce( "org/asjs/geom/asjs.Point.js" );
 
-ASJS.DisplayObject = function( domElement ) {
-	var that = new ASJS.PrimitiveDisplayObject( domElement );
+ASJS.DisplayObject = function( tag ) {
+	var that = new ASJS.PrimitiveDisplayObject( tag );
 	
 	var _mouse = new ASJS.Mouse().instance;
 	
@@ -21,16 +21,21 @@ ASJS.DisplayObject = function( domElement ) {
 	var _parent = null;
 	var _cssDisplay = "block";
 	
-	defineProperty( that, "bounds", {
+	property( that, "bounds", {
 		get: function() { return new ASJS.Rectangle( that.calcX, that.calcY, that.calcWidth, that.calcHeight ); }
 	});
 	
-	defineProperty( that, "tooltip", {
+	property( that, "tabIndex", {
+		get: function() { return that.getAttr( "tabindex" ); },
+		set: function( value ) { that.setAttr( "tabindex", value ); }
+	});
+	
+	property( that, "tooltip", {
 		get: function() { return that.setAttr( "title" ); },
 		set: function( value ) { that.setAttr( "title", value ); }
 	});
 	
-	defineProperty( that, "filters", {
+	property( that, "filters", {
 		get: function() { return _filters; },
 		set: function( value ) {
 			_filters = value;
@@ -46,12 +51,12 @@ ASJS.DisplayObject = function( domElement ) {
 		}
 	});
 	
-	defineProperty( that, "id", {
+	property( that, "id", {
 		get: function() { return that.getAttr( "id" ); },
 		set: function( value ) { that.setAttr( "id", value ); }
 	});
 	
-	defineProperty( that, "enabled", {
+	property( that, "enabled", {
 		get: function() { return that.getAttr( "disabled" ) != "disabled"; },
 		set: function( value ) {
 			if ( value ) {
@@ -64,7 +69,7 @@ ASJS.DisplayObject = function( domElement ) {
 		}
 	});
 	
-	defineProperty( that, "display", {
+	property( that, "display", {
 		get: function() { return _cssDisplay; },
 		set: function( value ) {
 			_cssDisplay = value;
@@ -72,49 +77,49 @@ ASJS.DisplayObject = function( domElement ) {
 		}
 	});
 	
-	defineProperty( that, "html", {
-		get: function() { return that.domObject.html(); },
-		set: function( value ) { that.domObject.html( value ); }
+	property( that, "html", {
+		get: function() { return that.jQuery.html(); },
+		set: function( value ) { that.jQuery.html( value ); }
 	});
 	
-	defineProperty( that, "visible", {
+	property( that, "visible", {
 		get: function() { return that.getCSS( "display" ) != "none"; },
 		set: function( value ) { that.setCSS( "display", value ? _cssDisplay : "none" ); }
 	});
 	
-	defineProperty( that, "alpha", {
+	property( that, "alpha", {
 		get: function() { return parseFloat( that.getCSS( "opacity" ) ) || 1; },
 		set: function( value ) { that.setCSS( "opacity", value ); }
 	});
 	
-	defineProperty( that, "x", {
+	property( that, "x", {
 		get: function() { return ( parseFloat( that.getCSS( "left" ) ) || 0 ) - ( that.width - that.width / _scaleX ) * 0.5; },
 		set: function( value ) { that.setCSS( "left", value + ( that.width - that.width / _scaleX ) * 0.5 ); }
 	});
 	
-	defineProperty( that, "y", {
+	property( that, "y", {
 		get: function() { return ( parseFloat( that.getCSS( "top" ) ) || 0 ) - ( that.height - that.height / _scaleY ) * 0.5; },
 		set: function( value ) { that.setCSS( "top", value + ( that.height - that.height / _scaleY ) * 0.5 ); }
 	});
 	
-	defineProperty( that, "calcX", { get: function() { return that.x + ( parseFloat( that.getCSS( "marginLeft" ) ) || 0 ); } } );
-	defineProperty( that, "calcY", { get: function() { return that.y + ( parseFloat( that.getCSS( "marginTop" ) ) || 0 ); } } );
+	property( that, "calcX", { get: function() { return that.x + ( parseFloat( that.getCSS( "marginLeft" ) ) || 0 ); } } );
+	property( that, "calcY", { get: function() { return that.y + ( parseFloat( that.getCSS( "marginTop" ) ) || 0 ); } } );
 	
-	defineProperty( that, "width", {
-		get: function() { return that.domObject.width() * _scaleX; },
+	property( that, "width", {
+		get: function() { return that.jQuery.width() * _scaleX; },
 		set: function( value ) {
 			that.setCSS( "width", typeof value != "number" ? value : ( parseFloat( value ) / _scaleX ) );
 		}
 	});
 	
-	defineProperty( that, "height", {
-		get: function() { return that.domObject.height() * _scaleY; },
+	property( that, "height", {
+		get: function() { return that.jQuery.height() * _scaleY; },
 		set: function( value ) {
 			that.setCSS( "height", typeof value != "number" ? value : ( parseFloat( value ) / _scaleY ) );
 		}
 	});
 	
-	defineProperty( that, "calcWidth", {
+	property( that, "calcWidth", {
 		get: function() {
 			var paddingLeft = parseFloat( that.getCSS( "paddingLeft" ) ) || 0;
 			var paddingRight = parseFloat( that.getCSS( "paddingRight" ) ) || 0;
@@ -124,7 +129,7 @@ ASJS.DisplayObject = function( domElement ) {
 		}
 	});
 	
-	defineProperty( that, "calcHeight", {
+	property( that, "calcHeight", {
 		get: function() {
 			var paddingTop = parseFloat( that.getCSS( "paddingTop" ) ) || 0;
 			var paddingBottom = parseFloat( that.getCSS( "paddingBottom" ) ) || 0;
@@ -134,7 +139,7 @@ ASJS.DisplayObject = function( domElement ) {
 		}
 	});
 	
-	defineProperty( that, "rotation", {
+	property( that, "rotation", {
 		get: function() { return _rotation; },
 		set: function( value ) {
 			_rotation = parseFloat( value );
@@ -142,7 +147,7 @@ ASJS.DisplayObject = function( domElement ) {
 		}
 	});
 	
-	defineProperty( that, "scaleX", {
+	property( that, "scaleX", {
 		get: function() { return _scaleX; },
 		set: function( value ) {
 			_scaleX = parseFloat( value );
@@ -152,7 +157,7 @@ ASJS.DisplayObject = function( domElement ) {
 		}
 	});
 	
-	defineProperty( that, "scaleY", {
+	property( that, "scaleY", {
 		get: function() { return _scaleY; },
 		set: function( value ) {
 			_scaleY = parseFloat( value );
@@ -162,7 +167,7 @@ ASJS.DisplayObject = function( domElement ) {
 		}
 	});
 	
-	defineProperty( that, "parent", {
+	property( that, "parent", {
 		get: function() { return _parent; },
 		set: function( value ) {
 			if ( value == null || value.getChildIndex( that ) > -1 ) {
@@ -172,17 +177,17 @@ ASJS.DisplayObject = function( domElement ) {
 		}
 	});
 	
-	defineProperty( that, "stage", { get: function() { return that.parent ? that.parent.stage : null; } } );
+	property( that, "stage", { get: function() { return that.parent ? that.parent.stage : null; } } );
 	
-	defineProperty( that, "mouse", { get: function() { return _mouse.getRelativePosition( that ); } } );
+	property( that, "mouse", { get: function() { return _mouse.getRelativePosition( that ); } } );
 	
 	that.requestFullscreen = function() {
 		if ( !ASJS.DisplayObject.FULLSCREEN_ENABLED ) return;
 		
-		if ( that.domElement.requestFullscreen ) that.domElement.requestFullscreen();
-		else if ( that.domElement.webkitRequestFullscreen ) that.domElement.webkitRequestFullscreen();
-		else if ( that.domElement.mozRequestFullScreen ) that.domElement.mozRequestFullScreen();
-		else if ( that.domElement.msRequestFullscreen ) that.domElement.msRequestFullscreen();
+		if ( that.el.requestFullscreen ) that.el.requestFullscreen();
+		else if ( that.el.webkitRequestFullscreen ) that.el.webkitRequestFullscreen();
+		else if ( that.el.mozRequestFullScreen ) that.el.mozRequestFullScreen();
+		else if ( that.el.msRequestFullscreen ) that.el.msRequestFullscreen();
 	}
 	
 	that.exitFullscreen = function() {
@@ -212,11 +217,11 @@ ASJS.DisplayObject = function( domElement ) {
 		_state = state;
 	}
 	
-	that.getCSS = function( key ) { return that.domObject.css( key ); }
-	that.setCSS = function( key, value ) { that.domObject.css( key, value ); }
+	that.getCSS = function( key ) { return that.jQuery.css( key ); }
+	that.setCSS = function( key, value ) { that.jQuery.css( key, value ); }
 	
-	that.addClass = function( value ) { return that.domObject.addClass( value ); }
-	that.removeClass = function( value ) { that.domObject.removeClass( value ); }
+	that.addClass = function( value ) { return that.jQuery.addClass( value ); }
+	that.removeClass = function( value ) { that.jQuery.removeClass( value ); }
 	
 	that.move = function( x, y ) {
 		that.x = x;
@@ -240,17 +245,19 @@ ASJS.DisplayObject = function( domElement ) {
 		return ASJS.GeomUtils.globalToLocal( that, point );
 	};
 	
-	that.domObject = $( domElement || "<div />", { 
-		tabindex: "-1", 
-		style: ( "pointer-events: auto; position: absolute; display: " + _cssDisplay + "; width: 0px; height: 0px; top: 0px; left: 0px;" ) 
-	});
-	
 	function drawTransform() {
 		that.setCSS( "transform", 'rotate(' + _rotation + 'deg) scaleX(' + _scaleX + ') scaleY(' + _scaleY + ')' );
 	}
 	
 	(function() {
 		that.id = "intance_" + ASJS.DisplayObject.INSTANCE_ID;
+		that.tabindex = -1;
+		that.setCSS( "pointer-events", "auto" );
+		that.setCSS( "position", "absolute" );
+		that.setCSS( "display", _cssDisplay );
+		that.setSize( 0, 0 );
+		that.move( 0, 0 );
+		
 		ASJS.DisplayObject.INSTANCE_ID++;
 	})();
 	

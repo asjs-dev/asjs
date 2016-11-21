@@ -3,12 +3,12 @@ includeOnce( "org/asjs/display/asjs.DisplayObject.js" );
 ASJS.MediaSource = function() {
 	var that = new ASJS.DisplayObject( "<source />" );
 	
-	defineProperty( that, "type", {
+	property( that, "type", {
 		get: function() { return that.getAttr( "type" ); },
 		set: function( value ) { that.setAttr( "type", value ); }
 	});
 	
-	defineProperty( that, "src", {
+	property( that, "src", {
 		get: function() { return that.getAttr( "src" ); },
 		set: function( value ) { that.setAttr( "src", value ); }
 	});

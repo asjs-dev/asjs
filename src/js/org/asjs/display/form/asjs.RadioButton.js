@@ -8,7 +8,7 @@ ASJS.RadioButton = function() {
 	var _label = new ASJS.DisplayObject();
 	
 	extendProperty( _super, that, "enabled" );
-	defineProperty( that, "enabled", {
+	property( that, "enabled", {
 		set: function( value ) {
 			_super.enabled = value;
 			_radio.enabled = that.enabled;
@@ -16,22 +16,22 @@ ASJS.RadioButton = function() {
 		}
 	});
 	
-	defineProperty( that, "radio", { get: function() { return _radio; } } );
+	property( that, "radio", { get: function() { return _radio; } } );
 	
-	defineProperty( that, "name", {
+	property( that, "name", {
 		get: function() { return _radio.getAttr( "name" ); },
 		set: function( value ) { _radio.setAttr( "name", value ); }
 	});
 	
-	defineProperty( that, "checked", {
-		get: function() { return _radio.domObject.is( ":checked" ); },
+	property( that, "checked", {
+		get: function() { return _radio.jQuery.is( ":checked" ); },
 		set: function( value ) {
-			_radio.domObject.prop( "checked", value );
-			if ( value ) _radio.domObject.change();
+			_radio.jQuery.prop( "checked", value );
+			if ( value ) _radio.jQuery.change();
 		}
 	});
 	
-	defineProperty( that, "val", {
+	property( that, "val", {
 		get: function() { return _radio.getAttr( "value" ); },
 		set: function( value ) { _radio.setAttr( "value", value ); }
 	});

@@ -11,7 +11,7 @@ ASJS.Scale9Grid = function() {
 	var _super = {};
 	
 	extendProperty( _super, that, "x" );
-	defineProperty( that, "x", {
+	property( that, "x", {
 		set: function( value ) {
 			_super.x = value;
 			that.drawNow();
@@ -19,7 +19,7 @@ ASJS.Scale9Grid = function() {
 	});
 	
 	extendProperty( _super, that, "y" );
-	defineProperty( that, "y", {
+	property( that, "y", {
 		set: function( value ) {
 			_super.y = value;
 			that.drawNow();
@@ -27,7 +27,7 @@ ASJS.Scale9Grid = function() {
 	});
 	
 	extendProperty( _super, that, "width" );
-	defineProperty( that, "width", {
+	property( that, "width", {
 		set: function( value ) {
 			_super.width = value;
 			that.drawNow();
@@ -35,14 +35,14 @@ ASJS.Scale9Grid = function() {
 	});
 	
 	extendProperty( _super, that, "height" );
-	defineProperty( that, "height", {
+	property( that, "height", {
 		set: function( value ) {
 			_super.height = value;
 			that.drawNow();
 		}
 	});
 	
-	defineProperty( that, "size", {
+	property( that, "size", {
 		get: function() { return _size; },
 		set: function( value ) {
 			_size = value;
@@ -50,7 +50,7 @@ ASJS.Scale9Grid = function() {
 		}
 	});
 	
-	defineProperty( that, "rect", {
+	property( that, "rect", {
 		get: function() { return _rectangle; },
 		set: function( value ) {
 			_rectangle = value;
@@ -128,7 +128,7 @@ ASJS.Scale9Grid = function() {
 		_blocks[ 7 ].setCSS( "background-size", ps.x + "px " + _size.y + "px" );
 	}
 	
-	defineProperty( that, "backgroundImage", {
+	property( that, "backgroundImage", {
 		set: function( value ) {
 			var i = -1;
 			var l = 9;

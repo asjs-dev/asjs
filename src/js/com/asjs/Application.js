@@ -12,12 +12,12 @@ function Application() {
 	var _preloaderView =	new ASJS.Sprite();
 	var _notificationView =	new ASJS.Sprite();
 	
-	defineProperty( that, "contentView", { get: function() { return _contentView; } } );
-	defineProperty( that, "preloaderView", { get: function() { return _preloaderView; } } );
-	defineProperty( that, "notificationView", { get: function() { return _notificationView; } } );
+	property( that, "contentView", { get: function() { return _contentView; } } );
+	property( that, "preloaderView", { get: function() { return _preloaderView; } } );
+	property( that, "notificationView", { get: function() { return _notificationView; } } );
 	
 	(function() {
-		console.log( "<AS/JS> Application" );
+		trace( "<AS/JS> Application" );
 		
 		stage.addChild( that.contentView );
 		stage.addChild( that.preloaderView );
@@ -29,4 +29,4 @@ function Application() {
 	return that;
 };
 
-ASJS.startASJS( Application );
+ASJS.start( Application );

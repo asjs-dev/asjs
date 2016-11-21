@@ -1,8 +1,11 @@
 includeOnce( "org/asjs/event/asjs.KeyboardEvent.js" );
 includeOnce( "org/asjs/event/asjs.FocusEvent.js" );
+includeOnce( "org/asjs/window/asjs.Window.js" );
 
 ASJS.Keyboard = function() {
 	var that = {};
+
+	var _window = new ASJS.Window().instance;
 	
 	var _pressedKeys = {};
 	var _downCallback;
@@ -19,13 +22,13 @@ ASJS.Keyboard = function() {
 		
 		target.addEventListener( ASJS.KeyboardEvent.KEY_DOWN, onKeyDown );
 		target.addEventListener( ASJS.KeyboardEvent.KEY_UP, onKeyUp );
-		stage.window.addEventListener( ASJS.FocusEvent.BLUR, onBlur );
+		_window.addEventListener( ASJS.FocusEvent.BLUR, onBlur );
 	}
 	
 	that.removeKeyListener = function( target ) {
 		target.removeEventListener( ASJS.KeyboardEvent.KEY_DOWN, onKeyDown );
 		target.removeEventListener( ASJS.KeyboardEvent.KEY_UP, onKeyUp );
-		stage.window.removeEventListener( ASJS.FocusEvent.BLUR, onBlur );
+		_window.removeEventListener( ASJS.FocusEvent.BLUR, onBlur );
 	}
 	
 	function onBlur( event ) {

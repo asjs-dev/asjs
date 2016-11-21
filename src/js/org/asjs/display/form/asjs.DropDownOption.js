@@ -3,17 +3,17 @@ includeOnce( "org/asjs/display/asjs.PrimitiveDisplayObject.js" );
 ASJS.DropDownOption = function( value, label, disabled, selected ) {
 	var that = new ASJS.PrimitiveDisplayObject( "<option />" );
 	
-	defineProperty( that, "value", {
+	property( that, "value", {
 		get: function() { return that.getAttr( "value" ); },
 		set: function( value ) { that.setAttr( "value", value ); }
 	});
 	
-	defineProperty( that, "label", {
+	property( that, "label", {
 		get: function() { return that.text; },
 		set: function( value ) { that.text = value; }
 	});
 	
-	defineProperty( that, "selected", {
+	property( that, "selected", {
 		get: function() { return that.getAttr( "selected" ); },
 		set: function( value ) {
 			if ( value ) that.setAttr( "selected", "selected" );
@@ -21,7 +21,7 @@ ASJS.DropDownOption = function( value, label, disabled, selected ) {
 		}
 	});
 	
-	defineProperty( that, "disabled", {
+	property( that, "disabled", {
 		get: function() { return that.getAttr( "disabled" ); },
 		set: function( value ) {
 			if ( value ) that.setAttr( "disabled", "disabled" );

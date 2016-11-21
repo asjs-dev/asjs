@@ -1,9 +1,12 @@
 includeOnce( "org/asjs/mvc/asjs.NotificationDispatcher.js" );
 includeOnce( "org/asjs/display/asjs.Sprite.js" );
+includeOnce( "org/asjs/window/asjs.Window.js" );
 
 function Facebook() {
-	function FacebookInstance() {
+	return singleton( this, Facebook, function() {
 		var that = new ASJS.NotificationDispatcher();
+		
+		var _window = new ASJS.Window().instance;
 		
 		var _fbRoot = new ASJS.Sprite();
 	
@@ -13,7 +16,7 @@ function Facebook() {
 			e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';        
 			document.getElementById( 'fb-root' ).appendChild( e );
 			
-			window.fbAsyncInit = onFBAsyncInit;
+			_window.el.fbAsyncInit = onFBAsyncInit;
 		}
 	
 		that.login = function() {
@@ -78,13 +81,6 @@ function Facebook() {
 		})();
 		
 		return that;
-	}
-	
-	defineProperty( this, "instance", {
-		get: function() {
-			if ( !Facebook.$ ) Facebook.$ = new FacebookInstance();
-			return Facebook.$;
-		}
 	});
 };
 Facebook.CONNECTED		= "Facebook-connected";

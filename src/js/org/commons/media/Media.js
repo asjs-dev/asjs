@@ -1,26 +1,30 @@
+includeOnce( "org/asjs/window/asjs.Window.js" );
+
 function Media() {
-	function MediaInstance() {
+	return singleton( this, Media, function() {
 		var that = {};
+		
+		var _window = new ASJS.Window().instance;
 		
 		var _audioContext;
 		var _userMedia;
 		
-		defineProperty( that, "audioContext", {
+		property( that, "audioContext", {
 			get: function() {
-				if ( !_audioContext ) _audioContext = ( window.AudioContext || window.webkitAudioContext );
+				if ( !_audioContext ) _audioContext = _window.audioContext;
 				return _audioContext;
 			}
 		});
 		
-		defineProperty( that, "userMedia", {
+		property( that, "userMedia", {
 			get: function() {
-				if ( !_userMedia ) _userMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.msGetUserMedia || navigator.mozGetUserMedia );
+				if ( !_userMedia ) _userMedia = _window.userMedia;
 				return _userMedia;
 			}
 		});
 		
 		that.getUserMedia = function( constraints, callback, errorCallback ) {
-			that.userMedia.call( navigator, constraints, callback, errorCallback );
+			that.userMedia.call( _window.navigator, constraints, callback, errorCallback );
 		}
 		
 		that.getAudioConstraints = function() {
@@ -45,13 +49,6 @@ function Media() {
 		}
 		
 		return that;
-	}
-	
-	defineProperty( this, "instance", {
-		get: function() {
-			if ( !Media.$ ) Media.$ = new MediaInstance();
-			return Media.$;
-		}
 	});
 }
 Media.FACING_MODE_USER			= "user";

@@ -1,22 +1,22 @@
 includeOnce( "org/asjs/event/asjs.MouseEvent.js" );
 includeOnce( "org/asjs/display/asjs.Sprite.js" );
 
-ASJS.Cell = function( domElement ) {
-	var that = new ASJS.Sprite( domElement );
+ASJS.Cell = function( tag ) {
+	var that = new ASJS.Sprite( tag );
 	var _data = {};
 	var _checked = false;
 	
-	defineProperty( that, "name", {
+	property( that, "name", {
 		get: function() { return that.getAttr( "name" ); },
 		set: function( value ) { that.setAttr( "name", value ); }
 	});
 	
-	defineProperty( that, "checked", {
+	property( that, "checked", {
 		get: function() { return _checked; },
 		set: function( value ) { _checked = value; }
 	});
 	
-	defineProperty( that, "data", {
+	property( that, "data", {
 		get: function() { return _data; },
 		set: function( value ) {
 			_data = value;

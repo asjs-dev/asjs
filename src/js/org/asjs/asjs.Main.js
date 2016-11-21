@@ -1,4 +1,4 @@
-function defineProperty( target, propertyName, params ) {
+function property( target, propertyName, params ) {
 	params.enumerable = true;
 	params.configurable = true;
 	Object.defineProperty( target, propertyName, params );
@@ -12,8 +12,35 @@ function extendProperty( target, parent, propertyName ) {
 	Object.defineProperty( target, propertyName, Object.getOwnPropertyDescriptor( parent, propertyName ) );
 }
 
+function singleton( scope, c, i ) {
+	property( scope, "instance", {
+		get: function() {
+			if ( !c.$ ) c.$ = new i();
+			return c.$;
+		}
+	});
+}
+
+function is( a, b ) {
+	var c = new b();
+	var is = true;
+	for ( var key in c ) {
+		if ( !a[ key ] ) is = false;
+	}
+	c = null;
+	return is;
+}
+
+function cast( a, b ) {
+	return is( a, b ) ? a : null;
+}
+
 function extendFunction( target, parent, propertyName ) {
 	target[ propertyName ] = parent[ propertyName ];
+}
+
+function trace() {
+	console.log( arguments );
 }
 
 var sourcePath = "";
@@ -35,15 +62,13 @@ var stage;
 var ASJS = {};
 
 ASJS.inited;
-ASJS.startASJS = function( baseClass ) {
+ASJS.start = function( baseClass ) {
 	if ( ASJS.inited ) return;
 	ASJS.inited = true;
-	var dfd = new $.Deferred();
-	$( document ).ready( function() {
+	$(document).ready(function() {
 		stage = new ASJS.Stage().instance;
 		stage.init();
-		dfd.resolve( new baseClass() );
+		new baseClass();
 	});
-	return dfd.promise();
 }
 

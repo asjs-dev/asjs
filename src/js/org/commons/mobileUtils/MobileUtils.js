@@ -1,42 +1,51 @@
 includeOnce( "org/asjs/display/asjs.Stage.js" );
 includeOnce( "org/asjs/event/asjs.MouseEvent.js" );
+includeOnce( "org/asjs/window/asjs.Window.js" );
 
 function MobileUtils() {
-	function MobileUtilsInstance() {
+	return singleton( this, MobileUtils, function() {
 		var that = {};
 		
+		var _window = new ASJS.Window().instance;
+	
 		var _dpi;
-		var _baseWidth;
+		var _baseSize;
 		
-		var _defaultFixedPortrait;
-		var _defaultUseDPI;
+		var _type;
+		var _useDPI;
 		var _useScreenSize;
 		
-		defineProperty( that, "defaultFixedPortrait", {
-			set: function( value ) { _defaultFixedPortrait = value; },
-			get: function() { return _defaultFixedPortrait; }
+		property( that, "type", {
+			set: function( value ) { _type = value; },
+			get: function() { return _type; }
 		});
 		
-		defineProperty( that, "defaultUseDPI", {
-			set: function( value ) { _defaultUseDPI = value; },
-			get: function() { return _defaultUseDPI; }
+		property( that, "useDPI", {
+			get: function() { return _useDPI; },
+			set: function( value ) {
+				_useDPI = value;
+				calcDPI();
+			}
 		});
 		
-		defineProperty( that, "useScreenSize", {
+		property( that, "useScreenSize", {
 			set: function( value ) { _useScreenSize = value; },
 			get: function() { return _useScreenSize; }
 		});
 		
-		defineProperty( that, "baseWidth", {
-			set: function( value ) { _baseWidth = value; },
-			get: function() { return _baseWidth; }
+		property( that, "baseSize", {
+			get: function() { return _baseSize; },
+			set: function( value ) {
+				_baseSize = value;
+				calcDPI();
+			}
 		});
 		
-		defineProperty( that, "width", {
+		property( that, "width", {
 			get: function() { return _useScreenSize ? stage.screenWidth : stage.stageWidth; }
 		});
 		
-		defineProperty( that, "height", {
+		property( that, "height", {
 			get: function() { return _useScreenSize ? stage.screenHeight : stage.stageHeight; }
 		});
 		
@@ -44,44 +53,64 @@ function MobileUtils() {
 			return that.width > that.height ? MobileUtils.ORIENTATION_LANDSCAPE : MobileUtils.ORIENTATION_PORTRAIT;
 		}
 		
+		that.getBrowserOrientation = function() {
+			return stage.stageWidth > stage.stageHeight ? MobileUtils.ORIENTATION_LANDSCAPE : MobileUtils.ORIENTATION_PORTRAIT;
+		}
+		
+		that.getDeviceOrientation = function() {
+			return stage.screenWidth > stage.screenHeight ? MobileUtils.ORIENTATION_LANDSCAPE : MobileUtils.ORIENTATION_PORTRAIT;
+		}
+		
 		that.getDPI = function() {
 			return _dpi;
 		}
 		
 		that.getScreenWidth = function( fixedPortrait ) {
-			return fixedPortrait || that.defaultFixedPortrait ? that.width : Math.min( that.width, that.height );
+			if ( fixedPortrait ) return that.width;
+			switch ( that.type ) {
+				case MobileUtils.TYPE_WIDTH: return that.width;
+				break;
+				case MobileUtils.TYPE_HEIGHT: return that.height;
+				break;
+				case MobileUtils.TYPE_MINIMUM: return Math.min( that.width, that.height );
+				break;
+				case MobileUtils.TYPE_MAXIMUM: Math.max( that.width, that.height );
+				break;
+			}
 		}
 		
 		that.getRatio = function( fixedPortrait ) {
-			return that.getScreenWidth( fixedPortrait ) / that.baseWidth;
+			return that.getScreenWidth( fixedPortrait ) / that.baseSize;
 		}
 		
 		that.convertRatio = function( value, fixedPortrait, useDPI ) {
-			return ( that.getRatio( fixedPortrait ) * value ) * ( useDPI || that.defaultUseDPI ? that.getDPI() : 1 );
+			return Math.floor( ( that.getRatio( fixedPortrait ) * value ) * ( useDPI || that.useDPI ? that.getDPI() : 1 ) );
 		}
 		
 		that.preventMobileScrolling = function() {
 			stage.addEventListener( ASJS.MouseEvent.TOUCH_MOVE, function( e ) { e.preventDefault(); } );
 		}
 		
+		function calcDPI() {
+			_dpi = Math.min( 2, Math.max( 1, _window.devicePixelRatio || ( _window.screen.deviceXDPI / _window.screen.logicalXDPI ) || 1 ) );
+		}
+		
 		( function() {
-			_dpi = Math.max( 1, ( stage.window.devicePixelRatio || ( stage.window.screen.deviceXDPI / stage.window.screen.logicalXDPI ) || 1 ) * 0.5 );
-			_baseWidth = 0;
+			_dpi = 1;
 			
-			_defaultFixedPortrait = false;
-			_defaultUseDPI = false;
+			_baseSize = 0;
+			
+			_type = MobileUtils.TYPE_WIDTH;
+			_useDPI = false;
 			_useScreenSize = false;
 		})();
 		
 		return that;
-	}
-	
-	defineProperty( this, "instance", {
-		get: function() {
-			if ( !MobileUtils.$ ) MobileUtils.$ = new MobileUtilsInstance();
-			return MobileUtils.$;
-		}
 	});
 }
 MobileUtils.ORIENTATION_LANDSCAPE	= "MobileUtils-orientationLandscape";
 MobileUtils.ORIENTATION_PORTRAIT	= "MobileUtils-orientationPortrait";
+MobileUtils.TYPE_MINIMUM			= "MobileUtils-typeMin";
+MobileUtils.TYPE_MAXIMUM			= "MobileUtils-typeMax";
+MobileUtils.TYPE_WIDTH				= "MobileUtils-typeWidth";
+MobileUtils.TYPE_HEIGHT				= "MobileUtils-typeHeight";

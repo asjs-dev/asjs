@@ -1,5 +1,5 @@
 ASJS.NotificationHandler = function() {
-	function NotificationHandlerInstance() {
+	return singleton( this, ASJS.NotificationHandler, function() {
 		var that = {};
 		var _notificationHandlers = {};
 	
@@ -42,12 +42,5 @@ ASJS.NotificationHandler = function() {
 		}
 		
 		return that;
-	}
-	
-	defineProperty( this, "instance", {
-		get: function() {
-			if ( !ASJS.NotificationHandler.$ ) ASJS.NotificationHandler.$ = new NotificationHandlerInstance();
-			return ASJS.NotificationHandler.$;
-		}
 	});
 }

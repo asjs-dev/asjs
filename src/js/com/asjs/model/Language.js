@@ -1,45 +1,42 @@
+includeOnce( "org/asjs/mvc/model/asjs.AbstractModel.js" );
+
 function Language() {
-	function LanguageInstance() {
-		var that = {};
+	return singleton( this, Language, function() {
+		var that = new ASJS.AbstractModel();
+		var _super = {};
 		
 		var _languageItems = {};
 		var _supportedLanguages;
 		var _selectedLanguage;
 	
-		defineProperty( that, "data", {
-			get: function() { return _languageItems; },
+		extendProperty( _super, that, "data" );
+		property( that, "data", {
 			set: function( value ) {
+				_super.data = value.elements;
 				_supportedLanguages = value.supported_languages;
 				_selectedLanguage = value.default_language;
-				_languageItems = value.elements;
 			}
 		});
 	
-		defineProperty( that, "supportedLanguages", {
+		property( that, "supportedLanguages", {
 			get: function() { return _supportedLanguages; }
 		});
 	
-		defineProperty( that, "selectedLanguage", {
+		property( that, "selectedLanguage", {
 			set: function( value ) { _selectedLanguage = value; },
 			get: function() { return _selectedLanguage; }
 		});
 	
 		that.getText = function( key ) {
-			return _languageItems[ key ] != undefined && _languageItems[ key ][ that.selectedLanguage ] != undefined ? _languageItems[ key ][ that.selectedLanguage ] : "";
+			var i = that.get( key );
+			return i != null && i[ that.selectedLanguage ] != undefined ? i[ that.selectedLanguage ] : "";
 		}
 
 		that.genText = function( str ) {
-			for ( var key in _languageItems ) str = str.split( "{{" + key + "}}" ).join( that.getText( key ) );
+			for ( var key in that.data ) str = str.split( "{{" + key + "}}" ).join( that.getText( key ) );
 			return str;
 		}
 		
 		return that;
-	}
-	
-	defineProperty( this, "instance", {
-		get: function() {
-			if ( !Language.$ ) Language.$ = new LanguageInstance();
-			return Language.$;
-		}
 	});
 }

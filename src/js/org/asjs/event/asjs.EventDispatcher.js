@@ -1,31 +1,36 @@
 includeOnce( "org/asjs/event/asjs.Event.js" );
 includeOnce( "org/asjs/event/asjs.MouseEvent.js" );
+includeOnce( "org/asjs/window/asjs.Window.js" );
 
-ASJS.EventDispatcher = function( domElement ) {
+ASJS.EventDispatcher = function( tag ) {
 	var that = {};
+	
+	that.jQuery = $( tag || "<div />" );
+	
+	property( that, "el", { get: function() { return that.jQuery[ 0 ]; } } );
 	
 	that.dispatchEvent = function( type, data, bubble ) {
 		var eventBubble = bubble == undefined ? true : bubble;
 		
-		if ( eventBubble ) that.domObject.trigger( type, data );
-		else that.domObject.triggerHandler( type, data );
+		if ( eventBubble ) that.jQuery.trigger( type, data );
+		else that.jQuery.triggerHandler( type, data );
 	}
 	
 	that.addEventListener = function( type, callback ) {
-		if ( type == ASJS.MouseEvent.SCROLL && that.domObject == stage.window.domObject ) that.domObject.scroll( callback );
-		else that.domObject.on( type, callback );
+		if ( type == ASJS.MouseEvent.SCROLL && that.jQuery == new ASJS.Window().instance.jQuery ) that.jQuery.scroll( callback );
+		else that.jQuery.on( type, callback );
 	}
 	
 	that.removeEventListeners = function() {
-		that.domObject.off();
+		that.jQuery.off();
 	}
 	
 	that.removeEventListener = function( type, callback ) {
-		that.domObject.off( type, null, callback );
+		that.jQuery.off( type, null, callback );
 	}
 	
 	that.hasEventListener = function( which, handler ) {
-		var events = $._data( that.domElement, "events" );
+		var events = $._data( that.el, "events" );
 		if ( events == undefined ) return false;
 		var w = which.indexOf( " " ) > -1 ? which.split( " " ) : [ which ];
 		var i = -1;
@@ -42,8 +47,6 @@ ASJS.EventDispatcher = function( domElement ) {
 		}
 		return false;
 	}
-	
-	that.domObject = $( domElement || "<div />" );
 	
 	return that;
 };

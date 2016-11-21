@@ -3,8 +3,8 @@ includeOnce( "org/asjs/event/asjs.KeyboardEvent.js" );
 includeOnce( "org/asjs/event/asjs.Event.js" );
 includeOnce( "org/asjs/utils/asjs.Keyboard.js" );
 
-ASJS.AbstractTextElement = function( domElement ) {
-	var that = new ASJS.FormElement( domElement );
+ASJS.AbstractTextElement = function( tag ) {
+	var that = new ASJS.FormElement( tag );
 	var _super = {};
 	
 	var _protectedChars = [
@@ -35,33 +35,41 @@ ASJS.AbstractTextElement = function( domElement ) {
 	];
 	var _restrict;
 	
-	defineProperty( that, "readonly", {
+	property( that, "readonly", {
 		get: function() { return that.getAttr( "readonly" ); },
 		set: function( value ) {
 			if ( value ) that.setAttr( "readonly", "readonly" );
 			else that.removeAttr( "readonly" );
 		}
-	})
+	});
 	
-	defineProperty( that, "placeholder", {
+	property( that, "placeholder", {
 		get: function() { return that.getAttr( "placeholder" ); },
 		set: function( value ) { that.setAttr( "placeholder", value ); }
-	})
+	});
 	
-	defineProperty( that, "val", {
-		get: function() { return that.domObject.val(); },
-		set: function( value ) { that.domObject.val( value ); }
-	})
+	property( that, "val", {
+		get: function() { return that.jQuery.val(); },
+		set: function( value ) { that.jQuery.val( value ); }
+	});
 	
-	defineProperty( that, "maxChar", {
+	property( that, "maxChar", {
 		get: function() { return that.getAttr( "maxLength" ); },
 		set: function( value ) { that.setAttr( "maxLength", value ); }
-	})
+	});
 	
-	defineProperty( that, "restrict", {
+	property( that, "restrict", {
 		get: function() { return _restrict; },
 		set: function( value ) { _restrict = value; }
-	})
+	});
+	
+	property( that, "autofocus", {
+		get: function() { return that.getAttr( "autofocus" ); },
+		set: function( value ) {
+			if ( value ) that.setAttr( "autofocus", "autofocus" );
+			else that.removeAttr( "autofocus" );
+		}
+	});
 	
 	function onKeyPress( event ) {
 		if ( _restrict ) {

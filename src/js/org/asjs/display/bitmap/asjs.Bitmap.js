@@ -18,12 +18,12 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	var _keepOriginal = true;
 	var _original;
 	
-	defineProperty( that, "keepOriginal", {
+	property( that, "keepOriginal", {
 		get: function() { return _keepOriginal; },
 		set: function( value ) { _keepOriginal = value; }
 	});
 	
-	defineProperty( that, "bitmapFilters", {
+	property( that, "bitmapFilters", {
 		get: function() { return _bitmapFilters; },
 		set: function( value ) {
 			_bitmapFilters = value;
@@ -31,7 +31,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 		}
 	});
 	
-	defineProperty( that, "bitmapWidth", {
+	property( that, "bitmapWidth", {
 		get: function() { return that.getAttr( "width" ); },
 		set: function( value ) {
 			var w = Math.max( 1, value || 1 );
@@ -39,7 +39,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 		}
 	});
 	
-	defineProperty( that, "bitmapHeight", {
+	property( that, "bitmapHeight", {
 		get: function() { return that.getAttr( "height" ); },
 		set: function( value ) {
 			var h = Math.max( 1, value || 1 );
@@ -47,12 +47,12 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 		}
 	});
 	
-	defineProperty( that, "blendMode", {
+	property( that, "blendMode", {
 		get: function() { return getContext().globalCompositeOperation; },
 		set: function( value ) { getContext().globalCompositeOperation = value; }
 	});
 	
-	defineProperty( that, "globalAlpha", {
+	property( that, "globalAlpha", {
 		get: function() { return getContext().globalAlpha; },
 		set: function( value ) { getContext().globalAlpha = value; }
 	});
@@ -143,7 +143,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	
 	that.drawHTML = function( value ) {
 		try {
-			rasterizeHTML.drawHTML( value, that.domElement );
+			rasterizeHTML.drawHTML( value, that.el );
 		} catch( e ) {
 			throw new Error( "Missing: http://www.github.com/cburgmer/rasterizeHTML.js" );
 		}
@@ -151,7 +151,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	
 	that.drawImage = function( image, sx, sy, sw, sh, x, y, w, h ) {
 		try {
-			getContext().drawImage( image.domElement, sx, sy, sw, sh, x, y, w, h );
+			getContext().drawImage( image.el, sx, sy, sw, sh, x, y, w, h );
 		} catch ( e ) {}
 	}
 	
@@ -176,8 +176,8 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 		getContext().clearRect( x, y, w, h );
 	}
 	
-	that.getDataUrl = function() {
-		return that.domElement.toDataURL();
+	that.getDataUrl = function( type, encoderOptions ) {
+		return that.el.toDataURL( type, encoderOptions );
 	}
 	
 	that.getColorRgb = function( x, y ) {
@@ -286,12 +286,12 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 	}
 	
 	function beginPatternFill( targetType, image, repeat ) {
-		var pattern = getContext().createPattern( image.domElement, repeat || ASJS.Bitmap.PATTERN_REPEAT );
+		var pattern = getContext().createPattern( image.el, repeat || ASJS.Bitmap.PATTERN_REPEAT );
 		fillStyle( targetType, pattern );
 	}
 	
 	function getContext() {
-		if ( !_context ) _context = that.domElement.getContext( "2d" );
+		if ( !_context ) _context = that.el.getContext( "2d" );
 		return _context;
 	}
 	
@@ -322,7 +322,7 @@ ASJS.Bitmap = function( bitmapWidth, bitmapHeight ) {
 		if ( that.keepOriginal ) {
 			if ( !_original ) {
 				_original = new ASJS.Image();
-				_original.src = that.getDataUrl();
+				_original.src = that.getDataUrl( "image/png", 1.0 );
 			} else {
 				that.drawImage( _original, 0, 0, that.bitmapWidth, that.bitmapHeight, 0, 0, that.bitmapWidth, that.bitmapHeight );
 				_original = null;

@@ -9,27 +9,27 @@ ASJS.AnimationDescriptor = function( name, spriteSheet, size, frameDelay, sequen
 	var _frameDelay		= Math.floor( Math.max( 1, frameDelay || 1 ) );
 	var _sequenceList	= sequenceList || [];
 	
-	defineProperty( that, "name", {
+	property( that, "name", {
 		get: function() { return _name; },
 		set: function( value ) { _name = value; }
 	});
 	
-	defineProperty( that, "sequenceList", {
+	property( that, "sequenceList", {
 		get: function() { return _sequenceList; },
 		set: function( value ) { _sequenceList = value; }
 	});
 	
-	defineProperty( that, "frameDelay", {
+	property( that, "frameDelay", {
 		get: function() { return _frameDelay; },
 		set: function( value ) { _frameDelay = value; }
 	});
 	
-	defineProperty( that, "size", {
+	property( that, "size", {
 		get: function() { return _size; },
 		set: function( value ) { _size = value; }
 	});
 	
-	defineProperty( that, "spriteSheet", {
+	property( that, "spriteSheet", {
 		get: function() { return _spriteSheet; },
 		set: function( value ) { _spriteSheet = value; }
 	});

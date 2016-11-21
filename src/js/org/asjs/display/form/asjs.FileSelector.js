@@ -11,17 +11,17 @@ ASJS.FileSelector = function() {
 	
 	var _preview = new ASJS.Sprite();
 	
-	defineProperty( that, "preview", { get: function() { return _preview; } } );
+	property( that, "preview", { get: function() { return _preview; } } );
 	
-	defineProperty( that, "val", { get: function() { return that._fileInput.domObject.val(); } } );
+	property( that, "val", { get: function() { return that._fileInput.jQuery.val(); } } );
 	
-	defineProperty( that, "name", {
+	property( that, "name", {
 		get: function() { return that._fileInput.getAttr( "name" ); },
 		set: function( value ) { that._fileInput.setAttr( "name", value ); }
 	});
 	
 	extendProperty( _super, that, "enabled" );
-	defineProperty( that, "enabled", {
+	property( that, "enabled", {
 		set: function( value ) {
 			_super.enabled = value;
 			that._fileInput.enabled = that.enabled;
@@ -29,7 +29,7 @@ ASJS.FileSelector = function() {
 		}
 	})
 	
-	defineProperty( that, "fileInput", { get: function() { return _fileInput; } } );
+	property( that, "fileInput", { get: function() { return _fileInput; } } );
 	
 	that._onChange = function( event ) {
 		_preview.text = that.val;
@@ -37,8 +37,8 @@ ASJS.FileSelector = function() {
 	}
 	
 	function onClick( event ) {
-		if ( event.target == that._fileInput.domElement ) return;
-		that._fileInput.domObject.click();
+		if ( event.target == that._fileInput.el ) return;
+		that._fileInput.jQuery.click();
 	}
 	
 	function init() {

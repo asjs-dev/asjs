@@ -6,7 +6,7 @@ ASJS.AbstractConvoluteBitmapFilter = function( opaque ) {
 	
 	var _opaque = opaque;
 	
-	defineProperty( that, "_matrix", {
+	property( that, "_matrix", {
 		get: function() {
 			return [1];
 		}

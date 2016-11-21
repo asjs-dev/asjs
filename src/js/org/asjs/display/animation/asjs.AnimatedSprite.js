@@ -14,7 +14,7 @@ ASJS.AnimatedSprite = function() {
 	var _step				= 0;
 	var _angle				= ASJS.AnimatedSprite.PLAY_NORMAL;
 	
-	defineProperty( that, "selectedAnimation", { get: function() { return _selectedAnimation; } } );
+	property( that, "selectedAnimation", { get: function() { return _selectedAnimation; } } );
 	
 	that.addAnimationDescriptorList = function( animationDescriptorList ) {
 		var i = -1;
@@ -58,7 +58,7 @@ ASJS.AnimatedSprite = function() {
 					letsPlay();
 				});
 				image.addEventListener( ASJS.LoaderEvent.ERROR, function() {
-					console.log( "Error: missing animation sprite sheet" );
+					trace( "Error: missing animation sprite sheet" );
 				});
 				image.src = spriteSheet;
 		} else letsPlay();

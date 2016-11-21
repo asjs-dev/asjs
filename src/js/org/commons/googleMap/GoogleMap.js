@@ -1,3 +1,5 @@
+includeOnce( "org/asjs/display/asjs.Sprite.js" );
+
 function GoogleMap() {
 	var that = new ASJS.Sprite( "<p />");
 	
@@ -7,16 +9,16 @@ function GoogleMap() {
 	var _zoom = 4;
 	var _options = {};
 	
-	defineProperty( that, "map", {
+	property( that, "map", {
 		get: function() { return _map; }
 	});
 	
-	defineProperty( that, "options", {
+	property( that, "options", {
 		get: function() { return _options; },
 		set: function( value ) { _options = value; }
 	});
 	
-	defineProperty( that, "latitude", {
+	property( that, "latitude", {
 		get: function() { return _latitude; },
 		set: function( value ) {
 			_latitude = value;
@@ -24,7 +26,7 @@ function GoogleMap() {
 		}
 	});
 	
-	defineProperty( that, "longitude", {
+	property( that, "longitude", {
 		get: function() { return _longitude; },
 		set: function( value ) {
 			_longitude = value;
@@ -32,11 +34,11 @@ function GoogleMap() {
 		}
 	});
 	
-	defineProperty( that, "latLng", {
+	property( that, "latLng", {
 		get: function() { return new google.maps.LatLng( that.latitude, that.longitude ); }
 	});
 	
-	defineProperty( that, "zoom", {
+	property( that, "zoom", {
 		get: function() { return _zoom; },
 		set: function( value ) {
 			_zoom = value;
@@ -52,7 +54,7 @@ function GoogleMap() {
 	
 	that.init = function() {
 		google.maps.visualRefresh = true;
-		_map = new google.maps.Map( that.domElement, that.options );
+		_map = new google.maps.Map( that.el, that.options );
 		_map.addListener( 'center_changed', onCenterChanged );
 	}
 	

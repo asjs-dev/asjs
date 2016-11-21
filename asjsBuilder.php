@@ -9,7 +9,7 @@
 	
 	/* Watcher config */
 	$config[ "watcherPath" ]		= array( "src/" ); // required, when use watcher (array(folder, folder, ... ))
-	$config[ "watcherTimeout" ]		= 5; // optional (seconds)
+	$config[ "watcherTimeout" ]		= 2; // optional (seconds)
 	
 	/* JS build config */
 	$config[ "js" ] = array();

@@ -1,5 +1,5 @@
 function Cookies() {
-	function CookiesInstance() {
+	return singleton( this, Cookies, function() {
 		var that = {};
 		
 		that.createCookie = function( name, value, days ) {
@@ -12,7 +12,7 @@ function Cookies() {
 			try {
 				if ( typeof( Storage ) !== "undefined" ) localStorage[ name ] = value;
 			} catch ( event ) {
-				console.log( event );
+				trace( event );
 			}
 		}
 	
@@ -29,7 +29,7 @@ function Cookies() {
 			try {
 				if ( typeof( Storage ) !== "undefined" ) return localStorage[ name ];
 			} catch ( event ) {
-				console.log( event );
+				trace( event );
 			}
 			return null;
 		}
@@ -39,17 +39,10 @@ function Cookies() {
 			try {
 				if ( typeof( Storage ) !== "undefined" ) delete localStorage[ name ];
 			} catch ( event ) {
-				console.log( event );
+				trace( event );
 			}
 		}
 		
 		return that;
-	}
-	
-	defineProperty( this, "instance", {
-		get: function() {
-			if ( !Cookies.$ ) Cookies.$ = new CookiesInstance();
-			return Cookies.$;
-		}
 	});
 }

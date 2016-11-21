@@ -44,7 +44,9 @@
 			$this->output = JSMin::minify( $this->output );
 			$this->output = preg_replace( "/\r+/", "\n", $this->output );
 			$this->output = preg_replace( "/\n+/", "\n", $this->output );
-			$this->output = str_replace( "\n", ";", $this->output );
+			$this->output = str_replace( "}\n", "};\n", $this->output );
+			//$this->output = str_replace( "\n", "", $this->output );
+			//$this->output = str_replace( "\n", ";", $this->output );
 		}
 		
 		private function openFile( $projectFolder, $path ) {

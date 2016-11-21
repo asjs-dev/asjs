@@ -1,13 +1,13 @@
 includeOnce( "org/asjs/display/asjs.DisplayObject.js" );
 
-ASJS.Sprite = function( domElement ) {
-	var that = new ASJS.DisplayObject( domElement );
+ASJS.Sprite = function( tag ) {
+	var that = new ASJS.DisplayObject( tag );
 	var _super = {};
 	var _children = [];
 	var _mouseChildren = true;
 	
 	extendProperty( _super, that, "bounds" );
-	defineProperty( that, "bounds", {
+	property( that, "bounds", {
 		get: function() {
 			var rect = _super.bounds;
 			var size = new ASJS.Rectangle();
@@ -50,7 +50,7 @@ ASJS.Sprite = function( domElement ) {
 		}
 	}
 	
-	defineProperty( that, "mouseChildren", {
+	property( that, "mouseChildren", {
 		get: function() { return _mouseChildren; },
 		set: function( value ) {
 			_mouseChildren = value;
@@ -60,7 +60,7 @@ ASJS.Sprite = function( domElement ) {
 		}
 	});
 	
-	defineProperty( that, "numChildren", { get: function() { return _children.length; } } );
+	property( that, "numChildren", { get: function() { return _children.length; } } );
 	
 	extendFunction( _super, that, "clear" );
 	that.clear = function() {
@@ -79,7 +79,7 @@ ASJS.Sprite = function( domElement ) {
 	that.addChildAt = function( child, index ) {
 		if ( !child ) return null;
 		if ( child.parent ) child.parent.removeChild( child );
-		that.domObject.append( child.domObject );
+		that.jQuery.append( child.jQuery );
 		child.enabled = child.enabled ? _mouseChildren : child.enabled;
 		_children.push( child );
 		that.setChildIndex( child, index );
@@ -89,7 +89,7 @@ ASJS.Sprite = function( domElement ) {
 	
 	that.removeChild = function( child ) {
 		if ( !child ) return null;
-		child.domObject.detach();
+		child.jQuery.detach();
 		var index = that.getChildIndex( child );
 		if ( index > -1 ) _children.splice( index, 1 );
 		child.parent = null;
@@ -110,7 +110,7 @@ ASJS.Sprite = function( domElement ) {
 		var childActualIndex = that.getChildIndex( child );
 		if ( childActualIndex > -1 ) _children.splice( childActualIndex, 1 );
 		var afterChild = that.getChildAt( index );
-		if ( afterChild ) child.domObject.insertBefore( afterChild.domObject );
+		if ( afterChild ) child.jQuery.insertBefore( afterChild.jQuery );
 		_children.splice( index, 0, child );
 		return child;
 	}

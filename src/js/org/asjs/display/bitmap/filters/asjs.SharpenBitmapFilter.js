@@ -3,7 +3,7 @@ includeOnce( "org/asjs/display/bitmap/filters/asjs.AbstractConvoluteBitmapFilter
 ASJS.SharpenBitmapFilter = function() {
 	var that = new ASJS.AbstractConvoluteBitmapFilter();
 	
-	defineProperty( that, "_matrix", {
+	property( that, "_matrix", {
 		get: function() {
 			return [
 				0, -1, 0,

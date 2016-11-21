@@ -9,7 +9,7 @@ ASJS.DropDown = function() {
 	var _select = new ASJS.Sprite( "<select />" );
 	
 	extendProperty( _super, that, "enabled" );
-	defineProperty( that, "enabled", {
+	property( that, "enabled", {
 		set: function( value ) {
 			_super.enabled = value;
 			_select.enabled = that.enabled;
@@ -17,16 +17,16 @@ ASJS.DropDown = function() {
 		}
 	});
 	
-	defineProperty( that, "name", {
+	property( that, "name", {
 		get: function() { return _select.getAttr( "name" ); },
 		set: function( value ) { _select.setAttr( "name", value ); }
 	});
 	
-	defineProperty( that, "select", { get: function() { return _select; } } );
+	property( that, "select", { get: function() { return _select; } } );
 	
-	defineProperty( that, "val", {
-		get: function() { return _select.domObject.val(); },
-		set: function( value ) { _select.domObject.val( value ); }
+	property( that, "val", {
+		get: function() { return _select.jQuery.val(); },
+		set: function( value ) { _select.jQuery.val( value ); }
 	});
 	
 	that.clearOptions = function() {

@@ -1,28 +1,18 @@
-GeolocationData = function( data ) {
-	var that = {};
-	
-	var _data = data || {};
-	
-	that.latitude			= _data.latitude || 0;
-	that.longitude			= _data.longitude || 0;
-	that.altitude			= _data.altitude || 0;
-	that.accuracy			= _data.accuracy || 0;
-	that.altitudeAccuracy	= _data.altitudeAccuracy || 0;
-	that.heading			= _data.heading || 0;
-	that.speed				= _data.speed || 0;
-	
-	return that;
-}
+includeOnce( "org/asjs/event/asjs.EventDispatcher.js" );
+includeOnce( "org/asjs/window/asjs.Window.js" );
+includeOnce( "org/commons/geolocation/GeolocationData.js" );
 
 Geolocation = function() {
-	function GeolocationInstance() {
+	return singleton( this, Geolocation, function() {
 		var that = new ASJS.EventDispatcher();
+		
+		var _window = new ASJS.Window().instance;
 	
 		var _geolocation;
 		var _watchID;
 		var _location = new GeolocationData();
 	
-		defineProperty( that, "location", { get: function() { return _location;} } );
+		property( that, "location", { get: function() { return _location;} } );
 		
 		that.init = function( enableHighAccuracy, timeout, maximumAge ) {
 			if ( _geolocation && _watchID ) _geolocation.clearWatch( _watchID );
@@ -35,7 +25,7 @@ Geolocation = function() {
 					'maximumAge': maximumAge || 60000
 				}
 				_watchID = _geolocation.watchPosition( setGeoDatas, errorGettingPosition, obj );
-			} else throw new Error( "Geolocation: Not Supported" );
+			} else errorGettingPosition( { code: "not_supported" } );
 		}
 	
 		that.isSupported = function() {
@@ -43,10 +33,7 @@ Geolocation = function() {
 		}
 	
 		function getGeolocation() {
-			var geolocation = stage.window.navigator.geolocation;
-			if ( !geolocation ) geolocation = navigator.geolocation;
-			if ( !geolocation ) return null;
-			return geolocation;
+			return _window.navigator.geolocation || null;
 		}
 	
 		function setGeoDatas( position ) {
@@ -60,13 +47,6 @@ Geolocation = function() {
 		}
 	
 		return that;
-	}
-	
-	defineProperty( this, "instance", {
-		get: function() {
-			if ( !Geolocation.$ ) Geolocation.$ = new GeolocationInstance();
-			return Geolocation.$;
-		}
 	});
 };
 Geolocation.UPDATED	= "Geolocation-updated";

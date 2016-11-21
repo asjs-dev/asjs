@@ -3,7 +3,7 @@ includeOnce( "org/asjs/display/form/asjs.AbstractTextElement.js" );
 ASJS.TextInput = function() {
 	var that = new ASJS.AbstractTextElement( "<input />" );
 	
-	defineProperty( that, "type", {
+	property( that, "type", {
 		get: function() { return that.getAttr( "type" ); },
 		set: function( value ) { that.setAttr( "type", value ); }
 	});

@@ -7,31 +7,37 @@ ASJS.Loader = function() {
 	var _url;
 	var _data;
 	var _requestType;
+	var _contentType = false;
 	var _dataType;
 	var _headers;
 	var _content;
 	
-	defineProperty( that, "url", { get: function() { return _url; } } );
-	defineProperty( that, "content", { get: function() { return _content; } } );
+	property( that, "url", { get: function() { return _url; } } );
+	property( that, "content", { get: function() { return _content; } } );
 	
-	defineProperty( that, "headers", {
+	property( that, "headers", {
 		get: function() { return _headers; },
 		set: function( value ) { _headers = value; }
 	});
 	
-	defineProperty( that, "data", {
+	property( that, "data", {
 		get: function() { return _data; },
 		set: function( value ) { _data = value; }
 	});
 
-	defineProperty( that, "requestType", {
+	property( that, "requestType", {
 		get: function() { return _requestType; },
 		set: function( value ) { _requestType = value; }
 	});
 	
-	defineProperty( that, "dataType", {
+	property( that, "dataType", {
 		get: function() { return _dataType; },
 		set: function( value ) { _dataType = value; }
+	});
+	
+	property( that, "contentType", {
+		get: function() { return _contentType; },
+		set: function( value ) { _contentType = value; }
 	});
 	
 	that.load = function( url ) {
@@ -42,7 +48,7 @@ ASJS.Loader = function() {
 			type: _requestType,
 			url: _url,
 			cache: false,
-			contentType: false,
+			contentType: _contentType,
 			crossDomain: true,
 			processData: false,
 			xhrFields: {

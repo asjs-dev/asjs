@@ -1,6 +1,10 @@
+includeOnce( "org/asjs/window/asjs.Window.js" );
+
 ASJS.Cycler = function() {
-	function CyclerInstance() {
+	return singleton( this, ASJS.Cycler, function() {
 		var that = {};
+		
+		var _window = new ASJS.Window().instance;
 	
 		var _isPlaying = false;
 		var _fps = 24;
@@ -8,9 +12,9 @@ ASJS.Cycler = function() {
 		var _callbacks = [];
 		var _timeoutId;
 	
-		defineProperty( that, "isPlaying", { get: function() { return _isPlaying; } } );
+		property( that, "isPlaying", { get: function() { return _isPlaying; } } );
 	
-		defineProperty( that, "fps", {
+		property( that, "fps", {
 			get: function() { return _fps; },
 			set: function( value ) {
 				_fps = value;
@@ -54,11 +58,11 @@ ASJS.Cycler = function() {
 	
 		that.stop = function() {
 			_isPlaying = false;
-			_timeoutId = stage.window.clearTimeout( _timeoutId );
+			_timeoutId = _window.clearTimeout( _timeoutId );
 		}
 	
 		function tick() {
-			_timeoutId = stage.window.clearTimeout( _timeoutId );
+			_timeoutId = _window.clearTimeout( _timeoutId );
 		
 			var i = -1;
 			var l = _callbacks.length;
@@ -66,7 +70,7 @@ ASJS.Cycler = function() {
 				if ( _callbacks[ i ] ) _callbacks[ i ]();
 			}
 		
-			_timeoutId = stage.window.setTimeout( tick, _interval );
+			_timeoutId = _window.setTimeout( tick, _interval );
 		}
 	
 		function getIntervalByFps() {
@@ -74,12 +78,5 @@ ASJS.Cycler = function() {
 		}
 		
 		return that;
-	}
-	
-	defineProperty( this, "instance", {
-		get: function() {
-			if ( !ASJS.Cycler.$ ) ASJS.Cycler.$ = new CyclerInstance();
-			return ASJS.Cycler.$;
-		}
 	});
 }
