@@ -1,5 +1,5 @@
 ASJS.NotificationHandler = function() {
-	return singleton( this, ASJS.NotificationHandler, function() {
+	return singleton( ASJS.NotificationHandler, function() {
 		var that = {};
 		var _notificationHandlers = {};
 	

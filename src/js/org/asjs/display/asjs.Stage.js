@@ -4,14 +4,13 @@ includeOnce( "org/asjs/utils/asjs.Mouse.js" );
 includeOnce( "org/asjs/window/asjs.Window.js" );
 
 ASJS.Stage = function() {
-	return singleton( this, ASJS.Stage, function() {
+	return singleton( ASJS.Stage, function() {
 		var that = new ASJS.Sprite( "body" );
 		
 		var _inited = false;
 		
-		var _mouse = new ASJS.Mouse().instance;
-		
-		var _window	= new ASJS.Window().instance;
+		var _mouse	= new ASJS.Mouse();
+		var _window	= new ASJS.Window();
 		
 		var _stageWidth = 0;
 		var _stageHeight = 0;

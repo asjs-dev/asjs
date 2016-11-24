@@ -1,7 +1,7 @@
 includeOnce( "org/asjs/mvc/model/asjs.AbstractModel.js" );
 
 function Language() {
-	return singleton( this, Language, function() {
+	return singleton( Language, function() {
 		var that = new ASJS.AbstractModel();
 		var _super = {};
 		

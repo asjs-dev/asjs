@@ -5,8 +5,8 @@ includeOnce( "com/asjs/model/proxy/DataProxy.js" );
 function LanguageLoaderCommand() {
 	var that = new ASJS.AbstractCommand();
 	
-	var _language	= new Language().instance;
-	var _dataProxy	= new DataProxy().instance;
+	var _language	= new Language();
+	var _dataProxy	= new DataProxy();
 	
 	that.execute = function() {
 		var dfd = _dataProxy.loadJSON( "json/language.json" );

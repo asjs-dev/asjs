@@ -3,10 +3,10 @@ includeOnce( "org/asjs/event/asjs.MouseEvent.js" );
 includeOnce( "org/asjs/window/asjs.Window.js" );
 
 function MobileUtils() {
-	return singleton( this, MobileUtils, function() {
+	return singleton( MobileUtils, function() {
 		var that = {};
 		
-		var _window = new ASJS.Window().instance;
+		var _window = new ASJS.Window();
 	
 		var _dpi;
 		var _baseSize;

@@ -9,12 +9,12 @@ includeOnce( "org/asjs/window/asjs.Window.js" );
 function EnvironmentCommand() {
 	var that = new ASJS.AbstractCommand();
 	
-	var _window = new ASJS.Window().instance;
+	var _window = new ASJS.Window();
 	
-	var _language	= new Language().instance;
-	var _cookies	= new Cookies().instance;
-	var _cycler		= new ASJS.Cycler().instance;
-	var _config		= new Config().instance;
+	var _language	= new Language();
+	var _cookies	= new Cookies();
+	var _cycler		= new ASJS.Cycler();
+	var _config		= new Config();
 	
 	var _sleepToResizeId;
 	

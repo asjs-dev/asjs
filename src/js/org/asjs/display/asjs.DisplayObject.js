@@ -7,7 +7,7 @@ includeOnce( "org/asjs/geom/asjs.Point.js" );
 ASJS.DisplayObject = function( tag ) {
 	var that = new ASJS.PrimitiveDisplayObject( tag );
 	
-	var _mouse = new ASJS.Mouse().instance;
+	var _mouse = new ASJS.Mouse();
 	
 	var CREATED = "created";
 	

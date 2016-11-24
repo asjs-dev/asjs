@@ -36,14 +36,10 @@ ASJS.Cell = function( tag ) {
 		that.dispatchEvent( e );
 	}
 	
-	function initView() {
+	(function() {
 		that.setCSS( "position", "relative" );
 		that.mouseChildren = false;
 		that.addEventListener( ASJS.MouseEvent.CLICK, onClick );
-	}
-	
-	(function() {
-		initView();
 	})();
 	
 	return that;

@@ -6,7 +6,7 @@ includeOnce( "org/asjs/utils/asjs.Cycler.js" );
 ASJS.AnimatedSprite = function() {
 	var that = new ASJS.DisplayObject();
 	
-	var _cycler	= new ASJS.Cycler().instance;
+	var _cycler	= new ASJS.Cycler();
 
 	var _animations			= {};
 	var _isPlaying			= false;

@@ -41,7 +41,7 @@ ASJS.FileSelector = function() {
 		that._fileInput.jQuery.click();
 	}
 	
-	function init() {
+	(function() {
 		that._fileInput.setAttr( "type", "file" );
 		that._fileInput.addEventListener( ASJS.Event.CHANGE, that._onChange );
 		that._fileInput.visible = false;
@@ -52,10 +52,6 @@ ASJS.FileSelector = function() {
 		that.addChild( _preview );
 		
 		that.addEventListener( ASJS.MouseEvent.CLICK, onClick );
-	}
-	
-	(function() {
-		init();
 	})();
 	
 	return that;

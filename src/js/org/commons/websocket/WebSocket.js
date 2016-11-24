@@ -4,7 +4,7 @@ includeOnce( "org/asjs/window/asjs.Window.js" );
 function WS() {
 	var that = new ASJS.EventDispatcher();
 	
-	var _window = new ASJS.Window().instance;
+	var _window = new ASJS.Window();
 	
 	var RECONNECT_INTERVALS = [ 1, 2, 3, 15, 30, 60, 120, 240, 300 ];
 	

@@ -1,10 +1,10 @@
 includeOnce( "org/asjs/window/asjs.Window.js" );
 
 function Media() {
-	return singleton( this, Media, function() {
+	return singleton( Media, function() {
 		var that = {};
 		
-		var _window = new ASJS.Window().instance;
+		var _window = new ASJS.Window();
 		
 		var _audioContext;
 		var _userMedia;

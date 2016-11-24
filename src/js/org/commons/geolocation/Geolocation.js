@@ -3,10 +3,10 @@ includeOnce( "org/asjs/window/asjs.Window.js" );
 includeOnce( "org/commons/geolocation/GeolocationData.js" );
 
 Geolocation = function() {
-	return singleton( this, Geolocation, function() {
+	return singleton( Geolocation, function() {
 		var that = new ASJS.EventDispatcher();
 		
-		var _window = new ASJS.Window().instance;
+		var _window = new ASJS.Window();
 	
 		var _geolocation;
 		var _watchID;
@@ -14,10 +14,10 @@ Geolocation = function() {
 	
 		property( that, "location", { get: function() { return _location;} } );
 		
-		that.init = function( enableHighAccuracy, timeout, maximumAge ) {
-			if ( _geolocation && _watchID ) _geolocation.clearWatch( _watchID );
-	
-			_geolocation = getGeolocation();
+		that.start = function( enableHighAccuracy, timeout, maximumAge ) {
+			that.stop();
+			if ( !_geolocation ) _geolocation = getGeolocation();
+			
 			if ( _geolocation ) {
 				var obj = {
 					'enableHighAccuracy': enableHighAccuracy || false,
@@ -26,6 +26,10 @@ Geolocation = function() {
 				}
 				_watchID = _geolocation.watchPosition( setGeoDatas, errorGettingPosition, obj );
 			} else errorGettingPosition( { code: "not_supported" } );
+		}
+		
+		that.stop = function() {
+			if ( _geolocation && _watchID ) _geolocation.clearWatch( _watchID );
 		}
 	
 		that.isSupported = function() {

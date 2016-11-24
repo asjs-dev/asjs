@@ -3,10 +3,10 @@ includeOnce( "org/asjs/event/asjs.MouseEvent.js" );
 includeOnce( "org/asjs/window/asjs.Window.js" );
 
 ASJS.Mouse = function() {
-	return singleton( this, ASJS.Mouse, function() {
+	return singleton( ASJS.Mouse, function() {
 		var that = {};
 		
-		var _window = new ASJS.Window().instance;
+		var _window = new ASJS.Window();
 	
 		var EVENT = ASJS.MouseEvent.MOUSE_MOVE + " " + ASJS.MouseEvent.TOUCH_MOVE;
 		

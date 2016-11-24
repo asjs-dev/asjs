@@ -4,7 +4,7 @@ includeOnce( "org/asjs/utils/asjs.Cycler.js" );
 ASJS.Easing = function() {
 	var that = {};
 	
-	var _cycler	= new ASJS.Cycler().instance;
+	var _cycler	= new ASJS.Cycler();
 	
 	var _isPlaying;
 	var _id;

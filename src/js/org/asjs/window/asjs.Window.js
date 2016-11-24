@@ -1,11 +1,14 @@
 includeOnce( "org/asjs/event/asjs.EventDispatcher.js" );
+includeOnce( "org/asjs/event/asjs.WindowEvent.js" );
 
 ASJS.Window = function() {
-	return singleton( this, ASJS.Window, function() {
+	return singleton( ASJS.Window, function() {
 		var that = new ASJS.EventDispatcher( window );
 		
+		var _browserStatus;
 		var _requestAnimationFrame;
 		
+		property( that, "isOnline", { get: function() { return _browserStatus == ASJS.WindowEvent.ONLINE; } } );
 		property( that, "width", { get: function() { return that.jQuery.width(); } } );
 		property( that, "height", { get: function() { return that.jQuery.height(); } } );
 		property( that, "screen", { get: function() { return that.el.screen; } } );
@@ -71,6 +74,11 @@ ASJS.Window = function() {
 				|| that.el.webkitRequestAnimationFrame
 				|| that.el.msRequestAnimationFrame
 				|| function( f ) { return setTimeout( f, 1 ) };
+			
+			_browserStatus = that.navigator.onLine ? ASJS.WindowEvent.ONLINE : ASJS.WindowEvent.OFFLINE;
+			that.addEventListener( ASJS.WindowEvent.ONLINE + " " + ASJS.WindowEvent.OFFLINE, function( e ) {
+				_browserStatus = e.type;
+			});
 		})();
 		
 		return that;

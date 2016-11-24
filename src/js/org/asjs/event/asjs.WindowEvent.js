@@ -6,4 +6,5 @@ ASJS.WindowEvent = function( type ) {
 }
 ASJS.WindowEvent.POPSTATE	= "popstate";
 ASJS.WindowEvent.RESIZE		= "resize";
-ASJS.WindowEvent.UNLOAD		= "unload";
+ASJS.WindowEvent.ONLINE		= "online";
+ASJS.WindowEvent.OFFLINE	= "offline";

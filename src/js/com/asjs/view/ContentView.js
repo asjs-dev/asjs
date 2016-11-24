@@ -8,7 +8,6 @@ includeOnce( "org/asjs/geom/asjs.Point.js" );
 includeOnce( "org/asjs/event/asjs.MouseEvent.js" );
 includeOnce( "com/asjs/mediator/ContentMediator.js" );
 includeOnce( "com/asjs/model/Language.js" );
-
 includeOnce( "org/asjs/display/filters/asjs.BlurFilter.js" );
 
 function ContentView() {
@@ -17,8 +16,8 @@ function ContentView() {
 	var ANIMATION_EXPLODE_ID	= "animationExplode";
 	var ANIMATION_FIREWORKS_ID	= "animationFireworks";
 
-	var _language = new Language().instance;
-	var _mouse = new ASJS.Mouse().instance;
+	var _language	= new Language();
+	var _mouse		= new ASJS.Mouse();
 	
 	var _background = new ASJS.Sprite();
 	var _box = new ASJS.Sprite();

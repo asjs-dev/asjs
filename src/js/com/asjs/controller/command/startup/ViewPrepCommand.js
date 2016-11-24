@@ -7,7 +7,7 @@ includeOnce( "com/asjs/model/Language.js" );
 function ViewPrepCommand() {
 	var that = new ASJS.AbstractCommand();
 	
-	var _language = new Language().instance;
+	var _language = new Language();
 	
 	that.execute = function( app ) {
 		new ContentMediator( app.contentView );

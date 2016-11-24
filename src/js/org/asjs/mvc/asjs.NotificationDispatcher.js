@@ -3,7 +3,7 @@ includeOnce( "org/asjs/mvc/asjs.NotificationHandler.js" );
 ASJS.NotificationDispatcher = function() {
 	var that = {};
 	
-	var _notificationHandler = new ASJS.NotificationHandler().instance;
+	var _notificationHandler = new ASJS.NotificationHandler();
 	
 	that.handlers = [];
 	

@@ -18,15 +18,11 @@ ASJS.ImageSelector = function() {
 		that.dispatchEvent( ASJS.ImageSelector.ON_CHANGE_END );
 	}
 	
-	function init() {
+	(function() {
 		that._fileInput.removeEventListeners();
 		that._fileInput.addEventListener( ASJS.Event.CHANGE, that._onChange );
 		
 		_reader.onload = readerOnLoad;
-	}
-	
-	(function() {
-		init();
 	})();
 	
 	return that;

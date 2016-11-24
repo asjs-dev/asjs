@@ -5,7 +5,7 @@ includeOnce( "org/asjs/window/asjs.Window.js" );
 ASJS.Keyboard = function() {
 	var that = {};
 
-	var _window = new ASJS.Window().instance;
+	var _window = new ASJS.Window();
 	
 	var _pressedKeys = {};
 	var _downCallback;

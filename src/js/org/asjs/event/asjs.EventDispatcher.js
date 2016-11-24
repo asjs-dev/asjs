@@ -17,7 +17,7 @@ ASJS.EventDispatcher = function( tag ) {
 	}
 	
 	that.addEventListener = function( type, callback ) {
-		if ( type == ASJS.MouseEvent.SCROLL && that.jQuery == new ASJS.Window().instance.jQuery ) that.jQuery.scroll( callback );
+		if ( type == ASJS.MouseEvent.SCROLL && that.jQuery == new ASJS.Window().jQuery ) that.jQuery.scroll( callback );
 		else that.jQuery.on( type, callback );
 	}
 	

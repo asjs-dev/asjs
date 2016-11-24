@@ -8,8 +8,8 @@ includeOnce( "com/asjs/model/proxy/DataProxy.js" );
 function ContentMediator( view ) {
 	var that = new ASJS.AbstractMediator( view );
 	
-	var _dataProxy	= new DataProxy().instance;
-	var _language	= new Language().instance;
+	var _dataProxy	= new DataProxy();
+	var _language	= new Language();
 	
 	var _contentView = new ContentView();
 	

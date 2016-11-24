@@ -173,7 +173,7 @@ ASJS.CustomList = function() {
 		that.dispatchEvent( ASJS.CustomList.CHANGE );
 	}
 	
-	function initView() {
+	(function() {
 		_multiselect = false;
 		_cell = ASJS.Cell;
 		_lastCellIndex = 0;
@@ -183,10 +183,6 @@ ASJS.CustomList = function() {
 		_itemsContainer.setSize( "auto", "auto" );
 		_itemsContainer.addEventListener( ASJS.Cell.CLICK, onCellClick );
 		that.addChild( _itemsContainer );
-	}
-	
-	(function() {
-		initView();
 	})();
 	
 	return that;

@@ -8,13 +8,14 @@ var Tools = {};
 		while ( ( m = r.exec( s ) ) !== null ) {
 			if ( m.index === r.lastIndex ) r.lastIndex++;
 			var e = m[ 0 ].split( "{{" ).join( "" ).split( "}}" ).join( "" );
-			rt = rt.replace( m[ 0 ], Tools.ref( o, e ) || m[ 0 ] );
+			var c = Tools.ref( o, e );
+			rt = rt.replace( m[ 0 ], c != null ? c : m[0] );
 		}
 		return rt;
 	}
 	
 	Tools.ref = function( o, s ) {
-		return s.split( "." ).reduce( function( o, x ) { return o[ x ] }, o );
+		return s.split( "." ).reduce( function( o, x ) { return o[ x ]; }, o );
 	}
 	
 	Tools.isValidEmailAddress = function( email ) {
@@ -23,7 +24,7 @@ var Tools = {};
 	}
 
 	Tools.getURLParams = function( param ) {
-		var url = decodeURIComponent( new ASJS.Window().instance.location.href ).split( "#" );
+		var url = decodeURIComponent( new ASJS.Window().location.href ).split( "#" );
 		if ( url[ 1 ] == '' || url[ 1 ] == undefined ) return [];
 		var params = url[ 1 ].split( '&' );
 		var i = -1;
@@ -42,10 +43,10 @@ var Tools = {};
 			if ( url != "" ) url += "&";
 			url += key + "=" + params[ key ];
 		}
-		new ASJS.Window().instance.location.href = '#' + url;
+		new ASJS.Window().location.href = '#' + url;
 		Tools.reload();
 	}
 
 	Tools.reload = function() {
-		new ASJS.Window().instance.location.reload( true );
+		new ASJS.Window().location.reload( true );
 	}

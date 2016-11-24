@@ -4,7 +4,7 @@ includeOnce( "org/asjs/net/asjs.RequestMethod.js" );
 includeOnce( "org/asjs/display/animation/loader/asjs.AnimationLoader.js" );
 
 function DataProxy() {
-	return singleton( this, DataProxy, function() {
+	return singleton( DataProxy, function() {
 		var that = {};
 		
 		that.loadJSON = function( url ) {

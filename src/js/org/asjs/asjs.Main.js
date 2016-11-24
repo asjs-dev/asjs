@@ -12,13 +12,9 @@ function extendProperty( target, parent, propertyName ) {
 	Object.defineProperty( target, propertyName, Object.getOwnPropertyDescriptor( parent, propertyName ) );
 }
 
-function singleton( scope, c, i ) {
-	property( scope, "instance", {
-		get: function() {
-			if ( !c.$ ) c.$ = new i();
-			return c.$;
-		}
-	});
+function singleton( c, i ) {
+	if ( !c.$ ) c.$ = new i();
+	return c.$;
 }
 
 function is( a, b ) {
@@ -66,7 +62,7 @@ ASJS.start = function( baseClass ) {
 	if ( ASJS.inited ) return;
 	ASJS.inited = true;
 	$(document).ready(function() {
-		stage = new ASJS.Stage().instance;
+		stage = new ASJS.Stage();
 		stage.init();
 		new baseClass();
 	});

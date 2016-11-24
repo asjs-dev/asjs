@@ -34,7 +34,7 @@ ASJS.Checkbox = function() {
 		}
 	});
 	
-	function init() {
+	(function() {
 		_checkbox.setAttr( "type", "checkbox" );
 		_checkbox.visible = false;
 		that.addChild( _checkbox );
@@ -42,10 +42,6 @@ ASJS.Checkbox = function() {
 		_label.setSize( "100%", "100%" );
 		_label.enabled = false;
 		that.addChild( _label );
-	}
-	
-	(function() {
-		init();
 	})();
 	
 	return that;

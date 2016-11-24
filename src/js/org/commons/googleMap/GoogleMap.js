@@ -52,12 +52,6 @@ function GoogleMap() {
 		_map.panTo( that.latLng );
 	}
 	
-	that.init = function() {
-		google.maps.visualRefresh = true;
-		_map = new google.maps.Map( that.el, that.options );
-		_map.addListener( 'center_changed', onCenterChanged );
-	}
-	
 	that.destruct = function() {
 		google.maps.event.clearListeners( _map, 'center_changed' );
 		_map = null;
@@ -69,7 +63,13 @@ function GoogleMap() {
 		_longitude = latLng.lng();
 	}
 	
+	function addedToStage() {
+		google.maps.event.trigger( _map, 'resize' );
+	}
+	
 	(function() {
+		that.addEventListener( ASJS.Stage.ADDED_TO_STAGE, addedToStage );
+		
 		that.options = {
 			center: that.latLng,
 			zoom: that.zoom,
@@ -84,6 +84,10 @@ function GoogleMap() {
 			streetViewControl: false,
 			draggable: true
 		};
+		
+		google.maps.visualRefresh = true;
+		_map = new google.maps.Map( that.el, that.options );
+		_map.addListener( 'center_changed', onCenterChanged );
 	})();
 	
 	return that;

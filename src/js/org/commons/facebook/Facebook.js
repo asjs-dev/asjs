@@ -3,14 +3,19 @@ includeOnce( "org/asjs/display/asjs.Sprite.js" );
 includeOnce( "org/asjs/window/asjs.Window.js" );
 
 function Facebook() {
-	return singleton( this, Facebook, function() {
+	return singleton( Facebook, function() {
 		var that = new ASJS.NotificationDispatcher();
 		
-		var _window = new ASJS.Window().instance;
+		var _window = new ASJS.Window();
 		
 		var _fbRoot = new ASJS.Sprite();
+		
+		var _inited = false;
 	
 		that.init = function( facebookAppId, version ) {
+			if ( _inited ) return;
+			_inited = true;
+			
 			var e = document.createElement( 'script' ); 
 			e.async = true;
 			e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';        

@@ -1,5 +1,5 @@
 function Cookies() {
-	return singleton( this, Cookies, function() {
+	return singleton( Cookies, function() {
 		var that = {};
 		
 		that.createCookie = function( name, value, days ) {

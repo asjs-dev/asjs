@@ -38,7 +38,7 @@ ASJS.RadioButton = function() {
 	
 	that.drawNow = function() {};
 	
-	function init() {
+	(function() {
 		_radio.setAttr( "type", "radio" );
 		_radio.visible = false;
 		that.addChild( _radio );
@@ -46,10 +46,6 @@ ASJS.RadioButton = function() {
 		_label.setSize( "100%", "100%" );
 		_label.enabled = false;
 		that.addChild( _label );
-	}
-	
-	(function() {
-		init();
 	})();
 	
 	return that;
