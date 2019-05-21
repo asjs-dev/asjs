@@ -1,6 +1,9 @@
 # &lt;AS/JS>
 
+* **Not supported anymore**
+
 * **&lt;AS/JS> 2.0 alpha is available: https://github.com/asjs-dev/asjs2.0**
+
 
 &lt;AS/JS> is a JavaScript framework, for ActionScript3 like display list handling
 
